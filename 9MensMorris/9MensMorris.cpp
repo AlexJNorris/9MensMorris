@@ -31,17 +31,21 @@ void Display_Objects(void)
     //the glTranslatef() routine in the display list alters the position of the next object to be drawn    
     glTranslatef(0.0, 0.0, 0.0);
     // set color to object glColor3f(red,green,blue);    
-    glColor3f(1.0, 0.8, 0.0);
+   /* glColor3f(1.0, 0.8, 0.0);
     // draw a wire tea pot    
-    glutWireTeapot(.1);
+    glutWireTeapot(.1);*/
 
     // draw a wire sphere    
-    glTranslatef(-2.5, 0.0, 0.0);
+    glTranslatef(0.0, 0.0, 0.0);
+    glColor3f(1.0, 1.0, 1.0);
+    glutWireSphere(.5, 300, 300);
+
+    glTranslatef(1.0, 1.0, 0.0);
     glColor3f(0.0, 1.0, 0.0);
-    glutWireSphere(0.8, 30, 30);
+    glutWireSphere(.5, 300, 300);
 
     // draw a wire cone    
-    glTranslatef(5.0, 0.0, 0.0);
+  /*  glTranslatef(5.0, 0.0, 0.0);
     glColor3f(0.0, 0.6, 1.0);
     glutWireCone(0.8, 1.5, 20, 20);
 
@@ -53,12 +57,12 @@ void Display_Objects(void)
     // draw a wire torus    
     glTranslatef(-3.0, 0.4, 0.0);
     glColor3f(1.0, 0.3, 1.0);
-    glutWireTorus(0.2, 0.6, 20, 20);
+    glutWireTorus(0.2, 0.6, 20, 20);*/
 
     // draw a text    
-    glTranslatef(-2.5, -4.0, 0.0);
+    glTranslatef(-1, -1, 0);
 
-    char str[] = { "Alex Did This" };
+    char str[] = { "Alex wuz here" };
 
     glColor3f(1.0, 1.0, 1.0);
     // set position to text    
