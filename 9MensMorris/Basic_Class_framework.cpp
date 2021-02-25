@@ -12,6 +12,9 @@ class morisGame;
 class boardSpace
 {
 public: 
+
+	gameToken* placedToken;
+
 	bool isEmpty()
 	{
 		if (placedToken == NULL) //tells if the board space has a token. 
@@ -85,7 +88,6 @@ private:
 	int spaceName;
 	int xAxis;
 	int yAxis;
-	gameToken* placedToken;
 	vector<boardSpace*> adjacentSpaces; //holds spaces physicly adjacent to this one.
 	vector<boardSpace*> verticleMill; //holds spaces needed for a verticle mill with this one. 
 	vector<boardSpace*> horizontalMill; // holds spcaes needed for a horizontal mill with this one. 
@@ -140,6 +142,16 @@ private:
 class morisGame
 {
 public:
+	vector<boardSpace*> boardSpaces; //holds all the placeable board spaces. 
+
+	vector<gameToken*> activePlayer1; //Vectors for the active tokens.
+	vector<gameToken*> activePlayer2;
+	vector<gameToken*> removedPlayer1; //Vectors for the removed tokens.
+	vector<gameToken*> removedPlayer2;
+	vector<gameToken*> toBePlacedP1; //Vectors for tokens that still need to be placed.
+	vector<gameToken*> toBePlacedP2;
+
+
 	void setBoard()
 	{
 		gameOver = false; //clears all the neccisary vectors and variables. 
@@ -221,9 +233,11 @@ public:
 		boardSpace* space = boardSpaces[i];
 		for (int y = 0; y < 13; y++)
 		{
-			
 			for (int x = 0; x < 14; x++)
 			{
+				if(i < 24) {
+					space = boardSpaces[i];
+				}
 				if (xAxis[i] == x/2 && yAxis[i] == y/2)
 				{
 					if (space->isEmpty())
@@ -231,6 +245,12 @@ public:
 						cout << 'X';
 						xCnt++;
 						i++;
+					} 
+					else
+					{
+						cout << 'O';
+						i++;
+						xCnt++;
 					}
 				}
 				else if ((x == 0 || x == 12) || (y % 2 == 1 && x == 6 && (y < 5 || y > 7)) || ((x == 2|| x == 10) && (y < 10 && y > 2)) || ((x == 4 || x == 8) && (y < 8 && y > 4)))
@@ -254,19 +274,18 @@ public:
 			}
 		}
 	}
+	void setBoardPiece(int xy)
+	{
+		boardSpace* space = boardSpaces[xy];
+
+		space->placedToken = toBePlacedP1.back();
+		toBePlacedP1.pop_back();
+	}
+
 			
 private:
 
 	bool gameOver; 
-
-	vector<gameToken*> activePlayer1; //Vectors for the active tokens.
-	vector<gameToken*> activePlayer2; 
-	vector<gameToken*> removedPlayer1; //Vectors for the removed tokens.
-	vector<gameToken*> removedPlayer2;
-	vector<gameToken*> toBePlacedP1; //Vectors for tokens that still need to be placed.
-	vector<gameToken*> toBePlacedP2;
-
-	vector<boardSpace*> boardSpaces; //holds all the placeable board spaces. 
 
 	int player1Mills;
 	int player2Mills;

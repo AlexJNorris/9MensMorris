@@ -9,7 +9,8 @@
 #include<conio.h>    
 #include<stdio.h>    
 #include<math.h>    
-#include<string.h>  
+#include<string.h> 
+#include<string>
 #include "Basic_Class_framework.cpp"
 // Init_OpenGL() function    
 void Init_OpenGL()
@@ -102,6 +103,9 @@ void Reshape(int w, int h)
 // main function    
 int main(int argc, char** argv)
 {
+    string place;
+    string q;
+
    /* // initialize glut    
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
@@ -119,10 +123,27 @@ int main(int argc, char** argv)
     glutReshapeFunc(Reshape);
     //glutMainLoop() is used to redisplay the objects    
     glutMainLoop();*/
+
     morisGame Board;
     Board.setBoard();
-    Board.consoleOut();
+    while (q != "q")
+    {
+        if (Board.toBePlacedP1.size() == 0) 
+        {
+            break;
+        }
 
+        Board.consoleOut();
+        cout << endl << "Quit (q) or Place (p)? ";
+        cin >> q;
+        if (q == "p")
+        {
+            cout << endl << "Enter place # (0-23): ";
+            cin >> place;
+            
+            Board.setBoardPiece(stoi(place));
+        }
+    }
     cout << endl << endl;
     system("pause");
     return 0;
