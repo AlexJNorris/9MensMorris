@@ -122,5 +122,8 @@ int main(int argc, char** argv)
     morisGame Board;
     Board.setBoard();
     Board.consoleOut();
+
+    cout << endl << endl;
+    system("pause");
     return 0;
 }
