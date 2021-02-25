@@ -9,7 +9,8 @@
 #include<conio.h>    
 #include<stdio.h>    
 #include<math.h>    
-#include<string.h>    
+#include<string.h>  
+#include "Basic_Class_framework.cpp"
 // Init_OpenGL() function    
 void Init_OpenGL()
 {
@@ -38,11 +39,11 @@ void Display_Objects(void)
     // draw a wire sphere    
     glTranslatef(0.0, 0.0, 0.0);
     glColor3f(1.0, 1.0, 1.0);
-    glutWireSphere(.5, 300, 300);
+    glutWireSphere(.1, 300, 300);
 
     glTranslatef(1.0, 1.0, 0.0);
     glColor3f(0.0, 1.0, 0.0);
-    glutWireSphere(.5, 300, 300);
+    glutWireSphere(.1, 300, 300);
 
     // draw a wire cone    
   /*  glTranslatef(5.0, 0.0, 0.0);
@@ -62,7 +63,7 @@ void Display_Objects(void)
     // draw a text    
     glTranslatef(-1, -1, 0);
 
-    char str[] = { "Alex wuz here" };
+    char str[] = { "text" };
 
     glColor3f(1.0, 1.0, 1.0);
     // set position to text    
@@ -109,7 +110,7 @@ int main(int argc, char** argv)
     // set window location    
     glutInitWindowPosition(250, 50);
     // create window with window text    
-    glutCreateWindow("OpenGL Demo");
+    glutCreateWindow("9 Men's Morris");
     // call Init_OpenGL() function    
     Init_OpenGL();
     // call glutDisplayFunc() function & pass parameter as Display_Objects() function    
