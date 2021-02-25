@@ -102,7 +102,7 @@ void Reshape(int w, int h)
 // main function    
 int main(int argc, char** argv)
 {
-    // initialize glut    
+   /* // initialize glut    
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     // set window size    
@@ -118,6 +118,9 @@ int main(int argc, char** argv)
     // call glutReshapeFunc() function & pass parameter as Reshape() function    
     glutReshapeFunc(Reshape);
     //glutMainLoop() is used to redisplay the objects    
-    glutMainLoop();
+    glutMainLoop();*/
+    morisGame Board;
+    Board.setBoard();
+    Board.consoleOut();
     return 0;
 }

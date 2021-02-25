@@ -160,7 +160,7 @@ public:
 			gameToken* token = new gameToken;
 			token->setName(i);
 			token->setLocation(NULL);
-			token->setPlayer = false; //Player 1 = false
+			token->setPlayer(false); //Player 1 = false
 			toBePlacedP1.push_back(token);
 
 		}
@@ -170,13 +170,11 @@ public:
 			gameToken* token = new gameToken;
 			token->setName(i);
 			token->setLocation(NULL);
-			token->setPlayer = true; //Player 2 = true
+			token->setPlayer(true); //Player 2 = true
 			toBePlacedP2.push_back(token);
 
 		}
 
-		int xAxis[24] = { 0,3,6,1,3,5,2,3,4,0,1,2,4,5,6,2,3,4,1,3,5,0,3,6 }; //loads coordinates for X and Y axis
-		int yAxis[24] = { 0,0,0,1,1,1,2,2,2,3,3,3,3,3,3,4,4,4,5,5,5,6,6,6 };//assuming bottom to top, left to right. 
 
 		for (int i = 0; i < 24; i++) //generates all the board spaces. 
 		{
@@ -194,38 +192,69 @@ public:
 		*/
 		//each index of these arrays represents the appropriate information about the targeted space. the targeted place is represented by the index where the data is stored.
 		//for example all the data about space 0 is stored in index 0 of all of these arrays. 
-		int adj1[24] = {9,4,4,10,7,13,11,8,12,21,18,15,17,20,23,16,19,12,19,22,13,22,23,14}; //Holds the number for the nodes adjacent to the targeted space going in a clockwise direction 
-		int adj2[24] = {1,2,1,4,5,4,7,4,7,0,11,6,13,14,2,11,17,16,10,20,19,9,19,22}; //that starts with the node verticle to the target node if applicable. 
-		int adj3[24] = {-1,0,-1,-1,1,-1,-1,6,-1,-1,4,10,8,5,13,-1,15,-1,-1,16,-1,-1,21,-1}; //-1 means not applicable.
-		int adj4[24] = {-1,-1,-1,-1,3,-1,-1,-1,-1,-1,9,-1,-1,12,0,-1,-1,-1,-1,18,-1,-1,-1,-1};
-		int verticle1[24] = {21,7,23,18,7,20,15,7,17,21,18,15,17,20,23,15,22,17,18,22,20,21,22,23}; //holds the top most space needed to make a mill with the target space
-		int verticle2[24] = {9,4,14,10,4,13,11,4,12,9,10,11,12,13,14,11,19,12,10,19,13,9,19,14}; //holds the  middle most space needed to form a verticle mill with the target space
-		int verticle3[24] = {0,1,2,3,1,5,6,1,8,0,3,6,8,5,2,6,16,8,3,16,5,0,16,2};  //holds the bottom most space needed to form a mill with the target space. 
-		int horz1[24] = {0,0,0,3,3,3,6,6,6,9,9,9,12,12,12,15,15,15,18,18,18,21,21,21}; //holds leftmost space needed to make a mill with the target node
-		int horz2[24] = {1,1,1,4,4,4,7,7,7,10,10,10,13,13,13,16,16,16,19,19,19,22,22,22}; // holds the middle space needed to make a horizontal mill with the target
-		int horz3[24] = {2,2,2,5,5,5,8,8,8,11,11,11,14,14,14,17,17,17,20,20,20,23,23,23};//holds the right most space needed to make a mill with the target. 
 
 		for (int i = 0; i < 24; i++) //adds the information to the space. 
 		{
-			boardSpace* space = boardspaces[i];
-			space->addAdjacent(boardspaces[adj1[i]]);
-			space->addAdjacent(boardspaces[adj2[i]]);
+			boardSpace* space = boardSpaces[i];
+			space->addAdjacent(boardSpaces[adj1[i]]);
+			space->addAdjacent(boardSpaces[adj2[i]]);
 			if (adj3[i] >= 0)//checks to make sure that space actually has a 3rd or 4th adjacency instead of just 2. 
-				space->addAdjacent(boardspaces[adj3[i]]);
+				space->addAdjacent(boardSpaces[adj3[i]]);
 			if (adj4[i] >= 0)
-				space->addAdjacent(boardspaces[adj4[i]]);
+				space->addAdjacent(boardSpaces[adj4[i]]);
 
-			space->addVerticle(boardspaces[verticle1[i]]);
-			space->addVerticle(boardspaces[verticle2[i]]);
-			space->addVerticle(boardspaces[verticle3[i]]);
+			space->addVerticle(boardSpaces[verticle1[i]]);
+			space->addVerticle(boardSpaces[verticle2[i]]);
+			space->addVerticle(boardSpaces[verticle3[i]]);
 
-			space->addHorizontal(boardspaces[horz1[i]]);
-			space->addHorizontal(boardspaces[horz2[i]]);
-			space->addHorizontal(boardspaces[horz3[i]]);
+			space->addHorizontal(boardSpaces[horz1[i]]);
+			space->addHorizontal(boardSpaces[horz2[i]]);
+			space->addHorizontal(boardSpaces[horz3[i]]);
 		}
 
 	};
+	void consoleOut() 
+	{
+		int xCnt = 0; // count of placements passed on x axis
+		int yCnt = 0; // count of placements passed on y axis
+		int i = 0;
+		boardSpace* space = boardSpaces[i];
+		for (int y = 0; y < 13; y++)
+		{
+			
+			for (int x = 0; x < 14; x++)
+			{
+				if (xAxis[i] == x/2 && yAxis[i] == y/2)
+				{
+					if (space->isEmpty())
+					{
+						cout << 'X';
+						xCnt++;
+						i++;
+					}
+				}
+				else if ((x == 0 || x == 12) || (y % 2 == 1 && x == 6 && (y < 5 || y > 7)) || ((x == 2|| x == 10) && (y < 10 && y > 2)) || ((x == 4 || x == 8) && (y < 8 && y > 4)))
+				{
+					cout << "|";
+				}
+				else if ( (xCnt>=1 && xCnt !=3 && xCnt<6))
+				{
+					cout << "-";
+				}
+				else if (x == 13)
+				{
 
+					xCnt = 0;
+					cout << endl;
+				}
+				else
+				{
+					cout << " ";
+				}
+			}
+		}
+	}
+			
 private:
 
 	bool gameOver; 
@@ -241,5 +270,19 @@ private:
 
 	int player1Mills;
 	int player2Mills;
+
+	int adj1[24] = { 9,4,4,10,7,13,11,8,12,21,18,15,17,20,23,16,19,12,19,22,13,22,23,14 }; //Holds the number for the nodes adjacent to the targeted space going in a clockwise direction 
+	int adj2[24] = { 1,2,1,4,5,4,7,4,7,0,11,6,13,14,2,11,17,16,10,20,19,9,19,22 }; //that starts with the node verticle to the target node if applicable. 
+	int adj3[24] = { -1,0,-1,-1,1,-1,-1,6,-1,-1,4,10,8,5,13,-1,15,-1,-1,16,-1,-1,21,-1 }; //-1 means not applicable.
+	int adj4[24] = { -1,-1,-1,-1,3,-1,-1,-1,-1,-1,9,-1,-1,12,0,-1,-1,-1,-1,18,-1,-1,-1,-1 };
+	int verticle1[24] = { 21,7,23,18,7,20,15,7,17,21,18,15,17,20,23,15,22,17,18,22,20,21,22,23 }; //holds the top most space needed to make a mill with the target space
+	int verticle2[24] = { 9,4,14,10,4,13,11,4,12,9,10,11,12,13,14,11,19,12,10,19,13,9,19,14 }; //holds the  middle most space needed to form a verticle mill with the target space
+	int verticle3[24] = { 0,1,2,3,1,5,6,1,8,0,3,6,8,5,2,6,16,8,3,16,5,0,16,2 };  //holds the bottom most space needed to form a mill with the target space. 
+	int horz1[24] = { 0,0,0,3,3,3,6,6,6,9,9,9,12,12,12,15,15,15,18,18,18,21,21,21 }; //holds leftmost space needed to make a mill with the target node
+	int horz2[24] = { 1,1,1,4,4,4,7,7,7,10,10,10,13,13,13,16,16,16,19,19,19,22,22,22 }; // holds the middle space needed to make a horizontal mill with the target
+	int horz3[24] = { 2,2,2,5,5,5,8,8,8,11,11,11,14,14,14,17,17,17,20,20,20,23,23,23 };//holds the right most space needed to make a mill with the target. 
+
+	int xAxis[24] = { 0,3,6,1,3,5,2,3,4,0,1,2,4,5,6,2,3,4,1,3,5,0,3,6 }; //loads coordinates for X and Y axis
+	int yAxis[24] = { 0,0,0,1,1,1,2,2,2,3,3,3,3,3,3,4,4,4,5,5,5,6,6,6 };//assuming bottom to top, left to right. 
 
 };
