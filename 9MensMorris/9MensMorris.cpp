@@ -100,6 +100,7 @@ void Reshape(int w, int h)
     gluLookAt(-0.3, 0.5, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 }
 
+//function to place tokens based on which player's turn it is
 void placeToken(int playerNum, morisGame Board)
 {
     string place; 
@@ -115,23 +116,29 @@ void placeToken(int playerNum, morisGame Board)
     Board.consoleOut();
 }
 
+//function to eventually move tokens after all have been placed
 void moveToken(int playerNum, morisGame Board)
 {
     //Insert moving token code here
 }
 
+//function that manages the turn taking
 void gameManager(morisGame Board)
 {
     string place;
 
+    int turnNum = 0;    // variable to track what turn it currently is
+
     Board.setBoard();
 
+    //while the game isn't over, continue to take turns
     while (!Board.getGameOver())
     {
         if (Board.toBePlacedP1.size() == 0)
         {
             //moveToken(1, Board);
             //moveToken(2, Board);
+            //checkMills();
             return;
         }
         else
@@ -139,6 +146,7 @@ void gameManager(morisGame Board)
             placeToken(1, Board);
             placeToken(2, Board);
         }
+        turnNum++;
     }
 }
 
