@@ -100,11 +100,53 @@ void Reshape(int w, int h)
     gluLookAt(-0.3, 0.5, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 }
 
+void placeToken(int playerNum, morisGame Board)
+{
+    string place; 
+
+    cout << endl << "Enter place for player " << playerNum << " # (0-23): ";
+    cin >> place;
+
+    if (playerNum == 1)
+        Board.setBoardPiece(stoi(place));
+    else
+        Board.setBoardPieceP2(stoi(place));
+
+    Board.consoleOut();
+}
+
+void moveToken(int playerNum, morisGame Board)
+{
+    //Insert moving token code here
+}
+
+void gameManager(morisGame Board)
+{
+    string place;
+
+    Board.setBoard();
+
+    while (!Board.getGameOver())
+    {
+        if (Board.toBePlacedP1.size() == 0)
+        {
+            //moveToken(1, Board);
+            //moveToken(2, Board);
+            return;
+        }
+        else
+        {
+            placeToken(1, Board);
+            placeToken(2, Board);
+        }
+    }
+}
+
 // main function    
 int main(int argc, char** argv)
 {
-    string place;
-    string q;
+    //string place;
+    //string q;
 
    /* // initialize glut    
     glutInit(&argc, argv);
@@ -125,6 +167,9 @@ int main(int argc, char** argv)
     glutMainLoop();*/
 
     morisGame Board;
+    gameManager(Board);
+
+    /*morisGame Board;
     Board.setBoard();
     while (q != "q")
     {
@@ -143,7 +188,7 @@ int main(int argc, char** argv)
             
             Board.setBoardPiece(stoi(place));
         }
-    }
+    }*/
     cout << endl << endl;
     system("pause");
     return 0;

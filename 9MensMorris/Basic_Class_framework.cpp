@@ -281,6 +281,17 @@ public:
 		space->placedToken = toBePlacedP1.back();
 		toBePlacedP1.pop_back();
 	}
+	void setBoardPieceP2(int xy)
+	{
+		boardSpace* space = boardSpaces[xy];
+
+		space->placedToken = toBePlacedP2.back();
+		toBePlacedP2.pop_back();
+	}
+	bool getGameOver()
+	{
+		return gameOver;
+	}
 
 			
 private:
