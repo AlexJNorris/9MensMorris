@@ -2,7 +2,7 @@
 #include "pch.h"
 #include "../9MensMorris/Board.h"
 
-TEST(TestCaseName, TestName) {
+TEST(TestRedPlacement, TestName) {
 	  morisGame* Board = new morisGame;
 	  Board->setBoard();
 	  Board->setBoardPiece(0);
@@ -10,7 +10,7 @@ TEST(TestCaseName, TestName) {
 	  ASSERT_EQ(chk, true);
 }
 
-TEST(TestCaseName1, TestName1) {
+TEST(TestFailedRedPlacement, TestName1) {
 	morisGame* Board = new morisGame;
 	Board->setBoard();
 	Board->setBoardPiece(0);
@@ -18,6 +18,21 @@ TEST(TestCaseName1, TestName1) {
 	ASSERT_EQ(chk, false);
 }
 
+TEST(TestBlackPlacement, TestName) {
+	morisGame* Board = new morisGame;
+	Board->setBoard();
+	Board->setBoardPieceP2(0);
+	bool chk = Board->boardSpaces[0]->isPlayerTwo();
+	ASSERT_EQ(chk, true);
+}
+
+TEST(TestFailedBlackPlacement, TestName) {
+	morisGame* Board = new morisGame;
+	Board->setBoard();
+	Board->setBoardPieceP2(0);
+	bool chk = Board->boardSpaces[0]->isPlayerTwo();
+	ASSERT_EQ(chk, false);
+}
 
 int main(int argc, char **argv)
 {
