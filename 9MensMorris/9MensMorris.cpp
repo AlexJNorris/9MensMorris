@@ -27,9 +27,29 @@ void display2(int x) {
 
 void mouse(int button, int state, int x, int y) {
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
+        int playerNum = (Board->getTurn() % 2);
+        cout << x << ", " << y << endl;
         pos_ = get(x, y);
-        cout << pos_;
-        //Board->setBoardPiece(pos_);
+      //  cout << "  " << pos_ << endl;
+        if (pos_ < 24 && pos_ >= 0)
+        {
+            if (Board->toBePlacedP2.size() != 0)
+            {
+                if (Board->boardSpaces[pos_]->isEmpty())
+                {
+                    if (playerNum == 0)
+                    {
+                        Board->setBoardPiece(pos_);
+                        Board->turns++;
+                    }
+                    else
+                    {
+                        Board->setBoardPieceP2(pos_);
+                        Board->turns++;
+                    }
+                }
+            }
+        }
     }
 }
 // main function    
@@ -45,7 +65,7 @@ void display(void)
    
     drawNMMBoard(Board);
 
-    manageGame(Board);
+    //manageGame(Board);
 
 }
 

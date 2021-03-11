@@ -18,7 +18,16 @@ vector<pair<float, float> > corners_ = {
     {-.4,-.4},{0,-.4},{.4,-.4},
     {-.7,-.7},{0,-.7},{.7,-.7}
 };
-int mouseInput;
+
+vector<pair<int, int> > mouseCoordinates = {
+    {89,67},{313,67},{537,67},
+    {185,142},{313,142},{441,142},
+    {280,217},{313,217},{345,217},
+    {89,242},{185,242},{280,242},{345,242},{441,242},{537,242},
+    {280,267},{313,267},{345,267},
+    {185,341},{313,341},{441,341},
+    {89,417},{313,417},{537,417}
+};
 
 int sqDistance(int x1, int y1, int x2, int y2) {
     return (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
@@ -27,9 +36,9 @@ int sqDistance(int x1, int y1, int x2, int y2) {
 int get(int x, int y) {
     // Get the color at clicked location
     for (int i = 0; i < 24; i++) {
-        int cx = .05 + corners_[i].first;
-        int cy = .05 + corners_[i].second;
-        if (sqDistance(cx, cy, x, y) <= .05 * .05) {
+        int cx = 10 + (mouseCoordinates[i].first);
+        int cy = 10 + (mouseCoordinates[i].second);
+        if (sqDistance(cx, cy, x, y) <= 15 * 15) {
             return i;
         }
     }
