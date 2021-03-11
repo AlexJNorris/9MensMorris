@@ -1,5 +1,7 @@
+#include<Windows.h>    
 #include "pch.h"
-#include "../9MensMorris/Board.h"
+#include "../9MensMorris/9MensMorris.cpp"
+using namespace std;
 
 TEST(TestCaseName, TestName) {
 	  morisGame* Board = new morisGame;

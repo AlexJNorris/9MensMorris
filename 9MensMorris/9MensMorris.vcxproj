@@ -72,8 +72,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\dev\vcpkg\vcpkg\installed\x86-windows\include;C:\Program Files\Common Files\freeglut\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\dev\vcpkg\vcpkg\installed\x86-windows\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files\Common Files\freeglut\vcpkg\vcpkg\installed\x86-windows\include;C:\Program Files\Common Files\freeglut\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files\ Common Files\freeglut\vcpkg\vcpkg\installed\x86-windows\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

@@ -2,9 +2,7 @@
 
 #include<iostream>
 #include<vector>
-
-
-#include <iostream>
+#include<Windows.h>   
 #include <GL/glut.h>
 #include <vector>
 #include <memory>

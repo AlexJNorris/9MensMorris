@@ -4,7 +4,6 @@
 #include<Windows.h>   
 #include<GL/GL.h>   // GL.h header file    
 #include<GL/GLU.h> // GLU.h header file    
-#include<GL/glut.h>  // glut.h header file from freeglut\include\GL folder   
 #include <memory>
 #include <array>
 #include <cmath>
