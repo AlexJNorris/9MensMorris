@@ -1,44 +1,42 @@
-#include<stdio.h> 
 
-#include<conio.h>    
-#include<stdio.h>    
-#include<math.h>    
-#include<string.h> 
-#include<string>
-#include "Board.cpp"
-#include "BoardGUI.cpp"
+#include "GameManager.h"
 
-using namespace std;
-//function to place tokens based on which player's turn it is
-
-class GameManager {
-
-public:
-    GameManager() 
+    void placeToken(int playerNum, morisGame* Board)
     {
-        return;
-    }
-
-    GameManager(morisGame* board)
-    {
-        manageGame(board);
-    }
-
-    void placeToken(int playerNum, morisGame Board)
-    {
+        int changeChk = Board->turns;
         string place;
-
-        /*cout << endl << "Enter place for player " << playerNum << " # (0-23): ";
+        
+        cout << endl << "Enter place for player " << playerNum << " # (0-23): ";
         cin >> place;
 
-        if (playerNum == 1)
-            Board.setBoardPiece(stoi(place));
-        else
-            Board.setBoardPieceP2(stoi(place));
-            */
-        /*
-        Board.consoleOut();
-        */
+        while (changeChk == Board->turns) {
+
+            if (stoi(place) > -1 && stoi(place) < 24) {
+                if (Board->boardSpaces[stoi(place)]->isEmpty()) {
+                    if (playerNum == 0)
+                    {
+                        Board->setBoardPiece(stoi(place));
+                        break;
+                    }
+                    else
+                    {
+                        Board->setBoardPieceP2(stoi(place));
+                        break;
+                    }
+                }
+                cout << endl << "Spot is taken - Enter different number " << " # (0-23): ";
+                cin >> place;
+            }
+            else
+            {
+                cout << endl << "Out of range - Enter different number " << " # (0-23): ";
+                cin >> place;
+            }
+            
+        }
+        
+        Board->consoleOut();
+        
     }
 
     //function to eventually move tokens after all have been placed
@@ -50,16 +48,11 @@ public:
     //function that manages the turn taking
     void manageGame(morisGame* Board)
     {
-        string place;
-
-        int turnNum = 0;    // variable to track what turn it currently is
-
-        Board->setBoard();
+        string place;   // variable to track what turn it currently is
+       
 
         //while the game isn't over, continue to take turns
-        while (!Board->getGameOver())
-        {
-            if (Board->toBePlacedP1.size() == 0)
+            if (Board->toBePlacedP2.size() == 0)
             {
                 Board->movingPhase = 1;
                 //moveToken(1, Board);
@@ -69,12 +62,10 @@ public:
             }
             else
             {
-                placeToken(1, *Board);
-                Board->turns++;
-                placeToken(2, *Board);
-                Board->turns++;
+                
+                    placeToken(Board->getTurn(), Board);
+                    Board->turns++;
+
             }
-            turnNum++;
-        }
     }
-};
+    
