@@ -4,7 +4,7 @@
 #include "BoardGUI.h"
 using namespace std;
 
-/// This is the last position that was played by the human player
+/// This is the last position that was played by a player
 int pos_;
 morisGame* Board = new morisGame;
 vector<boardSpace*> gameState;
