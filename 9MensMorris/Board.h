@@ -1,13 +1,13 @@
 #pragma once
-#include<Windows.h>    
+
 #include <iostream>
 #include <memory>
 #include <vector>
 #include <set>
 #include <algorithm>
+#include<Windows.h>    
 #include<gl/GL.h>   // GL.h header file    
-#include<gl/GLU.h> // GLU.h header file    
-#include<gl/glut.h>  // glut.h header file from freeglut\include\GL folder   
+#include<gl/GLU.h> // GLU.h header file      
 #include<iostream>
 #include<vector>
 #include<thread>

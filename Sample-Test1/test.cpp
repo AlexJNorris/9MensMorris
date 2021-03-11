@@ -1,6 +1,6 @@
+#include<Windows.h>    
 #include "pch.h"
 #include "../9MensMorris/Board.h"
-#include "Board.h"
 
 TEST(TestCaseName, TestName) {
 	  morisGame* Board = new morisGame;
