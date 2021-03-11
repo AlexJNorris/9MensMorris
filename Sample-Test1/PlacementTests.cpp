@@ -2,6 +2,7 @@
 #include "pch.h"
 #include "../9MensMorris/Board.h"
 
+//Test placing a red piece at location 0
 TEST(TestRedPlacement, TestName) {
 	  morisGame* Board = new morisGame;
 	  Board->setBoard();
@@ -10,6 +11,7 @@ TEST(TestRedPlacement, TestName) {
 	  ASSERT_EQ(chk, true);
 }
 
+//Test failing to place a red piece at location 0
 TEST(TestFailedRedPlacement, TestName1) {
 	morisGame* Board = new morisGame;
 	Board->setBoard();
@@ -18,6 +20,7 @@ TEST(TestFailedRedPlacement, TestName1) {
 	ASSERT_EQ(chk, false);
 }
 
+//Test placing a black piece at location 0
 TEST(TestBlackPlacement, TestName) {
 	morisGame* Board = new morisGame;
 	Board->setBoard();
@@ -26,6 +29,7 @@ TEST(TestBlackPlacement, TestName) {
 	ASSERT_EQ(chk, true);
 }
 
+//Test failing to place a black piece at location 0
 TEST(TestFailedBlackPlacement, TestName) {
 	morisGame* Board = new morisGame;
 	Board->setBoard();
