@@ -1,5 +1,21 @@
+#ifndef BOARD_CPP
+#define BOARD_CPP
+
+
+#include<Windows.h>    
+#include <iostream>
+#include <memory>
+#include <vector>
+#include <set>
+#include <algorithm>
+#include<gl/GL.h>   // GL.h header file    
+#include<gl/GLU.h> // GLU.h header file    
+#include<gl/glut.h>  // glut.h header file from freeglut\include\GL folder   
 #include<iostream>
 #include<vector>
+#include <thread>
+#include <mutex>
+#include "TextRenderer.cpp"
 
 using namespace std;
 
@@ -9,8 +25,54 @@ class gameToken;
 class boardSpace;
 class morisGame;
 
-class boardSpace
+class gameToken
 {
+public:
+	bool isPlaced()
+	{
+		if (tokenLocation == NULL)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+	void setName(int num)
+	{
+		tokenName = num;
+	}
+	void setPlayer(bool player)
+	{
+		tokenPlayer = player;
+	}
+	void setLocation(boardSpace* place)
+	{
+		tokenLocation = place;
+	}
+	int getName()
+	{
+		return tokenName;
+	}
+	bool getPlayer()
+	{
+		return tokenPlayer;
+	}
+	boardSpace* getLocation()
+	{
+		return tokenLocation;
+	}
+
+private:
+	int tokenName;
+	bool tokenPlayer;
+	boardSpace* tokenLocation;
+};
+
+
+class boardSpace {
+
 public: 
 
 	gameToken* placedToken;
@@ -23,6 +85,24 @@ public:
 		}
 		else
 		{
+			return false;
+		}
+	}
+	bool isPlayerOne()
+	{
+		if (placedToken != NULL) {
+			if (placedToken->getPlayer() == false) {
+				return true;
+			}
+			return false;
+		}
+	}
+	bool isPlayerTwo()
+	{
+		if (placedToken != NULL) {
+			if (placedToken->getPlayer() == true) {
+				return true;
+			}
 			return false;
 		}
 	}
@@ -94,50 +174,6 @@ private:
 
 };
 
-class gameToken
-{
-public:
-	bool isPlaced()
-	{
-		if (tokenLocation == NULL)
-		{
-			return false;
-		}
-		else
-		{
-			return true;
-		}	
-	}
-	void setName(int num)
-	{
-		tokenName = num;
-	}
-	void setPlayer(bool player)
-	{
-		tokenPlayer = player;
-	}
-	void setLocation(boardSpace* place)
-	{
-		tokenLocation = place; 
-	}
-	int getName()
-	{
-		return tokenName;
-	}
-	bool getPlayer()
-	{
-		return tokenPlayer;
-	}
-	boardSpace* getLocation()
-	{
-		return tokenLocation;
-	};
-
-private:
-	int tokenName;
-	bool tokenPlayer;
-	boardSpace* tokenLocation;
-};
 
 class morisGame
 {
@@ -150,10 +186,54 @@ public:
 	vector<gameToken*> removedPlayer2;
 	vector<gameToken*> toBePlacedP1; //Vectors for tokens that still need to be placed.
 	vector<gameToken*> toBePlacedP2;
+	int turns;
+	int movingPhase;
 
+	TextRenderer tr;
+
+	int pos;
+	bool updateScene = true;
+	bool playing = true;
+
+	int selected;
+	int previousSelected;
+	int deleted;
+	int whitePlayer;
+	int blackPlayer;
+	int winner = EMPTY;
+
+	
+
+	morisGame(){
+		this->setBoard();
+	}
+	//count pieces
+	int count(bool b)
+	{
+		if (b == false)
+		{
+			return (activePlayer1.size() + toBePlacedP1.size());
+		}
+		else
+		{
+			return (activePlayer2.size() + toBePlacedP2.size());
+		}
+	}
+
+	int getTurn() 
+	{
+		return (turns % 2);
+	}
+
+	int isMovingPhase()
+	{
+		return movingPhase;
+	}
 
 	void setBoard()
 	{
+		turns = 0;
+		movingPhase = 0;
 		gameOver = false; //clears all the neccisary vectors and variables. 
 		player1Mills = 0;
 		player2Mills = 0;
@@ -293,6 +373,65 @@ public:
 		return gameOver;
 	}
 
+	void display() {
+		if (!updateScene) {
+			return;
+		}
+		updateScene = false;
+		glLoadIdentity();
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glClearColor(1, 1, 1, 1);
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		glScalef(SCREEN_SHRINK_RATIO / SCREEN_WIDTH,
+			-SCREEN_SHRINK_RATIO / SCREEN_HEIGHT,
+			1);
+
+		glTranslatef(-SCREEN_WIDTH / 2, -SCREEN_HEIGHT / 2, 0.0);
+
+		// Compute the extra colors needed to draw the board
+		// 1 -> selected
+		// 2 -> previously selected
+		// 3 -> deleted
+		array<int, 24> extraColors;
+		extraColors.fill(0);
+		if (selected >= 0) {
+			extraColors[selected] = 1;
+		}
+		if (previousSelected >= 0) {
+			extraColors[previousSelected] = 2;
+		}
+		if (deleted >= 0) {
+			extraColors[deleted] = 3;
+		}
+		//this->draw(gameState_, extraColors);
+
+		// glutSwapBuffers();
+		if (winner != EMPTY) {
+			glColor4f(1, 1, 1, 0.3);
+			glBegin(GL_QUADS);
+			glVertex2f(0, 0);
+			glVertex2f(BOARD_WIDTH, 0);
+			glVertex2f(BOARD_WIDTH, BOARD_HEIGHT);
+			glVertex2f(0, BOARD_HEIGHT);
+			glEnd();
+
+			string winnerText = "";
+			if (winner == WHITE) {
+				winnerText = "White";
+			}
+			else {
+				winnerText = "Black";
+			}
+			winnerText += " Won!";
+
+			tr.printCenter(BOARD_WIDTH / 2, 250, winnerText, 3);
+		}
+
+		glFlush();
+	}
+
 			
 private:
 
@@ -316,3 +455,4 @@ private:
 	int yAxis[24] = { 0,0,0,1,1,1,2,2,2,3,3,3,3,3,3,4,4,4,5,5,5,6,6,6 };//assuming bottom to top, left to right. 
 
 };
+#endif // !BOARD_CPP
