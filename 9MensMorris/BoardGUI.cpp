@@ -142,14 +142,28 @@ void drawNMMBoard(morisGame* Board)
  
     if (Board->toBePlacedP1.size() != 0 || Board->toBePlacedP2.size() != 0)
     {
+        glColor3f(1, 0, 0);
         print(50, 50, "P1's Pieces To Be Placed: " + to_string(Board->toBePlacedP1.size()), .5);
+        glColor3f(0, 0, 0);
         print(460, 50, "P2's Pieces To Be Placed: " + to_string(Board->toBePlacedP2.size()), .5);
     } 
     else
     {
+        glColor3f(1, 0, 0);
         print(50, 50, "P1's Pieces Left: " + to_string(Board->activePlayer1.size()), .5);
+        glColor3f(0, 0, 0);
         print(460, 50, "P2's Pieces Left: " + to_string(Board->activePlayer2.size()), .5);
 
+    }
+
+    if (Board->getTurn() == 0) {
+        glColor3f(1, 0, 0);
+        print(274, 464, "Player 1's Turn", .8);
+    }
+    else
+    {
+        glColor3f(0, 0, 0);
+        print(274, 464, "Player 2's Turn", .8);
     }
 
     glPointSize(15.0);

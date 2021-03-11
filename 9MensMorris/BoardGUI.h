@@ -2,9 +2,9 @@
 #include<iostream>
 #include<vector>
 #include<Windows.h>   
-#include<gl/GL.h>   // GL.h header file    
-#include<gl/GLU.h> // GLU.h header file    
-#include<gl/glut.h>  // glut.h header file from freeglut\include\GL folder   
+#include<GL/GL.h>   // GL.h header file    
+#include<GL/GLU.h> // GLU.h header file    
+#include<GL/glut.h>  // glut.h header file from freeglut\include\GL folder   
 #include <memory>
 #include <array>
 #include <cmath>
@@ -13,6 +13,8 @@
 #include <math.h>
 #include <mutex>
 #include "GameManager.h"
+
+#include"TextRenderer.h"
 
 using namespace std;
 

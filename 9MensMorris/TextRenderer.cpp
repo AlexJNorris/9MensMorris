@@ -11,7 +11,6 @@
 		glTranslatef(x - SCREEN_WIDTH / 2, y - SCREEN_HEIGHT / 2, 0.0);
 		glScalef(0.2 * size, -0.2 * size, 0.0);
 		glLineWidth(size * 1.5);
-		glColor3f(0, 0, 0);
 		for (auto ch : text) {
 			glutStrokeCharacter(GLUT_STROKE_ROMAN, ch);
 		}

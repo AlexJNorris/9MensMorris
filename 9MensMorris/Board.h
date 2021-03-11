@@ -12,7 +12,8 @@
 #include<vector>
 #include<thread>
 #include<mutex>
-#include"TextRenderer.h"
+
+
 
 using namespace std;
 class gameToken;
@@ -96,9 +97,7 @@ public:
 	int selected;
 	int previousSelected;
 	int deleted;
-	int whitePlayer;
-	int blackPlayer;
-	int winner = EMPTY;
+
 
 	/// This points to the class that encapsulates the state of the game
 	shared_ptr<boardSpace> gameState;
@@ -109,7 +108,7 @@ public:
 	/// This mutex is unlocked everytime the black player makes a move
 	mutex blackMove;
 	/// Mutex to indicated that the object is safe to be deleted
-	array<mutex, 2> safeToDelete_;
+
 
 	morisGame();
 	int count(bool b);
