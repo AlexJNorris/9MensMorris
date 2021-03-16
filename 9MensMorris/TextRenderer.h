@@ -23,5 +23,11 @@ const int SCREEN_WIDTH = 700;
 const int SCREEN_HEIGHT = 500;
 const double SCREEN_SHRINK_RATIO = 2;
 
+<<<<<<< HEAD
+=======
+const int BOARD_WIDTH = 500;
+const int BOARD_HEIGHT = 500;
+
+>>>>>>> Clean some code
 const int EMPTY = 0;
 const int BLACK = 2;
