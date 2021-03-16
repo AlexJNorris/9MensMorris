@@ -54,7 +54,7 @@ int get(int x, int y) {
 
 
 
-void drawFilledSun() {
+void drawFilledCircle() {
     //static float angle;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();

@@ -91,11 +91,8 @@ public:
 
 
 	int pos;
-	bool updateScene = true;
-	bool playing = true;
 
 	int selected;
-
 
 	/// This points to the class that encapsulates the state of the game
 	shared_ptr<boardSpace> gameState;
