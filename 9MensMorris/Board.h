@@ -91,23 +91,10 @@ public:
 
 
 	int pos;
-	bool updateScene = true;
-	bool playing = true;
-
-	int selected;
-	int previousSelected;
-	int deleted;
 
 
 	/// This points to the class that encapsulates the state of the game
 	shared_ptr<boardSpace> gameState;
-	/// This points to the class that manages the A.I. agent that playes against the human player
-	/// This mutex is unlocked everytime the human player makes a move
-	/// This mutex is unlocked everytime the white player makes a move
-	mutex whiteMove;
-	/// This mutex is unlocked everytime the black player makes a move
-	mutex blackMove;
-	/// Mutex to indicated that the object is safe to be deleted
 
 
 	morisGame();

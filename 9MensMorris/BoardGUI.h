@@ -25,7 +25,7 @@ int get(int x, int y);
 
 void mouse(int button, int state, int x, int y);
 
-void drawFilledSun();
+void drawFilledCircle();
 
 void DrawCircle(float cx, float cy, float r, int num_segments);
 
