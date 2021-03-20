@@ -174,7 +174,7 @@ void drawNMMBoard(morisGame* Board)
         state = Board->boardSpaces[i];
         if (state->isEmpty()) 
         {
-            glColor3f(0.5, 0.5, 0.5);
+            glColor3f(0.8, 0.8, 0.8);
         } 
         else if (state->isPlayerOne()) {
             glColor3f(1, 0, 0);
