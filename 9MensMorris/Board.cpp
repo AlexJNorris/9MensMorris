@@ -167,6 +167,9 @@ using namespace std;
 		player1Mills = 0;
 		player2Mills = 0;
 
+		int p1MillArr[3][3] = { {-1,-1,-1}, {-1,-1,-1},{-1,-1,-1} };
+		int p2MillArr[3][3] = { {-1,-1,-1}, {-1,-1,-1},{-1,-1,-1} };
+
 		activePlayer1.clear();
 		activePlayer2.clear();
 
@@ -303,6 +306,92 @@ using namespace std;
 	{
 		return gameOver;
 	}
+	bool morisGame::isNewMillMade(int playerNum)
+	{
+		bool boolin = false;
+		int vertChk;
+		int horChk;
+		int newMill[3] = { -1,-1,-1 };
 
+		for (int i = 0; i < boardSpaces.size(); i++) {
+			vertChk = 0;
+			horChk = 0;
+			if (!boardSpaces[i]->isEmpty()) {
+				if (!boardSpaces[verticle1[i]]->isEmpty()) { vertChk++; }
+				if (!boardSpaces[verticle2[i]]->isEmpty()) { vertChk++; }
+				if (!boardSpaces[verticle3[i]]->isEmpty()) { vertChk++; }
+				if (!boardSpaces[horz1[i]]->isEmpty()) { horChk++; }
+				if (!boardSpaces[horz2[i]]->isEmpty()) { horChk++; }
+				if (!boardSpaces[horz3[i]]->isEmpty()) { horChk++; }
+				if (vertChk == 3)
+				{
+					newMill[0] = verticle1[i];
+					newMill[1] = verticle2[i];
+					newMill[2] = verticle3[i];
+					boolin = true;
+				} 
+				else if (horChk == 3)
+				{
+					newMill[0] = horz1[i];
+					newMill[1] = horz2[i];
+					newMill[2] = horz3[i];
+					boolin = true;
+				}
+			}
+		}
+		return boolin;
+	}
+	bool morisGame::checkNewMill(int Arr[3], int player)
+	{
+		int millChk;
+		int emptyChk;
+		
+		if (player == 0)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				millChk = 0;
+				emptyChk = 0;
+				for (int j = 0; j < 3; j++)
+				{
+					if (Arr[j] == p1MillArr[i][j]) { millChk++; }
+					else if (p1MillArr[i][j] == -1) { emptyChk++; }
+				}
+				if (millChk == 3) { return false; }
+				else if (emptyChk == 3)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+						p1MillArr[i][j] = Arr[j];
+					}
+					return true;
+				}
+			}
+			return false;
+		}
+		else
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				millChk = 0;
+				emptyChk = 0;
+				for (int j = 0; j < 3; j++)
+				{
+					if (Arr[j] == p2MillArr[i][j]) { millChk++; }
+					else if (p2MillArr[i][j] == -1) { emptyChk++; }
+				}
+				if (millChk == 3) { return false; }
+				else if (emptyChk == 3)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+						p2MillArr[i][j] = Arr[j];
+					}
+					return true;
+				}
+			}
+			return false;
+		}
+	}
 			
 
