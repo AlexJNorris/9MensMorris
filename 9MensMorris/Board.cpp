@@ -167,8 +167,14 @@ using namespace std;
 		player1Mills = 0;
 		player2Mills = 0;
 
-		int p1MillArr[3][3] = { {-1,-1,-1}, {-1,-1,-1},{-1,-1,-1} };
-		int p2MillArr[3][3] = { {-1,-1,-1}, {-1,-1,-1},{-1,-1,-1} };
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				p1MillArr[i][j] = -1;
+				p2MillArr[i][j] = -1;
+			}
+		}
 
 		activePlayer1.clear();
 		activePlayer2.clear();
@@ -328,14 +334,16 @@ using namespace std;
 					newMill[0] = verticle1[i];
 					newMill[1] = verticle2[i];
 					newMill[2] = verticle3[i];
-					boolin = true;
+					boolin = checkNewMill(newMill, playerNum);
+					break;
 				} 
 				else if (horChk == 3)
 				{
 					newMill[0] = horz1[i];
 					newMill[1] = horz2[i];
 					newMill[2] = horz3[i];
-					boolin = true;
+					boolin = checkNewMill(newMill, playerNum);
+					break;
 				}
 			}
 		}
