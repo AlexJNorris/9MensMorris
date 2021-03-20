@@ -81,7 +81,7 @@ void DrawCircle(float cx, float cy, float r, int num_segments) {
 void drawNMMBoard(morisGame* Board) 
 {
     boardSpace* state;
-    glColor3f(0.5, 0.5, 0.5);
+    glColor3f(0.7, 0.7, 0.7);
     //outside top
     glVertex2f(.7, .7);
     glVertex2f(-.7, .7);
@@ -166,12 +166,24 @@ void drawNMMBoard(morisGame* Board)
         print(274, 464, "Player 2's Turn", .8);
     }
 
+    //to highlight selected piece in green
+    /*glPointSize(20.0);
+    glBegin(GL_POINTS);
+    glColor3f(0, 0.8, 0);
+    for (int i = 0; i < corners_.size(); i++) {
+        state = Board->boardSpaces[i];
+        glVertex2f(corners_[i].first, corners_[i].second);
+    }
+
+    glEnd();
+    glFlush();*/
+
     glPointSize(15.0);
     glBegin(GL_POINTS);
 
-  
     for (int i = 0; i < corners_.size(); i++) {
         state = Board->boardSpaces[i];
+        
         if (state->isEmpty()) 
         {
             glColor3f(0.8, 0.8, 0.8);
