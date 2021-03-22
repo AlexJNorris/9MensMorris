@@ -51,6 +51,11 @@ void mouse(int button, int state, int x, int y) {
                 }
             }
         }
+        else if (pos_ == 25)
+        {
+            Board = new morisGame();
+            Board->setBoard();
+        }
     }
 }
 // main function    

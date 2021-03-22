@@ -42,6 +42,12 @@ int get(int x, int y) {
             return i;
         }
     }
+    
+
+    if ((sqDistance(75, 454, x, y) <= 15 * 15) || (sqDistance(95, 454, x, y) <= 15 * 15) || (sqDistance(115, 454, x, y) <= 15 * 15)) {
+        return 25;
+    }
+
     return -1;
 }
 
@@ -134,11 +140,24 @@ void drawNMMBoard(morisGame* Board)
     glVertex2f(-.1, -.1);
     glVertex2f(-.1, .1);
     glEnd();
+    glFlush();
+
+    glBegin(GL_TRIANGLES);
+    glColor3f(0.8, 0.8, 0.8);
+    glVertex2f(-0.8, -0.775);
+    glVertex2f(-0.8, -0.875);
+    glVertex2f(-0.6, -0.775);
+    glVertex2f(-0.6, -0.775);
+    glVertex2f(-0.6, -0.875);
+    glVertex2f(-0.8, -0.875);
+
+    glEnd();
 
     glFlush();
     //draw placements
     glColor3f(0, 0, 0);
-    print(300,20, "Nine Men's Morris", .5);
+    print(300, 20, "Nine Men's Morris", .5);
+    print(90, 461, "Reset", .5);
  
     if (Board->toBePlacedP1.size() != 0 || Board->toBePlacedP2.size() != 0)
     {
@@ -166,18 +185,7 @@ void drawNMMBoard(morisGame* Board)
         print(274, 464, "Player 2's Turn", .8);
     }
 
-    //to highlight selected piece in green
-    /*glPointSize(20.0);
-    glBegin(GL_POINTS);
-    glColor3f(0, 0.8, 0);
-    for (int i = 0; i < corners_.size(); i++) {
-        state = Board->boardSpaces[i];
-        glVertex2f(corners_[i].first, corners_[i].second);
-    }
-
-    glEnd();
-    glFlush();*/
-
+    
     //to highlight mills in yellow
     glPointSize(25.0);
     glBegin(GL_POINTS);
@@ -204,6 +212,18 @@ void drawNMMBoard(morisGame* Board)
 
     glEnd();
     glFlush();
+
+    //to highlight selected piece in green
+    /*glPointSize(20.0);
+    glBegin(GL_POINTS);
+    glColor3f(0, 0.8, 0);
+    for (int i = 0; i < corners_.size(); i++) {
+        state = Board->boardSpaces[i];
+        glVertex2f(corners_[i].first, corners_[i].second);
+    }
+
+    glEnd();
+    glFlush();*/
 
     glPointSize(15.0);
     glBegin(GL_POINTS);
