@@ -178,6 +178,33 @@ void drawNMMBoard(morisGame* Board)
     glEnd();
     glFlush();*/
 
+    //to highlight mills in yellow
+    glPointSize(25.0);
+    glBegin(GL_POINTS);
+    glColor3f(.9, .9, 0);
+    for (int i = 0; i < 3; i++) 
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            if (Board->p1MillArr[i][j] == -1) { break; }
+            glVertex2f(corners_[Board->p1MillArr[i][j]].first, corners_[Board->p1MillArr[i][j]].second);
+
+        }
+    }
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            if (Board->p2MillArr[i][j] == -1) { break; }
+            glVertex2f(corners_[Board->p2MillArr[i][j]].first, corners_[Board->p2MillArr[i][j]].second);
+
+        }
+    }
+    
+
+    glEnd();
+    glFlush();
+
     glPointSize(15.0);
     glBegin(GL_POINTS);
 

@@ -39,11 +39,13 @@ void mouse(int button, int state, int x, int y) {
                     if (playerNum == 0)
                     {
                         Board->setBoardPiece(pos_);
+                        Board->isNewMillMade(playerNum);
                         Board->turns++;
                     }
                     else
                     {
                         Board->setBoardPieceP2(pos_);
+                        Board->isNewMillMade(playerNum);
                         Board->turns++;
                     }
                 }

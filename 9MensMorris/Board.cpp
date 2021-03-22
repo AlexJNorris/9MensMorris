@@ -312,6 +312,7 @@ using namespace std;
 	{
 		return gameOver;
 	}
+
 	bool morisGame::isNewMillMade(int playerNum)
 	{
 		bool boolin = false;
@@ -322,28 +323,73 @@ using namespace std;
 		for (int i = 0; i < boardSpaces.size(); i++) {
 			vertChk = 0;
 			horChk = 0;
-			if (!boardSpaces[i]->isEmpty()) {
-				if (!boardSpaces[verticle1[i]]->isEmpty()) { vertChk++; }
-				if (!boardSpaces[verticle2[i]]->isEmpty()) { vertChk++; }
-				if (!boardSpaces[verticle3[i]]->isEmpty()) { vertChk++; }
-				if (!boardSpaces[horz1[i]]->isEmpty()) { horChk++; }
-				if (!boardSpaces[horz2[i]]->isEmpty()) { horChk++; }
-				if (!boardSpaces[horz3[i]]->isEmpty()) { horChk++; }
-				if (vertChk == 3)
+
+			if (playerNum == 0)
+			{
+				if (!boardSpaces[i]->isEmpty())
 				{
-					newMill[0] = verticle1[i];
-					newMill[1] = verticle2[i];
-					newMill[2] = verticle3[i];
-					boolin = checkNewMill(newMill, playerNum);
-					break;
-				} 
-				else if (horChk == 3)
+					if (!boardSpaces[verticle1[i]]->isEmpty() && boardSpaces[verticle1[i]]->isPlayerOne()) { vertChk++; }
+					if (!boardSpaces[verticle2[i]]->isEmpty() && boardSpaces[verticle2[i]]->isPlayerOne()) { vertChk++; }
+					if (!boardSpaces[verticle3[i]]->isEmpty() && boardSpaces[verticle3[i]]->isPlayerOne()) { vertChk++; }
+					if (!boardSpaces[horz1[i]]->isEmpty() && boardSpaces[horz1[i]]->isPlayerOne()) { horChk++; }
+					if (!boardSpaces[horz2[i]]->isEmpty() && boardSpaces[horz2[i]]->isPlayerOne()) { horChk++; }
+					if (!boardSpaces[horz3[i]]->isEmpty() && boardSpaces[horz3[i]]->isPlayerOne()) { horChk++; }
+					if (vertChk == 3)
+					{
+						newMill[0] = verticle1[i];
+						newMill[1] = verticle2[i];
+						newMill[2] = verticle3[i];
+						boolin = checkNewMill(newMill, playerNum);
+						if (boolin)
+						{
+							break;
+						}
+					}
+					else if (horChk == 3)
+					{
+						newMill[0] = horz1[i];
+						newMill[1] = horz2[i];
+						newMill[2] = horz3[i];
+						boolin = checkNewMill(newMill, playerNum);
+						if (boolin)
+						{
+							break;
+						}
+					}
+				}
+			}
+			else
+			{
+				if (!boardSpaces[i]->isEmpty())
 				{
-					newMill[0] = horz1[i];
-					newMill[1] = horz2[i];
-					newMill[2] = horz3[i];
-					boolin = checkNewMill(newMill, playerNum);
-					break;
+					if (!boardSpaces[verticle1[i]]->isEmpty() && boardSpaces[verticle1[i]]->isPlayerTwo()) { vertChk++; }
+					if (!boardSpaces[verticle2[i]]->isEmpty() && boardSpaces[verticle2[i]]->isPlayerTwo()) { vertChk++; }
+					if (!boardSpaces[verticle3[i]]->isEmpty() && boardSpaces[verticle3[i]]->isPlayerTwo()) { vertChk++; }
+					if (!boardSpaces[horz1[i]]->isEmpty() && boardSpaces[horz1[i]]->isPlayerTwo()) { horChk++; }
+					if (!boardSpaces[horz2[i]]->isEmpty() && boardSpaces[horz2[i]]->isPlayerTwo()) { horChk++; }
+					if (!boardSpaces[horz3[i]]->isEmpty() && boardSpaces[horz3[i]]->isPlayerTwo()) { horChk++; }
+					if (vertChk == 3)
+					{
+						newMill[0] = verticle1[i];
+						newMill[1] = verticle2[i];
+						newMill[2] = verticle3[i];
+						boolin = checkNewMill(newMill, playerNum);
+						if (boolin)
+						{
+							break;
+						}
+					}
+					else if (horChk == 3)
+					{
+						newMill[0] = horz1[i];
+						newMill[1] = horz2[i];
+						newMill[2] = horz3[i];
+						boolin = checkNewMill(newMill, playerNum);
+						if (boolin)
+						{
+							break;
+						}
+					}
 				}
 			}
 		}
