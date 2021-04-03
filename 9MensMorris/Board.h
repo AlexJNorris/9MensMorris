@@ -95,8 +95,6 @@ public:
 	bool playing = true;
 
 	int selected;
-	int previousSelected;
-	int deleted;
 
 
 	/// This points to the class that encapsulates the state of the game
@@ -116,7 +114,10 @@ public:
 	bool checkNewMill(int Arr[3], int player);
 	bool isInP1MillArr(int num);
 	bool isInP2MillArr(int num);
+	bool isAdjacentToSelected(int pos);
 	void removePiece(int num);
+	void moveSelectedToPos(int pos);
+	void isMillBroken(int playerNum);
 
 	bool gameOver;
 
@@ -128,10 +129,10 @@ public:
 	int p1MillArr[3][3];
 	int p2MillArr[3][3];
 
-	int adj1[24] = { 9,4,4,10,7,13,11,8,12,21,18,15,17,20,23,16,19,12,19,22,13,22,23,14 }; //Holds the number for the nodes adjacent to the targeted space going in a clockwise direction 
-	int adj2[24] = { 1,2,1,4,5,4,7,4,7,0,11,6,13,14,2,11,17,16,10,20,19,9,19,22 }; //that starts with the node verticle to the target node if applicable. 
-	int adj3[24] = { -1,0,-1,-1,1,-1,-1,6,-1,-1,4,10,8,5,13,-1,15,-1,-1,16,-1,-1,21,-1 }; //-1 means not applicable.
-	int adj4[24] = { -1,-1,-1,-1,3,-1,-1,-1,-1,-1,9,-1,-1,12,0,-1,-1,-1,-1,18,-1,-1,-1,-1 };
+	int adj1[24] = {  9, 4,14,10,7,13,11, 8,12,21,18,15,17,20,23,16,19,12,19,22,13,22,23,14 }; //Holds the number for the nodes adjacent to the targeted space going in a clockwise direction 
+	int adj2[24] = {  1, 2, 1, 4,5, 4, 7, 4, 7, 0,11, 6,13,14,2,11,17,16,10,20,19,9,19,22 }; //that starts with the node verticle to the target node if applicable. 
+	int adj3[24] = { -1, 0,-1,-1,1,-1,-1, 6,-1,-1, 3,10,8,5,13,-1,15,-1,-1,16,-1,-1,21,-1 }; //-1 means not applicable.
+	int adj4[24] = { -1,-1,-1,-1,3,-1,-1,-1,-1,-1, 9,-1,-1,12,0,-1,-1,-1,-1,18,-1,-1,-1,-1 };
 
 	int verticle1[24] = { 0,1,2,3,1,5,6,1,8,0,3,6,8,5,2,6,16,8,3,16,5,0,16,2 };  //holds the top most space needed to make a mill with the target space
 	int verticle2[24] = { 9,4,14,10,4,13,11,4,12,9,10,11,12,13,14,11,19,12,10,19,13,9,19,14 }; //holds the  middle most space needed to form a verticle mill with the target space

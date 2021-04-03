@@ -246,16 +246,17 @@ void drawNMMBoard(morisGame* Board)
     glFlush();
 
     //to highlight selected piece in green
-    /*glPointSize(20.0);
-    glBegin(GL_POINTS);
-    glColor3f(0, 0.8, 0);
-    for (int i = 0; i < corners_.size(); i++) {
-        state = Board->boardSpaces[i];
-        glVertex2f(corners_[i].first, corners_[i].second);
-    }
+    if (Board->selected != -1)
+    {
+        glPointSize(20.0);
+        glBegin(GL_POINTS);
+        glColor3f(0, 0.8, 0);
 
-    glEnd();
-    glFlush();*/
+        glVertex2f(corners_[Board->selected].first, corners_[Board->selected].second);
+
+        glEnd();
+        glFlush();
+    }
 
     glPointSize(15.0);
     glBegin(GL_POINTS);

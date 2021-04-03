@@ -167,6 +167,7 @@ using namespace std;
 		player1Mills = 0;
 		player2Mills = 0;
 		destroyMode = 0;
+		selected = -1;
 
 		for (int i = 0; i < 3; i++)
 		{
@@ -472,6 +473,13 @@ using namespace std;
 		}
 		return false;
 	}
+	bool morisGame::isAdjacentToSelected(int pos) {
+		if (pos == adj1[selected] || pos == adj2[selected] || pos == adj3[selected] || pos == adj4[selected])
+		{
+			return true;
+		}
+		return false;
+	}
 	void morisGame::removePiece(int num) {
 		boardSpace* space = boardSpaces[num];
 		
@@ -487,5 +495,89 @@ using namespace std;
 			activePlayer2.pop_back();
 			space->placedToken = NULL;
 		}
+	}
+	void morisGame::moveSelectedToPos(int pos) {
+		boardSpaces[pos]->placedToken = boardSpaces[selected]->getToken();
+		boardSpaces[selected]->placedToken = NULL;
+		selected = -1;
+	}
+	void morisGame::isMillBroken(int playerNum) {
+		int millCnt = 0;
+		int removedMill = -1;
+		bool cornBoolio = false;
+		if (playerNum == 0)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				if (p1MillArr[i][0] != -1) { millCnt++; }
+				else { break; }
+				for (int j = 0; j < 3; j++)
+				{
+					cout << boardSpaces[p1MillArr[i][j]]->isEmpty();
+					if (boardSpaces[p1MillArr[i][j]]->isEmpty())
+					{
+						cornBoolio = true;
+						removedMill = millCnt;
+						p1MillArr[i][0] = -1;
+						p1MillArr[i][1] = -1;
+						p1MillArr[i][2] = -1;
+						break;
+					}
+				}
+			}
+		}
+		else
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				if (p2MillArr[i][0] != -1) { millCnt++; }
+				else { break; }
+				for (int j = 0; j < 3; j++)
+				{
+					if (boardSpaces[p2MillArr[i][j]]->isEmpty())
+					{
+						cornBoolio = true;
+						removedMill = millCnt;
+						p2MillArr[i][0] = -1;
+						p2MillArr[i][1] = -1;
+						p2MillArr[i][2] = -1;
+						break;
+					}
+				}
+			}
+		}
+		if (cornBoolio == true) {
+			if (!(millCnt == removedMill))
+			{
+				for (int i = removedMill - 1; i < millCnt - 1; i++)
+				{
+					if (playerNum == 0)
+					{
+						p1MillArr[i][0] = p1MillArr[i + 1][0];
+						p1MillArr[i][1] = p1MillArr[i + 1][1];
+						p1MillArr[i][2] = p1MillArr[i + 1][2];
+					}
+					else
+					{
+						p2MillArr[i][0] = p2MillArr[i + 1][0];
+						p2MillArr[i][1] = p2MillArr[i + 1][1];
+						p2MillArr[i][2] = p2MillArr[i + 1][2];
+					}
+				}
+				if (playerNum == 0)
+				{
+					p1MillArr[millCnt][0] = -1;
+					p1MillArr[millCnt][1] = -1;
+					p1MillArr[millCnt][2] = -1;
+				}
+				else
+				{
+					p2MillArr[millCnt][0] = -1;
+					p2MillArr[millCnt][1] = -1;
+					p2MillArr[millCnt][2] = -1;
+				}
+			}
+		}
+		
 	}
 

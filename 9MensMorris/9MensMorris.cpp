@@ -35,32 +35,95 @@ void mouse(int button, int state, int x, int y) {
         {
             if (Board->destroyMode == 0)
             {
-                if (Board->toBePlacedP2.size() != 0)
+                if (Board->movingPhase == 0)
                 {
-                    if (Board->boardSpaces[pos_]->isEmpty())
+                    if (Board->toBePlacedP2.size() != 0)
+                    {
+                        if (Board->boardSpaces[pos_]->isEmpty())
+                        {
+                            if (playerNum == 0)
+                            {
+                                Board->setBoardPiece(pos_);
+                                if (Board->isNewMillMade(playerNum))
+                                {
+                                    Board->destroyMode = 1;
+                                }
+                                else
+                                {
+                                    Board->turns++;
+                                }
+                            }
+                            else
+                            {
+                                Board->setBoardPieceP2(pos_);
+                                if (Board->isNewMillMade(playerNum))
+                                {
+                                    Board->destroyMode = 2;
+                                }
+                                else
+                                {
+                                    Board->turns++;
+                                }
+                                if (Board->toBePlacedP2.size() == 0)
+                                {
+                                    Board->movingPhase = 1;
+                                    cout << Board->movingPhase;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (!Board->isAdjacentToSelected(pos_) || pos_ == Board->selected || !Board->boardSpaces[pos_]->isEmpty())
                     {
                         if (playerNum == 0)
                         {
-                            Board->setBoardPiece(pos_);
-                            if (Board->isNewMillMade(playerNum))
+                            if (Board->boardSpaces[pos_]->isPlayerOne() && !Board->boardSpaces[pos_]->isEmpty())
                             {
-                                Board->destroyMode = 1;
-                            }
-                            else
-                            {
-                                Board->turns++;
+                                Board->selected = pos_;
                             }
                         }
-                        else
+                        else if (playerNum == 1)
                         {
-                            Board->setBoardPieceP2(pos_);
-                            if (Board->isNewMillMade(playerNum))
+                            if (Board->boardSpaces[pos_]->isPlayerTwo() && !Board->boardSpaces[pos_]->isEmpty())
                             {
-                                Board->destroyMode = 2;
+                                Board->selected = pos_;
                             }
-                            else
+                        }
+                    }
+                    else
+                    {
+                        if (playerNum == 0)
+                        {
+                            if (Board->boardSpaces[pos_]->isEmpty())
                             {
-                                Board->turns++;
+                                Board->moveSelectedToPos(pos_);
+                                if (Board->isNewMillMade(playerNum))
+                                {
+                                    Board->destroyMode = 1;
+                                }
+                                else
+                                {
+                                    Board->turns++;
+                                }
+                                Board->isMillBroken(playerNum);
+                            }
+                        }
+                        else if (playerNum == 1)
+                        {
+                            if (Board->boardSpaces[pos_]->isEmpty())
+                            {
+                                Board->moveSelectedToPos(pos_);
+                                if (Board->isNewMillMade(playerNum))
+                                {
+                                    Board->destroyMode = 2;
+                                }
+                                else
+                                {
+                                    Board->turns++;
+                                }
+                                Board->isMillBroken(playerNum);
                             }
                         }
                     }
