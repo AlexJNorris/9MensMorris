@@ -178,11 +178,25 @@ void drawNMMBoard(morisGame* Board)
     if (Board->getTurn() == 0) {
         glColor3f(1, 0, 0);
         print(274, 464, "Player 1's Turn", .8);
+        if (Board->destroyMode != 0) {
+            print(516, 464, "Remove Enemy Piece", .5);
+        }
+        else
+        {
+            print(540, 464, "Place Piece", .5);
+        }
     }
     else
     {
         glColor3f(0, 0, 0);
         print(274, 464, "Player 2's Turn", .8);
+        if (Board->destroyMode != 0) {
+            print(516, 464, "Remove Enemy Piece", .5);
+        }
+        else
+        {
+            print(540, 464, "Place Piece", .5);
+        }
     }
 
     
@@ -209,6 +223,24 @@ void drawNMMBoard(morisGame* Board)
         }
     }
     
+
+    glEnd();
+    glFlush();
+
+    //to highlight removable pieces in purple
+    glPointSize(22.0);
+    glBegin(GL_POINTS);
+    glColor3f(.7, 0, .7);
+    for (int i = 0; i < 24; i++)
+    {
+        
+        if (!Board->boardSpaces[i]->isEmpty() && ((Board->destroyMode == 1 && Board->boardSpaces[i]->isPlayerTwo() && !Board->isInP2MillArr(i)) || (Board->destroyMode == 2 && Board->boardSpaces[i]->isPlayerOne() && !Board->isInP1MillArr(i))))
+        {
+            glVertex2f(corners_[i].first, corners_[i].second);
+        }
+        
+    }
+
 
     glEnd();
     glFlush();

@@ -114,8 +114,13 @@ public:
 	bool getGameOver();
 	bool isNewMillMade(int playerNum);
 	bool checkNewMill(int Arr[3], int player);
+	bool isInP1MillArr(int num);
+	bool isInP2MillArr(int num);
+	void removePiece(int num);
 
 	bool gameOver;
+
+	int destroyMode; //0 = off; 1 = player 1 removes a piece; 2 = player 2 removes a piece;
 
 	int player1Mills;
 	int player2Mills;

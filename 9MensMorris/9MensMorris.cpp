@@ -30,25 +30,53 @@ void mouse(int button, int state, int x, int y) {
         cout << x << ", " << y << endl;
         pos_ = get(x, y);
       //  cout << "  " << pos_ << endl;
+        
         if (pos_ < 24 && pos_ >= 0)
         {
-            if (Board->toBePlacedP2.size() != 0)
+            if (Board->destroyMode == 0)
             {
-                if (Board->boardSpaces[pos_]->isEmpty())
+                if (Board->toBePlacedP2.size() != 0)
                 {
-                    if (playerNum == 0)
+                    if (Board->boardSpaces[pos_]->isEmpty())
                     {
-                        Board->setBoardPiece(pos_);
-                        Board->isNewMillMade(playerNum);
-                        Board->turns++;
-                    }
-                    else
-                    {
-                        Board->setBoardPieceP2(pos_);
-                        Board->isNewMillMade(playerNum);
-                        Board->turns++;
+                        if (playerNum == 0)
+                        {
+                            Board->setBoardPiece(pos_);
+                            if (Board->isNewMillMade(playerNum))
+                            {
+                                Board->destroyMode = 1;
+                            }
+                            else
+                            {
+                                Board->turns++;
+                            }
+                        }
+                        else
+                        {
+                            Board->setBoardPieceP2(pos_);
+                            if (Board->isNewMillMade(playerNum))
+                            {
+                                Board->destroyMode = 2;
+                            }
+                            else
+                            {
+                                Board->turns++;
+                            }
+                        }
                     }
                 }
+            }
+            else if (!Board->boardSpaces[pos_]->isEmpty() && Board->destroyMode == 1 && Board->boardSpaces[pos_]->isPlayerTwo() && !Board->isInP2MillArr(pos_))
+            {
+                Board->removePiece(pos_);
+                Board->turns++;
+                Board->destroyMode = 0;
+            }
+            else if (!Board->boardSpaces[pos_]->isEmpty() && Board->destroyMode == 2 && Board->boardSpaces[pos_]->isPlayerOne() && !Board->isInP1MillArr(pos_))
+            {
+                Board->removePiece(pos_);
+                Board->turns++;
+                Board->destroyMode = 0;
             }
         }
         else if (pos_ == 25)

@@ -166,6 +166,7 @@ using namespace std;
 		gameOver = false; //clears all the neccisary vectors and variables. 
 		player1Mills = 0;
 		player2Mills = 0;
+		destroyMode = 0;
 
 		for (int i = 0; i < 3; i++)
 		{
@@ -448,4 +449,43 @@ using namespace std;
 		}
 	}
 			
+	bool morisGame::isInP1MillArr(int num) {
+	
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				if (num == p1MillArr[i][j]) { return true; }
+				else if (p1MillArr[i][j] == -1) { return false; }
+			}
+		}
+		return false;
+	}
+	bool morisGame::isInP2MillArr(int num) {
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				if (num == p2MillArr[i][j]) { return true; }
+				else if (p2MillArr[i][j] == -1) { return false; }
+			}
+		}
+		return false;
+	}
+	void morisGame::removePiece(int num) {
+		boardSpace* space = boardSpaces[num];
+		
+		if (space->isPlayerOne())
+		{
+			removedPlayer1.push_back(space->getToken());
+			activePlayer1.pop_back();
+			space->placedToken = NULL;
+		}
+		else
+		{
+			removedPlayer2.push_back(space->getToken());
+			activePlayer2.pop_back();
+			space->placedToken = NULL;
+		}
+	}
 
