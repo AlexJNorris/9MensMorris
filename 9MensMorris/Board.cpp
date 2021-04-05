@@ -4,6 +4,25 @@
 
 using namespace std;
 
+int removeDuplicates(vector<int> arr, int n)
+{
+	if (n == 0 || n == 1)
+		return n;
+
+	vector<int> temp;
+	for (int i = 0; i < n - 1; i++)
+	{
+		if (arr[i] != arr[i + 1])
+			temp.push_back(arr[i]);
+	}
+	temp.push_back(arr[n - 1]);
+
+	for (int i = 0; i < temp.size(); i++)
+	{
+		arr[i] = temp[i];
+	}
+	return arr.size();
+}
 
 	bool gameToken::isPlaced()
 	{
@@ -580,4 +599,69 @@ using namespace std;
 		}
 		
 	}
+	bool morisGame::allActiveP1InMill() {
+		int n = 0;
+		bool oneMatch;
+		for (int k = 0; k < 24; k++)
+		{
+			oneMatch = false;
+			for (int i = 0; i < 3; i++)
+			{
+				if (oneMatch == true) { break; }
+				if (p1MillArr[i][0] != -1)
+				{
+					for (int j = 0; j < 3; j++)
+					{
 
+						if (p1MillArr[i][j] == k)
+						{
+							n++;
+							oneMatch = true;
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		//cout << n << endl;
+		//cout << activePlayer1.size() << endl;
+		if (n == activePlayer1.size())
+		{
+			return true;
+		}
+		return false;
+	}
+	bool morisGame::allActiveP2InMill() {
+		int n = 0;
+		bool oneMatch;
+		for (int k = 0; k < 24; k++)
+		{
+			oneMatch = false;
+			for (int i = 0; i < 3; i++)
+			{
+				if (oneMatch == true) { break; }
+				if (p2MillArr[i][0] != -1)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+
+						if (p2MillArr[i][j] == k)
+						{
+							n++;
+							oneMatch = true;
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		//cout << n << endl;
+		//cout << activePlayer2.size() << endl;
+		if (n == activePlayer2.size())
+		{
+			return true;
+		}
+		return false;
+	}

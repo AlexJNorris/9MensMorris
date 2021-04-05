@@ -135,10 +135,25 @@ void mouse(int button, int state, int x, int y) {
                 Board->turns++;
                 Board->destroyMode = 0;
             }
+            else if (!Board->boardSpaces[pos_]->isEmpty() && Board->destroyMode == 1 && Board->boardSpaces[pos_]->isPlayerTwo() && Board->allActiveP2InMill())
+            {
+                Board->removePiece(pos_);
+                Board->turns++;
+                Board->isMillBroken((Board->turns % 2));
+                Board->destroyMode = 0;
+            }
             else if (!Board->boardSpaces[pos_]->isEmpty() && Board->destroyMode == 2 && Board->boardSpaces[pos_]->isPlayerOne() && !Board->isInP1MillArr(pos_))
             {
                 Board->removePiece(pos_);
                 Board->turns++;
+                Board->destroyMode = 0;
+            }
+            else if (!Board->boardSpaces[pos_]->isEmpty() && Board->destroyMode == 2 && Board->boardSpaces[pos_]->isPlayerOne() && Board->allActiveP1InMill())
+            {
+                Board->removePiece(pos_);
+                Board->turns++;
+
+                Board->isMillBroken((Board->turns % 2));
                 Board->destroyMode = 0;
             }
         }

@@ -238,6 +238,10 @@ void drawNMMBoard(morisGame* Board)
         {
             glVertex2f(corners_[i].first, corners_[i].second);
         }
+        else if (!Board->boardSpaces[i]->isEmpty() && ((Board->destroyMode == 1 && Board->boardSpaces[i]->isPlayerTwo() && Board->allActiveP2InMill()) || (Board->destroyMode == 2 && Board->boardSpaces[i]->isPlayerOne() && Board->allActiveP1InMill())))
+        {
+            glVertex2f(corners_[i].first, corners_[i].second);
+        }
         
     }
 

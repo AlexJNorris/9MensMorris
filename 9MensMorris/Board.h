@@ -118,6 +118,8 @@ public:
 	void removePiece(int num);
 	void moveSelectedToPos(int pos);
 	void isMillBroken(int playerNum);
+	bool allActiveP1InMill();
+	bool allActiveP2InMill();
 
 	bool gameOver;
 
