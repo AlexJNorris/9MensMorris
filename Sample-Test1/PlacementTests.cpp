@@ -2,7 +2,6 @@
 #include "pch.h"
 #include "../9MensMorris/Board.h"
 
-<<<<<<< Updated upstream:Sample-Test1/test.cpp
 TEST(TestRedPlacement, TestName) {
 =======
 //AC 1.1 Test will initilzie game and it will be player 1's turn
@@ -158,7 +157,7 @@ TEST(TestPlacement, InvalidBlackPlacementOnRed) {
 	ASSERT_EQ(chk, false);
 }*/
 
-<<<<<<< Updated upstream:Sample-Test1/test.cpp
+
 TEST(TestBlackPlacement, TestName) {
 	morisGame* Board = new morisGame;
 	Board->setBoard();
@@ -166,8 +165,6 @@ TEST(TestBlackPlacement, TestName) {
 	bool chk = Board->boardSpaces[0]->isPlayerTwo();
 	ASSERT_EQ(chk, true);
 }
-=======
->>>>>>> Stashed changes:Sample-Test1/PlacementTests.cpp
 
 //Test failing to place a black piece at location 0
 /*TEST(TestFailedBlackPlacement, TestName) {

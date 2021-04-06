@@ -42,20 +42,20 @@
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\alexn\source\repos\9MensMorris\Debug;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <LibraryPath>C:\Program Files\Common Files\freeglut\lib;C:\Users\alexn\source\repos\9MensMorris\Debug;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
+    <IncludePath>C:\Users\alexn\source\repos\9MensMorris\Debug;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\alexn\source\repos\9MensMorris\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="PlacementTests.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PlacementTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -79,23 +79,17 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-<<<<<<< Updated upstream
       <AdditionalIncludeDirectories>C:\Program Files\Common Files\MSVC\freeglut\include;D:\UMKC\449\9MensMorris\9MensMorris;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-=======
-      <AdditionalIncludeDirectories>C:\Program Files\Common Files\MSVC\freeglut\include;C:\Users\alexn\source\repos\9MensMorris\Debug;D:\UMKC\449\9MensMorris\9MensMorris;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\Common Files\MSVC\freeglut\include;C:\Users\alexn\source\repos\9MensMorris\9MensMorris;C:\Users\alexn\source\repos\9MensMorris\Debug;D:\UMKC\449\9MensMorris\9MensMorris;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
->>>>>>> Stashed changes
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>freeglut.lib;opengl32.lib;9MensMorris.lib;%(AdditionalDependencies)</AdditionalDependencies>
-<<<<<<< Updated upstream
       <AdditionalLibraryDirectories>C:\Program Files\Common Files\freeglut\lib;C:\Users\alexn\source\repos\9MensMorris\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-=======
       <AdditionalLibraryDirectories>C:\Program Files\Common Files\MSVC\freeglut\lib;C:\Users\colar\Documents\GitHub\9MensMorris\Debug;C:\Program Files\Common Files\freeglut\lib;C:\Users\alexn\source\repos\9MensMorris\Debug;D:\UMKC\449\9MensMorris\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IncrementalLinkDatabaseFile>C:\Users\alexn\source\repos\9MensMorris\Debug;&lt;different options&gt;</IncrementalLinkDatabaseFile>
->>>>>>> Stashed changes
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
