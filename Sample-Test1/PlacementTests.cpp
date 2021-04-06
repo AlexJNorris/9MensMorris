@@ -1,8 +1,6 @@
-#include<Windows.h>    
 #include "pch.h"
 #include "../9MensMorris/Board.h"
 
-<<<<<<< Updated upstream:Sample-Test1/test.cpp
 TEST(TestRedPlacement, TestName) {
 	  morisGame* Board = new morisGame;
 	  Board->setBoard();
@@ -108,7 +106,7 @@ TEST(TestFailedRedPlacement, TestName1) {
 	ASSERT_EQ(chk, false);
 }
 
-<<<<<<< Updated upstream:Sample-Test1/test.cpp
+
 TEST(TestBlackPlacement, TestName) {
 	morisGame* Board = new morisGame;
 	Board->setBoard();
@@ -116,8 +114,6 @@ TEST(TestBlackPlacement, TestName) {
 	bool chk = Board->boardSpaces[0]->isPlayerTwo();
 	ASSERT_EQ(chk, true);
 }
-=======
->>>>>>> Stashed changes:Sample-Test1/PlacementTests.cpp
 
 //Test failing to place a black piece at location 0
 TEST(TestFailedBlackPlacement, TestName) {
