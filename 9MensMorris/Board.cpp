@@ -4,6 +4,25 @@
 
 using namespace std;
 
+int removeDuplicates(vector<int> arr, int n)
+{
+	if (n == 0 || n == 1)
+		return n;
+
+	vector<int> temp;
+	for (int i = 0; i < n - 1; i++)
+	{
+		if (arr[i] != arr[i + 1])
+			temp.push_back(arr[i]);
+	}
+	temp.push_back(arr[n - 1]);
+
+	for (int i = 0; i < temp.size(); i++)
+	{
+		arr[i] = temp[i];
+	}
+	return arr.size();
+}
 
 	bool gameToken::isPlaced()
 	{
@@ -166,6 +185,17 @@ using namespace std;
 		gameOver = false; //clears all the neccisary vectors and variables. 
 		player1Mills = 0;
 		player2Mills = 0;
+		destroyMode = 0;
+		selected = -1;
+
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				p1MillArr[i][j] = -1;
+				p2MillArr[i][j] = -1;
+			}
+		}
 
 		activePlayer1.clear();
 		activePlayer2.clear();
@@ -304,5 +334,334 @@ using namespace std;
 		return gameOver;
 	}
 
-			
+	bool morisGame::isNewMillMade(int playerNum)
+	{
+		bool boolin = false;
+		int vertChk;
+		int horChk;
+		int newMill[3] = { -1,-1,-1 };
 
+		for (int i = 0; i < boardSpaces.size(); i++) {
+			vertChk = 0;
+			horChk = 0;
+
+			if (playerNum == 0)
+			{
+				if (!boardSpaces[i]->isEmpty())
+				{
+					if (!boardSpaces[verticle1[i]]->isEmpty() && boardSpaces[verticle1[i]]->isPlayerOne()) { vertChk++; }
+					if (!boardSpaces[verticle2[i]]->isEmpty() && boardSpaces[verticle2[i]]->isPlayerOne()) { vertChk++; }
+					if (!boardSpaces[verticle3[i]]->isEmpty() && boardSpaces[verticle3[i]]->isPlayerOne()) { vertChk++; }
+					if (!boardSpaces[horz1[i]]->isEmpty() && boardSpaces[horz1[i]]->isPlayerOne()) { horChk++; }
+					if (!boardSpaces[horz2[i]]->isEmpty() && boardSpaces[horz2[i]]->isPlayerOne()) { horChk++; }
+					if (!boardSpaces[horz3[i]]->isEmpty() && boardSpaces[horz3[i]]->isPlayerOne()) { horChk++; }
+					if (vertChk == 3)
+					{
+						newMill[0] = verticle1[i];
+						newMill[1] = verticle2[i];
+						newMill[2] = verticle3[i];
+						boolin = checkNewMill(newMill, playerNum);
+						if (boolin)
+						{
+							break;
+						}
+					}
+					else if (horChk == 3)
+					{
+						newMill[0] = horz1[i];
+						newMill[1] = horz2[i];
+						newMill[2] = horz3[i];
+						boolin = checkNewMill(newMill, playerNum);
+						if (boolin)
+						{
+							break;
+						}
+					}
+				}
+			}
+			else
+			{
+				if (!boardSpaces[i]->isEmpty())
+				{
+					if (!boardSpaces[verticle1[i]]->isEmpty() && boardSpaces[verticle1[i]]->isPlayerTwo()) { vertChk++; }
+					if (!boardSpaces[verticle2[i]]->isEmpty() && boardSpaces[verticle2[i]]->isPlayerTwo()) { vertChk++; }
+					if (!boardSpaces[verticle3[i]]->isEmpty() && boardSpaces[verticle3[i]]->isPlayerTwo()) { vertChk++; }
+					if (!boardSpaces[horz1[i]]->isEmpty() && boardSpaces[horz1[i]]->isPlayerTwo()) { horChk++; }
+					if (!boardSpaces[horz2[i]]->isEmpty() && boardSpaces[horz2[i]]->isPlayerTwo()) { horChk++; }
+					if (!boardSpaces[horz3[i]]->isEmpty() && boardSpaces[horz3[i]]->isPlayerTwo()) { horChk++; }
+					if (vertChk == 3)
+					{
+						newMill[0] = verticle1[i];
+						newMill[1] = verticle2[i];
+						newMill[2] = verticle3[i];
+						boolin = checkNewMill(newMill, playerNum);
+						if (boolin)
+						{
+							break;
+						}
+					}
+					else if (horChk == 3)
+					{
+						newMill[0] = horz1[i];
+						newMill[1] = horz2[i];
+						newMill[2] = horz3[i];
+						boolin = checkNewMill(newMill, playerNum);
+						if (boolin)
+						{
+							break;
+						}
+					}
+				}
+			}
+		}
+		return boolin;
+	}
+	bool morisGame::checkNewMill(int Arr[3], int player)
+	{
+		int millChk;
+		int emptyChk;
+		
+		if (player == 0)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				millChk = 0;
+				emptyChk = 0;
+				for (int j = 0; j < 3; j++)
+				{
+					if (Arr[j] == p1MillArr[i][j]) { millChk++; }
+					else if (p1MillArr[i][j] == -1) { emptyChk++; }
+				}
+				if (millChk == 3) { return false; }
+				else if (emptyChk == 3)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+						p1MillArr[i][j] = Arr[j];
+					}
+					return true;
+				}
+			}
+			return false;
+		}
+		else
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				millChk = 0;
+				emptyChk = 0;
+				for (int j = 0; j < 3; j++)
+				{
+					if (Arr[j] == p2MillArr[i][j]) { millChk++; }
+					else if (p2MillArr[i][j] == -1) { emptyChk++; }
+				}
+				if (millChk == 3) { return false; }
+				else if (emptyChk == 3)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+						p2MillArr[i][j] = Arr[j];
+					}
+					return true;
+				}
+			}
+			return false;
+		}
+	}
+			
+	bool morisGame::isInP1MillArr(int num) {
+	
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				if (num == p1MillArr[i][j]) { return true; }
+				else if (p1MillArr[i][j] == -1) { return false; }
+			}
+		}
+		return false;
+	}
+	bool morisGame::isInP2MillArr(int num) {
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				if (num == p2MillArr[i][j]) { return true; }
+				else if (p2MillArr[i][j] == -1) { return false; }
+			}
+		}
+		return false;
+	}
+	bool morisGame::isAdjacentToSelected(int pos) {
+		if (pos == adj1[selected] || pos == adj2[selected] || pos == adj3[selected] || pos == adj4[selected])
+		{
+			return true;
+		}
+		return false;
+	}
+	void morisGame::removePiece(int num) {
+		boardSpace* space = boardSpaces[num];
+		
+		if (space->isPlayerOne())
+		{
+			removedPlayer1.push_back(space->getToken());
+			activePlayer1.pop_back();
+			space->placedToken = NULL;
+		}
+		else
+		{
+			removedPlayer2.push_back(space->getToken());
+			activePlayer2.pop_back();
+			space->placedToken = NULL;
+		}
+	}
+	void morisGame::moveSelectedToPos(int pos) {
+		boardSpaces[pos]->placedToken = boardSpaces[selected]->getToken();
+		boardSpaces[selected]->placedToken = NULL;
+		selected = -1;
+	}
+	void morisGame::isMillBroken(int playerNum) {
+		int millCnt = 0;
+		int removedMill = -1;
+		bool cornBoolio = false;
+		if (playerNum == 0)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				if (p1MillArr[i][0] != -1) { millCnt++; }
+				else { break; }
+				for (int j = 0; j < 3; j++)
+				{
+					cout << boardSpaces[p1MillArr[i][j]]->isEmpty();
+					if (boardSpaces[p1MillArr[i][j]]->isEmpty())
+					{
+						cornBoolio = true;
+						removedMill = millCnt;
+						p1MillArr[i][0] = -1;
+						p1MillArr[i][1] = -1;
+						p1MillArr[i][2] = -1;
+						break;
+					}
+				}
+			}
+		}
+		else
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				if (p2MillArr[i][0] != -1) { millCnt++; }
+				else { break; }
+				for (int j = 0; j < 3; j++)
+				{
+					if (boardSpaces[p2MillArr[i][j]]->isEmpty())
+					{
+						cornBoolio = true;
+						removedMill = millCnt;
+						p2MillArr[i][0] = -1;
+						p2MillArr[i][1] = -1;
+						p2MillArr[i][2] = -1;
+						break;
+					}
+				}
+			}
+		}
+		if (cornBoolio == true) {
+			if (!(millCnt == removedMill))
+			{
+				for (int i = removedMill - 1; i < millCnt - 1; i++)
+				{
+					if (playerNum == 0)
+					{
+						p1MillArr[i][0] = p1MillArr[i + 1][0];
+						p1MillArr[i][1] = p1MillArr[i + 1][1];
+						p1MillArr[i][2] = p1MillArr[i + 1][2];
+					}
+					else
+					{
+						p2MillArr[i][0] = p2MillArr[i + 1][0];
+						p2MillArr[i][1] = p2MillArr[i + 1][1];
+						p2MillArr[i][2] = p2MillArr[i + 1][2];
+					}
+				}
+				if (playerNum == 0)
+				{
+					p1MillArr[millCnt][0] = -1;
+					p1MillArr[millCnt][1] = -1;
+					p1MillArr[millCnt][2] = -1;
+				}
+				else
+				{
+					p2MillArr[millCnt][0] = -1;
+					p2MillArr[millCnt][1] = -1;
+					p2MillArr[millCnt][2] = -1;
+				}
+			}
+		}
+		
+	}
+	bool morisGame::allActiveP1InMill() {
+		int n = 0;
+		bool oneMatch;
+		for (int k = 0; k < 24; k++)
+		{
+			oneMatch = false;
+			for (int i = 0; i < 3; i++)
+			{
+				if (oneMatch == true) { break; }
+				if (p1MillArr[i][0] != -1)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+
+						if (p1MillArr[i][j] == k)
+						{
+							n++;
+							oneMatch = true;
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		//cout << n << endl;
+		//cout << activePlayer1.size() << endl;
+		if (n == activePlayer1.size())
+		{
+			return true;
+		}
+		return false;
+	}
+	bool morisGame::allActiveP2InMill() {
+		int n = 0;
+		bool oneMatch;
+		for (int k = 0; k < 24; k++)
+		{
+			oneMatch = false;
+			for (int i = 0; i < 3; i++)
+			{
+				if (oneMatch == true) { break; }
+				if (p2MillArr[i][0] != -1)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+
+						if (p2MillArr[i][j] == k)
+						{
+							n++;
+							oneMatch = true;
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		//cout << n << endl;
+		//cout << activePlayer2.size() << endl;
+		if (n == activePlayer2.size())
+		{
+			return true;
+		}
+		return false;
+	}

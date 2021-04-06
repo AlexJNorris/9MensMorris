@@ -42,6 +42,12 @@ int get(int x, int y) {
             return i;
         }
     }
+    
+
+    if ((sqDistance(75, 454, x, y) <= 15 * 15) || (sqDistance(95, 454, x, y) <= 15 * 15) || (sqDistance(115, 454, x, y) <= 15 * 15)) {
+        return 25;
+    }
+
     return -1;
 }
 
@@ -81,7 +87,7 @@ void DrawCircle(float cx, float cy, float r, int num_segments) {
 void drawNMMBoard(morisGame* Board) 
 {
     boardSpace* state;
-    glColor3f(0.5, 0.5, 0.5);
+    glColor3f(0.7, 0.7, 0.7);
     //outside top
     glVertex2f(.7, .7);
     glVertex2f(-.7, .7);
@@ -134,11 +140,24 @@ void drawNMMBoard(morisGame* Board)
     glVertex2f(-.1, -.1);
     glVertex2f(-.1, .1);
     glEnd();
+    glFlush();
+
+    glBegin(GL_TRIANGLES);
+    glColor3f(0.8, 0.8, 0.8);
+    glVertex2f(-0.8, -0.775);
+    glVertex2f(-0.8, -0.875);
+    glVertex2f(-0.6, -0.775);
+    glVertex2f(-0.6, -0.775);
+    glVertex2f(-0.6, -0.875);
+    glVertex2f(-0.8, -0.875);
+
+    glEnd();
 
     glFlush();
     //draw placements
     glColor3f(0, 0, 0);
-    print(300,20, "Nine Men's Morris", .5);
+    print(300, 20, "Nine Men's Morris", .5);
+    print(90, 461, "Reset", .5);
  
     if (Board->toBePlacedP1.size() != 0 || Board->toBePlacedP2.size() != 0)
     {
@@ -159,22 +178,99 @@ void drawNMMBoard(morisGame* Board)
     if (Board->getTurn() == 0) {
         glColor3f(1, 0, 0);
         print(274, 464, "Player 1's Turn", .8);
+        if (Board->destroyMode != 0) {
+            print(516, 464, "Remove Enemy Piece", .5);
+        }
+        else
+        {
+            print(540, 464, "Place Piece", .5);
+        }
     }
     else
     {
         glColor3f(0, 0, 0);
         print(274, 464, "Player 2's Turn", .8);
+        if (Board->destroyMode != 0) {
+            print(516, 464, "Remove Enemy Piece", .5);
+        }
+        else
+        {
+            print(540, 464, "Place Piece", .5);
+        }
+    }
+
+    
+    //to highlight mills in yellow
+    glPointSize(25.0);
+    glBegin(GL_POINTS);
+    glColor3f(.9, .9, 0);
+    for (int i = 0; i < 3; i++) 
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            if (Board->p1MillArr[i][j] == -1) { break; }
+            glVertex2f(corners_[Board->p1MillArr[i][j]].first, corners_[Board->p1MillArr[i][j]].second);
+
+        }
+    }
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            if (Board->p2MillArr[i][j] == -1) { break; }
+            glVertex2f(corners_[Board->p2MillArr[i][j]].first, corners_[Board->p2MillArr[i][j]].second);
+
+        }
+    }
+    
+
+    glEnd();
+    glFlush();
+
+    //to highlight removable pieces in purple
+    glPointSize(22.0);
+    glBegin(GL_POINTS);
+    glColor3f(.7, 0, .7);
+    for (int i = 0; i < 24; i++)
+    {
+        
+        if (!Board->boardSpaces[i]->isEmpty() && ((Board->destroyMode == 1 && Board->boardSpaces[i]->isPlayerTwo() && !Board->isInP2MillArr(i)) || (Board->destroyMode == 2 && Board->boardSpaces[i]->isPlayerOne() && !Board->isInP1MillArr(i))))
+        {
+            glVertex2f(corners_[i].first, corners_[i].second);
+        }
+        else if (!Board->boardSpaces[i]->isEmpty() && ((Board->destroyMode == 1 && Board->boardSpaces[i]->isPlayerTwo() && Board->allActiveP2InMill()) || (Board->destroyMode == 2 && Board->boardSpaces[i]->isPlayerOne() && Board->allActiveP1InMill())))
+        {
+            glVertex2f(corners_[i].first, corners_[i].second);
+        }
+        
+    }
+
+
+    glEnd();
+    glFlush();
+
+    //to highlight selected piece in green
+    if (Board->selected != -1)
+    {
+        glPointSize(20.0);
+        glBegin(GL_POINTS);
+        glColor3f(0, 0.8, 0);
+
+        glVertex2f(corners_[Board->selected].first, corners_[Board->selected].second);
+
+        glEnd();
+        glFlush();
     }
 
     glPointSize(15.0);
     glBegin(GL_POINTS);
 
-  
     for (int i = 0; i < corners_.size(); i++) {
         state = Board->boardSpaces[i];
+        
         if (state->isEmpty()) 
         {
-            glColor3f(.8, .8, .8);
+            glColor3f(0.8, 0.8, 0.8);
         } 
         else if (state->isPlayerOne()) {
             glColor3f(1, 0, 0);

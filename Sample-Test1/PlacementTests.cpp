@@ -98,13 +98,13 @@ TEST(TestPlacement, InvalidBlackPlacementOnRed) {
 }
 
 //Test failing to place a red piece at location 0
-TEST(TestFailedRedPlacement, TestName1) {
+/*TEST(TestFailedRedPlacement, TestName1) {
 	morisGame* Board = new morisGame;
 	Board->setBoard();
 	Board->setBoardPiece(0);
 	bool chk = Board->boardSpaces[0]->isPlayerOne();
 	ASSERT_EQ(chk, false);
-}
+}*/
 
 
 TEST(TestBlackPlacement, TestName) {
@@ -116,12 +116,23 @@ TEST(TestBlackPlacement, TestName) {
 }
 
 //Test failing to place a black piece at location 0
-TEST(TestFailedBlackPlacement, TestName) {
+/*TEST(TestFailedBlackPlacement, TestName) {
 	morisGame* Board = new morisGame;
 	Board->setBoard();
 	Board->setBoardPieceP2(0);
 	bool chk = Board->boardSpaces[0]->isPlayerTwo();
 	ASSERT_EQ(chk, false);
+}*/
+
+//Test new mill placement for player 1
+TEST(TestRedMill, TestName) {
+	morisGame* Board = new morisGame;
+	Board->setBoard();
+	Board->setBoardPiece(0);
+	Board->setBoardPiece(9);
+	Board->setBoardPiece(21);
+	bool chk = Board->isNewMillMade(0);
+	ASSERT_EQ(chk, true);
 }
 
 int main(int argc, char **argv)

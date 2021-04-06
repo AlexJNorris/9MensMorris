@@ -37,8 +37,8 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Program Files\Common Files\freeglut\vcpkg\vcpkg\installed\x86-windows\include;C:\Program Files\Common Files\freeglut\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files\ Common Files\freeglut\vcpkg\vcpkg\installed\x86-windows\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\alexn\source\repos\9MensMorris\Debug;C:\Program Files\Common Files\freeglut\vcpkg\vcpkg\installed\x86-windows\include;C:\Program Files\Common Files\freeglut\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\alexn\source\repos\9MensMorris\Debug;C:\Users\alexn\source\repos\9MensMorris\Debug;C:\Program Files\ Common Files\freeglut\vcpkg\vcpkg\installed\x86-windows\lib;$(LibraryPath)</LibraryPath>
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -101,13 +101,14 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>C:\Program Files\Common Files\MSVC\freeglut\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Users\alexn\source\repos\9MensMorris\Debug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SDLCheck>false</SDLCheck>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>C:\Program Files\Common Files\MSVC\freeglut\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\alexn\source\repos\9MensMorris\Debug;C:\Users\alexn\source\repos\9MensMorris\Debug;C:\Program Files\Common Files\MSVC\freeglut\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IncrementalLinkDatabaseFile>C:\Users\alexn\source\repos\9MensMorris\Debug;&lt;different options&gt;</IncrementalLinkDatabaseFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
