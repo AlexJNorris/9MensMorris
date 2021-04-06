@@ -75,13 +75,23 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
+<<<<<<< Updated upstream
       <AdditionalIncludeDirectories>C:\Program Files\Common Files\MSVC\freeglut\include;D:\UMKC\449\9MensMorris\9MensMorris;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+=======
+      <AdditionalIncludeDirectories>C:\Program Files\Common Files\MSVC\freeglut\include;C:\Users\alexn\source\repos\9MensMorris\Debug;D:\UMKC\449\9MensMorris\9MensMorris;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SDLCheck>false</SDLCheck>
+>>>>>>> Stashed changes
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>freeglut.lib;opengl32.lib;9MensMorris.lib;%(AdditionalDependencies)</AdditionalDependencies>
+<<<<<<< Updated upstream
       <AdditionalLibraryDirectories>C:\Program Files\Common Files\freeglut\lib;C:\Users\alexn\source\repos\9MensMorris\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+=======
+      <AdditionalLibraryDirectories>C:\Program Files\Common Files\MSVC\freeglut\lib;C:\Users\colar\Documents\GitHub\9MensMorris\Debug;C:\Program Files\Common Files\freeglut\lib;C:\Users\alexn\source\repos\9MensMorris\Debug;D:\UMKC\449\9MensMorris\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IncrementalLinkDatabaseFile>C:\Users\alexn\source\repos\9MensMorris\Debug;&lt;different options&gt;</IncrementalLinkDatabaseFile>
+>>>>>>> Stashed changes
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
