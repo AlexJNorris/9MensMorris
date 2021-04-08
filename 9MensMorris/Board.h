@@ -117,7 +117,7 @@ public:
 	bool isAdjacentToSelected(int pos);
 	void removePiece(int num);
 	void moveSelectedToPos(int pos);
-	void isMillBroken(int playerNum);
+	bool isMillBroken(int playerNum);
 	bool allActiveP1InMill();
 	bool allActiveP2InMill();
 	void manageGame(int pos_);
@@ -140,7 +140,7 @@ public:
 	int verticle1[24] = { 0, 1, 2, 3,1, 5, 6,1, 8, 0, 3, 6, 8, 5, 2, 6,16, 8, 3,16, 5, 0,16, 2 };  //holds the top most space needed to make a mill with the target space
 	int verticle2[24] = { 9, 4,14,10,4,13,11,4,12, 9,10,11,12,13,14,11,19,12,10,19,13, 9,19,14 }; //holds the  middle most space needed to form a verticle mill with the target space
 	int verticle3[24] = { 21,7,23,18,7,20,15,7,17,21,18,15,17,20,23,15,22,17,18,22,20,21,22,23 }; //holds the bottom most space needed to form a mill with the target space. 
-	int horz1[24] = { 0,0,0,3,3,3,6,6,6,9,9,9,12,12,12,15,15,15,18,18,18,21,21,21 }; //holds leftmost space needed to make a mill with the target node
+	int horz1[24] = { 0,0,0,3,3,3,6,6,6, 9, 9, 9,12,12,12,15,15,15,18,18,18,21,21,21 }; //holds leftmost space needed to make a mill with the target node
 	int horz2[24] = { 1,1,1,4,4,4,7,7,7,10,10,10,13,13,13,16,16,16,19,19,19,22,22,22 }; // holds the middle space needed to make a horizontal mill with the target
 	int horz3[24] = { 2,2,2,5,5,5,8,8,8,11,11,11,14,14,14,17,17,17,20,20,20,23,23,23 };//holds the right most space needed to make a mill with the target. 
 

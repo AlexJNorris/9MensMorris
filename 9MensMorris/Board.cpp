@@ -521,7 +521,7 @@ int removeDuplicates(vector<int> arr, int n)
 		boardSpaces[selected]->placedToken = NULL;
 		selected = -1;
 	}
-	void morisGame::isMillBroken(int playerNum) {
+	bool morisGame::isMillBroken(int playerNum) {
 		int millCnt = 0;
 		int removedMill = -1;
 		bool cornBoolio = false;
@@ -601,6 +601,7 @@ int removeDuplicates(vector<int> arr, int n)
 				}
 			}
 		}
+		return cornBoolio;
 		
 	}
 	bool morisGame::allActiveP1InMill() {

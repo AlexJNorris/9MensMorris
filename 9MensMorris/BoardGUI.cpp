@@ -182,9 +182,13 @@ void drawNMMBoard(morisGame* Board)
             if (Board->destroyMode != 0) {
                 print(516, 464, "Remove Enemy Piece", .5);
             }
-            else
+            else if (Board->toBePlacedP2.size() != 0)
             {
                 print(540, 464, "Place Piece", .5);
+            }
+            else
+            {
+                print(540, 464, "Move Piece", .5);
             }
         }
         else
@@ -194,9 +198,13 @@ void drawNMMBoard(morisGame* Board)
             if (Board->destroyMode != 0) {
                 print(516, 464, "Remove Enemy Piece", .5);
             }
-            else
+            else if (Board->toBePlacedP2.size() != 0)
             {
                 print(540, 464, "Place Piece", .5);
+            }
+            else
+            {
+                print(540, 464, "Move Piece", .5);
             }
         }
     }
