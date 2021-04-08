@@ -86,7 +86,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>freeglut.lib;opengl32.lib;9MensMorris.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Program Files\Common Files\freeglut\lib;C:\Users\alexn\source\repos\9MensMorris\Debug;D:\UMKC\449\9MensMorris\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files\Common Files\MSVC\freeglut\lib;D:\UMKC\449 Software Engineering\9MensMorris\Debug</AdditionalLibraryDirectories>
       <IncrementalLinkDatabaseFile>C:\Users\alexn\source\repos\9MensMorris\Debug;&lt;different options&gt;</IncrementalLinkDatabaseFile>
     </Link>
   </ItemDefinitionGroup>
@@ -125,7 +125,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <AdditionalDependencies>freeglut.lib;opengl32.lib;9MensMorris.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Program Files\Common Files\MSVC\freeglut\lib;D:\UMKC\449\9MensMorris\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files\Common Files\MSVC\freeglut\lib;D:\UMKC\449 Software Engineering\9MensMorris\Debug</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

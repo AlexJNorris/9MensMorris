@@ -213,15 +213,15 @@ TEST(PlayerTurn, Player1) {
 
 				//AC 3.5 Test placing a black piece on location out of range
 				//Test should cause an exception to be thrown since placement is out of range
-				/*TEST(TestPlacement, InvalidBlackPlacement) {
+				TEST(TestPlacement, InvalidBlackPlacement) {
 					morisGame* Board = new morisGame;
 					Board->setBoard();
 					Board->setBoardPiece(0);
 					Board->turns++;
-					Board->setBoardPieceP2(-1);
+					EXPECT_ANY_THROW(Board->setBoardPieceP2(-1););
 					int playerNum = (Board->getTurn() % 2);
 					ASSERT_EQ(playerNum, 1);
-				}*/
+				}
 
 				//AC 3.6 Test placing a black piece on a red piece
 				//The placement should not be made, and will contunie being player 2's turn.
@@ -286,15 +286,16 @@ TEST(PlayerTurn, Player1) {
 
 				//AC 4.4 Unsuccessfully move a red piece to an invalid location
 				//Test should cause an exception to be thrown since location to move to is out of range
-				/*TEST(PieceMovement, InvalidRedMovement) {
+				TEST(PieceMovement, InvalidRedMovement) {
 					morisGame* Board = new morisGame;
 					Board->setBoard();
 					Board->setBoardPiece(0);
 					bool chk = Board->boardSpaces[0]->isPlayerOne();
-					EXPECT_EQ(chk, true);
+					//(chk, true);
 					Board->selected = 0;
-					Board->moveSelectedToPos(-1);
-				}*/
+
+					EXPECT_ANY_THROW(Board->moveSelectedToPos(-1));
+				}
 
 				//AC 4.5 Unsuccessfully move a red piece to a location occupied by a black piece
 				//Piece should not move from the original position and blacks piece will not change
