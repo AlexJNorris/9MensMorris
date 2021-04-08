@@ -193,7 +193,14 @@ TEST(TestRedPlacement, TestName) {
 		bool chk = Board->isNewMillMade(0);
 		ASSERT_EQ(chk, true);
 	}
-
+	TEST(PieceRemoval, Removal) {
+		morisGame* Board = new morisGame;
+		Board->setBoard();
+		Board->setBoardPiece(1);
+		Board->removePiece(1);
+		bool chk = Board->boardSpaces[1]->isEmpty();
+		EXPECT_EQ(chk, true);
+	}
 	int main(int argc, char** argv)
 	{
 		::testing::InitGoogleTest(&argc, argv);
