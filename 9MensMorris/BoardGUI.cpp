@@ -202,14 +202,16 @@ void drawNMMBoard(morisGame* Board)
     }
     else
     {
-        glColor3f(0, 0, 0);
-        print(274, 464, "Game Over", .8);
         if (Board->activePlayer1.size() >= 3) 
         {
+            glColor3f(1, 0, 0);
+            print(274, 464, "Game Over", .8);
             print(516, 464, "Player 1 Wins", .5);
         }
         else if (Board->activePlayer2.size() >= 3) 
         {
+            glColor3f(0, 0, 0);
+            print(274, 464, "Game Over", .8);
             print(516, 464, "Player 2 Wins", .5);
         }
     }
