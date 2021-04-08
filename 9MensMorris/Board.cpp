@@ -188,6 +188,8 @@ int removeDuplicates(vector<int> arr, int n)
 		destroyMode = 0;
 		selected = -1;
 
+		validEnd = false;
+
 		for (int i = 0; i < 3; i++)
 		{
 			for (int j = 0; j < 3; j++)
@@ -324,11 +326,15 @@ int removeDuplicates(vector<int> arr, int n)
 	}
 	void morisGame::setBoardPieceP2(int xy)
 	{
-		boardSpace* space = boardSpaces[xy];
-
-		space->placedToken = toBePlacedP2.back();
-		activePlayer2.push_back(space->placedToken);
-		toBePlacedP2.pop_back();
+		if (xy < 0)
+			throw out_of_range("out of range");
+		else
+		{
+			boardSpace* space = boardSpaces[xy];
+			space->placedToken = toBePlacedP2.back();
+			activePlayer2.push_back(space->placedToken);
+			toBePlacedP2.pop_back();
+		}
 	}
 	bool morisGame::getGameOver()
 	{
@@ -517,9 +523,15 @@ int removeDuplicates(vector<int> arr, int n)
 		}
 	}
 	void morisGame::moveSelectedToPos(int pos) {
-		boardSpaces[pos]->placedToken = boardSpaces[selected]->getToken();
-		boardSpaces[selected]->placedToken = NULL;
-		selected = -1;
+		if (pos == -1)
+			throw out_of_range("out of range");
+		else
+		{
+			boardSpaces[pos]->placedToken = boardSpaces[selected]->getToken();
+
+			boardSpaces[selected]->placedToken = NULL;
+			selected = -1;
+		}
 	}
 	bool morisGame::isMillBroken(int playerNum) {
 		int millCnt = 0;
@@ -706,6 +718,10 @@ int removeDuplicates(vector<int> arr, int n)
 								}
 								else
 								{
+									if (toBePlacedP2.size() == 0)
+									{
+										noValidMoves();
+									}
 									turns++;
 								}
 								if (toBePlacedP2.size() == 0)
@@ -760,6 +776,7 @@ int removeDuplicates(vector<int> arr, int n)
 										turns++;
 									}
 									isMillBroken(playerNum);
+
 								}
 							}
 							else if (boardSpaces[pos_]->isPlayerTwo() && !boardSpaces[pos_]->isEmpty())
@@ -784,6 +801,7 @@ int removeDuplicates(vector<int> arr, int n)
 									turns++;
 								}
 								isMillBroken(playerNum);
+
 							}
 						}
 						else if (playerNum == 1)
@@ -800,9 +818,11 @@ int removeDuplicates(vector<int> arr, int n)
 									turns++;
 								}
 								isMillBroken(playerNum);
+
 							}
 						}
 					}
+
 				}
 			}
 			else if ((!boardSpaces[pos_]->isEmpty() && destroyMode == 1 && boardSpaces[pos_]->isPlayerTwo() && !isInP2MillArr(pos_)) || (!boardSpaces[pos_]->isEmpty() && destroyMode == 2 && boardSpaces[pos_]->isPlayerOne() && !isInP1MillArr(pos_)))
@@ -817,6 +837,7 @@ int removeDuplicates(vector<int> arr, int n)
 				{
 					turns++;
 				}
+
 			}
 			else if ((!boardSpaces[pos_]->isEmpty() && destroyMode == 1 && boardSpaces[pos_]->isPlayerTwo() && allActiveP2InMill()) || (!boardSpaces[pos_]->isEmpty() && destroyMode == 2 && boardSpaces[pos_]->isPlayerOne() && allActiveP1InMill()))
 			{
@@ -831,11 +852,60 @@ int removeDuplicates(vector<int> arr, int n)
 				{
 					turns++;
 				}
+
 			}
 		}
 		else if (pos_ == 25)
 		{
 		setBoard();
+		}
+	}
+	void morisGame::noValidMoves() {
+		int playerNum = turns % 2;
+		int validMove = 0;
+		if (playerNum == 0)
+		{
+			for (int i = 0; i < 24; i++)
+			{
+				if (boardSpaces[i]->isPlayerOne() && !boardSpaces[i]->isEmpty())
+				{
+					if (boardSpaces[adj1[i]]->isEmpty()) { validMove++; }
+					if (boardSpaces[adj2[i]]->isEmpty()) { validMove++; }
+					if (adj3[i] != -1)
+					{
+						if (boardSpaces[adj3[i]]->isEmpty()) { validMove++; }
+					}
+					if (adj4[i] != -1)
+					{
+						if (boardSpaces[adj4[i]]->isEmpty()) { validMove++; }
+					}
+				}
+			}
+		}
+		else
+		{
+			for (int i = 0; i < 24; i++)
+			{
+				if (boardSpaces[i]->isPlayerTwo() && !boardSpaces[i]->isEmpty())
+				{
+					if (boardSpaces[adj1[i]]->isEmpty()) { validMove++; }
+					if (boardSpaces[adj2[i]]->isEmpty()) { validMove++; }
+					if (adj3[i] != -1)
+					{
+						if (boardSpaces[adj3[i]]->isEmpty()) { validMove++; }
+					}
+					if (adj4[i] != -1)
+					{
+						if (boardSpaces[adj4[i]]->isEmpty()) { validMove++; }
+					}
+				}
+			}
+		}
+		if (validMove == 0)
+		{
+			turns++;
+			validEnd = true;
+			gameOver = true;
 		}
 	}
 	

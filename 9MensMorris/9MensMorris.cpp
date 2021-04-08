@@ -29,6 +29,10 @@ void mouse(int button, int state, int x, int y) {
         cout << x << ", " << y << endl;
         pos_ = get(x, y);
         Board->manageGame(pos_);
+        if (Board->toBePlacedP2.size() == 0 && ((Board->activePlayer1.size() >= 4) || (Board->activePlayer2.size() >= 4)))
+        {
+            Board->noValidMoves();
+        }
     }
 }
 // main function    

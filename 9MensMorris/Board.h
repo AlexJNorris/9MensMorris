@@ -121,8 +121,11 @@ public:
 	bool allActiveP1InMill();
 	bool allActiveP2InMill();
 	void manageGame(int pos_);
+	void noValidMoves();
 
 	bool gameOver;
+
+	bool validEnd;
 
 	int destroyMode; //0 = off; 1 = player 1 removes a piece; 2 = player 2 removes a piece;
 
