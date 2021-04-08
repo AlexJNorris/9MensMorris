@@ -523,15 +523,9 @@ int removeDuplicates(vector<int> arr, int n)
 		}
 	}
 	void morisGame::moveSelectedToPos(int pos) {
-		if (pos == -1)
-			throw out_of_range("out of range");
-		else
-		{
-			boardSpaces[pos]->placedToken = boardSpaces[selected]->getToken();
-
-			boardSpaces[selected]->placedToken = NULL;
-			selected = -1;
-		}
+		boardSpaces[pos]->placedToken = boardSpaces[selected]->getToken();
+		boardSpaces[selected]->placedToken = NULL;
+		selected = -1;
 	}
 	bool morisGame::isMillBroken(int playerNum) {
 		int millCnt = 0;
