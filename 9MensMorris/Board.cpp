@@ -674,7 +674,7 @@ int removeDuplicates(vector<int> arr, int n)
 		int playerNum = (getTurn() % 2);
 		//  cout << "  " << pos_ << endl;
 
-		if (pos_ < 24 && pos_ >= 0)
+		if (pos_ < 24 && pos_ >= 0 && gameOver == false)
 		{
 			if (destroyMode == 0)
 			{
@@ -722,14 +722,46 @@ int removeDuplicates(vector<int> arr, int n)
 					{
 						if (playerNum == 0)
 						{
-							if (boardSpaces[pos_]->isPlayerOne() && !boardSpaces[pos_]->isEmpty())
+							if (activePlayer1.size() < 4 && (selected != -1))
+							{
+								if (boardSpaces[pos_]->isEmpty())
+								{
+									moveSelectedToPos(pos_);
+									if (isNewMillMade(playerNum))
+									{
+										destroyMode = 1;
+									}
+									else
+									{
+										turns++;
+									}
+									isMillBroken(playerNum);
+								}
+							}
+							else if (boardSpaces[pos_]->isPlayerOne() && !boardSpaces[pos_]->isEmpty())
 							{
 								selected = pos_;
 							}
 						}
 						else if (playerNum == 1)
 						{
-							if (boardSpaces[pos_]->isPlayerTwo() && !boardSpaces[pos_]->isEmpty())
+							if (activePlayer2.size() < 4 && (selected != -1))
+							{
+								if (boardSpaces[pos_]->isEmpty())
+								{
+									moveSelectedToPos(pos_);
+									if (isNewMillMade(playerNum))
+									{
+										destroyMode = 2;
+									}
+									else
+									{
+										turns++;
+									}
+									isMillBroken(playerNum);
+								}
+							}
+							else if (boardSpaces[pos_]->isPlayerTwo() && !boardSpaces[pos_]->isEmpty())
 							{
 								selected = pos_;
 							}
@@ -772,32 +804,32 @@ int removeDuplicates(vector<int> arr, int n)
 					}
 				}
 			}
-			else if (!boardSpaces[pos_]->isEmpty() && destroyMode == 1 && boardSpaces[pos_]->isPlayerTwo() && !isInP2MillArr(pos_))
+			else if ((!boardSpaces[pos_]->isEmpty() && destroyMode == 1 && boardSpaces[pos_]->isPlayerTwo() && !isInP2MillArr(pos_)) || (!boardSpaces[pos_]->isEmpty() && destroyMode == 2 && boardSpaces[pos_]->isPlayerOne() && !isInP1MillArr(pos_)))
 			{
 				removePiece(pos_);
-				turns++;
 				destroyMode = 0;
+				if ((activePlayer1.size() < 3 && toBePlacedP1.size() == 0) || (activePlayer2.size() < 3 && toBePlacedP2.size() == 0))
+				{
+					gameOver = true;
+				}
+				else
+				{
+					turns++;
+				}
 			}
-			else if (!boardSpaces[pos_]->isEmpty() && destroyMode == 1 && boardSpaces[pos_]->isPlayerTwo() && allActiveP2InMill())
+			else if ((!boardSpaces[pos_]->isEmpty() && destroyMode == 1 && boardSpaces[pos_]->isPlayerTwo() && allActiveP2InMill()) || (!boardSpaces[pos_]->isEmpty() && destroyMode == 2 && boardSpaces[pos_]->isPlayerOne() && allActiveP1InMill()))
 			{
 				removePiece(pos_);
-				turns++;
 				isMillBroken((turns % 2));
 				destroyMode = 0;
-			}
-			else if (!boardSpaces[pos_]->isEmpty() && destroyMode == 2 && boardSpaces[pos_]->isPlayerOne() && !isInP1MillArr(pos_))
-			{
-				removePiece(pos_);
-				turns++;
-				destroyMode = 0;
-			}
-			else if (!boardSpaces[pos_]->isEmpty() && destroyMode == 2 && boardSpaces[pos_]->isPlayerOne() && allActiveP1InMill())
-			{
-				removePiece(pos_);
-				turns++;
-
-				isMillBroken((turns % 2));
-				destroyMode = 0;
+				if ((activePlayer1.size() < 3 && toBePlacedP1.size() == 0)|| (activePlayer2.size() < 3 && toBePlacedP2.size() == 0))
+				{
+					gameOver = true;
+				}
+				else
+				{
+					turns++;
+				}
 			}
 		}
 		else if (pos_ == 25)

@@ -174,28 +174,43 @@ void drawNMMBoard(morisGame* Board)
         print(460, 50, "P2's Pieces Left: " + to_string(Board->activePlayer2.size()), .5);
 
     }
-
-    if (Board->getTurn() == 0) {
-        glColor3f(1, 0, 0);
-        print(274, 464, "Player 1's Turn", .8);
-        if (Board->destroyMode != 0) {
-            print(516, 464, "Remove Enemy Piece", .5);
+    if (Board->gameOver == false)
+    {
+        if (Board->getTurn() == 0) {
+            glColor3f(1, 0, 0);
+            print(274, 464, "Player 1's Turn", .8);
+            if (Board->destroyMode != 0) {
+                print(516, 464, "Remove Enemy Piece", .5);
+            }
+            else
+            {
+                print(540, 464, "Place Piece", .5);
+            }
         }
         else
         {
-            print(540, 464, "Place Piece", .5);
+            glColor3f(0, 0, 0);
+            print(274, 464, "Player 2's Turn", .8);
+            if (Board->destroyMode != 0) {
+                print(516, 464, "Remove Enemy Piece", .5);
+            }
+            else
+            {
+                print(540, 464, "Place Piece", .5);
+            }
         }
     }
     else
     {
         glColor3f(0, 0, 0);
-        print(274, 464, "Player 2's Turn", .8);
-        if (Board->destroyMode != 0) {
-            print(516, 464, "Remove Enemy Piece", .5);
-        }
-        else
+        print(274, 464, "Game Over", .8);
+        if (Board->activePlayer1.size() >= 3) 
         {
-            print(540, 464, "Place Piece", .5);
+            print(516, 464, "Player 1 Wins", .5);
+        }
+        else if (Board->activePlayer2.size() >= 3) 
+        {
+            print(516, 464, "Player 2 Wins", .5);
         }
     }
 
