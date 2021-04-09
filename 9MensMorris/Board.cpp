@@ -250,12 +250,6 @@ int removeDuplicates(vector<int> arr, int n)
 		for (int i = 0; i < 24; i++) //adds the information to the space. 
 		{
 			boardSpace* space = boardSpaces[i];
-			space->addAdjacent(boardSpaces[adj1[i]]);
-			space->addAdjacent(boardSpaces[adj2[i]]);
-			if (adj3[i] >= 0)//checks to make sure that space actually has a 3rd or 4th adjacency instead of just 2. 
-				space->addAdjacent(boardSpaces[adj3[i]]);
-			if (adj4[i] >= 0)
-				space->addAdjacent(boardSpaces[adj4[i]]);
 
 			space->addVerticle(boardSpaces[verticle1[i]]);
 			space->addVerticle(boardSpaces[verticle2[i]]);
@@ -354,7 +348,6 @@ int removeDuplicates(vector<int> arr, int n)
 		int vertChk;
 		int horChk;
 		int newMill[3] = { -1,-1,-1 };
-
 		for (int i = 0; i < boardSpaces.size(); i++) {
 			vertChk = 0;
 			horChk = 0;
@@ -453,6 +446,7 @@ int removeDuplicates(vector<int> arr, int n)
 					{
 						p1MillArr[i][j] = Arr[j];
 					}
+
 					return true;
 				}
 			}
@@ -476,9 +470,11 @@ int removeDuplicates(vector<int> arr, int n)
 					{
 						p2MillArr[i][j] = Arr[j];
 					}
+
 					return true;
 				}
 			}
+
 			return false;
 		}
 	}
@@ -556,6 +552,7 @@ int removeDuplicates(vector<int> arr, int n)
 		int millCnt = 0;
 		int removedMill = -1;
 		bool cornBoolio = false;
+
 		if (playerNum == 0)
 		{
 			for (int i = 0; i < 3; i++)
@@ -577,7 +574,8 @@ int removeDuplicates(vector<int> arr, int n)
 				}
 			}
 		}
-		else
+
+		else if (playerNum == 1)
 		{
 			for (int i = 0; i < 3; i++)
 			{
@@ -597,6 +595,7 @@ int removeDuplicates(vector<int> arr, int n)
 				}
 			}
 		}
+
 		if (cornBoolio == true) {
 			if (playerNum == 0)
 			{
@@ -608,12 +607,14 @@ int removeDuplicates(vector<int> arr, int n)
 							p1MillArr[i][1] = p1MillArr[i + 1][1];
 							p1MillArr[i][2] = p1MillArr[i + 1][2];
 					}
-						p1MillArr[millCnt][0] = -1;
-						p1MillArr[millCnt][1] = -1;
-						p1MillArr[millCnt][2] = -1;
+
+						p1MillArr[millCnt-1][0] = -1;
+						p1MillArr[millCnt-1][1] = -1;
+						p1MillArr[millCnt-1][2] = -1;
 				}
 			}
-			else
+
+			else if (playerNum == 1)
 			{
 				if (!(millCnt == removedMill))
 				{
@@ -625,13 +626,15 @@ int removeDuplicates(vector<int> arr, int n)
 						p2MillArr[i][2] = p2MillArr[i + 1][2];
 					
 					}
-					p2MillArr[millCnt][0] = -1;
-					p2MillArr[millCnt][1] = -1;
-					p2MillArr[millCnt][2] = -1;
+
+					p2MillArr[millCnt-1][0] = -1;
+					p2MillArr[millCnt-1][1] = -1;
+					p2MillArr[millCnt-1][2] = -1;
 					
 				}
 			}
 		}
+
 		return cornBoolio;
 		
 	}
@@ -811,6 +814,7 @@ int removeDuplicates(vector<int> arr, int n)
 							if (boardSpaces[pos_]->isEmpty())
 							{
 								moveSelectedToPos(pos_);
+
 								if (isNewMillMade(playerNum))
 								{
 									destroyMode = 1;
@@ -819,8 +823,8 @@ int removeDuplicates(vector<int> arr, int n)
 								{
 									turns++;
 								}
-								isMillBroken(playerNum);
 
+								isMillBroken(playerNum);
 							}
 						}
 						else if (playerNum == 1)
@@ -828,6 +832,7 @@ int removeDuplicates(vector<int> arr, int n)
 							if (boardSpaces[pos_]->isEmpty())
 							{
 								moveSelectedToPos(pos_);
+
 								if (isNewMillMade(playerNum))
 								{
 									destroyMode = 2;
@@ -836,8 +841,8 @@ int removeDuplicates(vector<int> arr, int n)
 								{
 									turns++;
 								}
-								isMillBroken(playerNum);
 
+								isMillBroken(playerNum);
 							}
 						}
 					}
@@ -870,6 +875,7 @@ int removeDuplicates(vector<int> arr, int n)
 				else
 				{
 					turns++;
+					isMillBroken((turns % 2));
 				}
 
 			}
@@ -888,8 +894,14 @@ int removeDuplicates(vector<int> arr, int n)
 			{
 				if (boardSpaces[i]->isPlayerOne() && !boardSpaces[i]->isEmpty())
 				{
-					if (boardSpaces[adj1[i]]->isEmpty()) { validMove++; }
-					if (boardSpaces[adj2[i]]->isEmpty()) { validMove++; }
+					if (adj1[i] != -1)
+					{
+						if (boardSpaces[adj1[i]]->isEmpty()) { validMove++; }
+					}
+					if (adj2[i] != -1)
+					{
+						if (boardSpaces[adj2[i]]->isEmpty()) { validMove++; }
+					}
 					if (adj3[i] != -1)
 					{
 						if (boardSpaces[adj3[i]]->isEmpty()) { validMove++; }
@@ -907,8 +919,14 @@ int removeDuplicates(vector<int> arr, int n)
 			{
 				if (boardSpaces[i]->isPlayerTwo() && !boardSpaces[i]->isEmpty())
 				{
-					if (boardSpaces[adj1[i]]->isEmpty()) { validMove++; }
-					if (boardSpaces[adj2[i]]->isEmpty()) { validMove++; }
+					if (adj1[i] != -1)
+					{
+						if (boardSpaces[adj1[i]]->isEmpty()) { validMove++; }
+					}
+					if (adj2[i] != -1)
+					{
+						if (boardSpaces[adj2[i]]->isEmpty()) { validMove++; }
+					}
 					if (adj3[i] != -1)
 					{
 						if (boardSpaces[adj3[i]]->isEmpty()) { validMove++; }

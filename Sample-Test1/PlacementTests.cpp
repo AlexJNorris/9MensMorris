@@ -464,6 +464,28 @@ TEST(Removal, InvalidBlackRemovalByBlack) {
 	ASSERT_NE(chk, false);
 }
 
+//AC 7.1 and 7.3 Distinguish red piece
+TEST(Distinguish, DistinguishRed) {
+	morisGame* Board = new morisGame;
+	Board->setBoard();
+	Board->setBoardPiece(0);
+	bool chk = Board->boardSpaces[0]->isPlayerOne();
+	EXPECT_EQ(chk, true);
+	chk = Board->boardSpaces[0]->isPlayerTwo();
+	EXPECT_EQ(chk, false);
+
+}
+//AC 7.2 and 7.4 Distinguish black piece
+TEST(Distinguish, DistinguishBlack) {
+	morisGame* Board = new morisGame;
+	Board->setBoard();
+	Board->setBoardPieceP2(0);
+	bool chk = Board->boardSpaces[0]->isPlayerTwo();
+	EXPECT_EQ(chk, true);
+	chk = Board->boardSpaces[0]->isPlayerOne();
+	EXPECT_EQ(chk, false);
+}
+
 //Test failing to place a red piece at location 0
 /*TEST(TestFailedRedPlacement, TestName1) {
 	morisGame* Board = new morisGame;
