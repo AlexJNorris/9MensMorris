@@ -318,11 +318,18 @@ int removeDuplicates(vector<int> arr, int n)
 	}
 	void morisGame::setBoardPiece(int xy)
 	{
-		boardSpace* space = boardSpaces[xy];
+		if (xy < 0 || boardSpaces.size() == 0)
+			throw out_of_range("out of range");
 
-		space->placedToken = toBePlacedP1.back();
-		activePlayer1.push_back(space->placedToken);
-		toBePlacedP1.pop_back();
+		else
+		{
+			boardSpace* space = boardSpaces[xy];
+
+			space->placedToken = toBePlacedP1.back();
+			activePlayer1.push_back(space->placedToken);
+			toBePlacedP1.pop_back();
+		}
+		
 	}
 	void morisGame::setBoardPieceP2(int xy)
 	{
@@ -511,15 +518,27 @@ int removeDuplicates(vector<int> arr, int n)
 		
 		if (space->isPlayerOne())
 		{
-			removedPlayer1.push_back(space->getToken());
-			activePlayer1.pop_back();
-			space->placedToken = NULL;
+			if (activePlayer1.size() == 0)
+				throw out_of_range("out of range");
+			else
+			{
+				removedPlayer1.push_back(space->getToken());
+				activePlayer1.pop_back();
+				space->placedToken = NULL;
+			}
+			
 		}
 		else
 		{
-			removedPlayer2.push_back(space->getToken());
-			activePlayer2.pop_back();
-			space->placedToken = NULL;
+			if (activePlayer2.size() == 0)
+				throw out_of_range("out of range");
+			else
+			{
+				removedPlayer2.push_back(space->getToken());
+				activePlayer2.pop_back();
+				space->placedToken = NULL;
+			}
+			
 		}
 	}
 	void morisGame::moveSelectedToPos(int pos) {

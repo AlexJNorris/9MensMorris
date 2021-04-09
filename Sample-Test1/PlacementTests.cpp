@@ -46,6 +46,23 @@ TEST(PlayerTurn, SkipPlayer2) {
 	ASSERT_NE(playerNum, 1);
 }
 
+//AC 2.1 Successfully create game and should be player 1's turn
+TEST(GameboardCreation, Successful) {
+	morisGame* Board = new morisGame;
+	Board->setBoard();
+	int playerNum = (Board->getTurn() % 2);
+	ASSERT_EQ(playerNum, 0);
+}
+
+//AC 2.2 Unsuccessfully create new game
+//Test should cause an exception to be thrown since the game board was unsuccessfully created.
+TEST(GameboardCreation, Unsuccessful) {
+	morisGame* Board = new morisGame;
+	ASSERT_ANY_THROW(Board->setBoardPiece(0););
+	int playerNum = (Board->getTurn() % 2);
+	ASSERT_NE(playerNum, 0);
+}
+
 
 //AC 3.1 Test placing a red piece at location 0
 //After succesful placement should be Player 2's turn
@@ -78,13 +95,13 @@ TEST(TestPlacement, BlackPlacement) {
 
 //AC 3.3 Test placing a red piece on location out of range
 //Test should cause an exception to be trown since placement is out of range
-/*TEST(TestPlacement, InvalidRedPlacement) {
+TEST(TestPlacement, InvalidRedPlacement) {
 	morisGame* Board = new morisGame;
 	Board->setBoard();
-	Board->setBoardPiece(-1);
+	ASSERT_ANY_THROW(Board->setBoardPiece(-1););
 	int playerNum = (Board->getTurn() % 2);
 	ASSERT_EQ(playerNum, 0);
-}*/
+}
 
 //AC 3.4 Test placing a red piece on a black piece
 //The placement should not be made, and will contunie being player 1's turn.
@@ -112,47 +129,17 @@ TEST(TestPlacement, InvalidRedPlacementOnBlack) {
 
 }
 
-//AC 2.1 Successfully create game and should be player 1's turn
-TEST(GameboardCreation, Successful) {
-	morisGame* Board = new morisGame;
-	Board->setBoard();
-	int playerNum = (Board->getTurn() % 2);
-	ASSERT_EQ(playerNum, 0);
-}
-
-//AC 2.2 Unsuccessfully create new game
-//Test should cause an exception to be thrown since the game board was unsuccessfully created.
-/*TEST(GameboardCreation, Unsuccessful) {
-	morisGame* Board = new morisGame;
-	Board->setBoardPiece(0);
-	int playerNum = (Board->getTurn() % 2);
-	ASSERT_NE(playerNum, 0);
-}*/
-
-//AC 3.1 Test placing a red piece at location 0
-//After succesful placement should be Player 2's turn
-TEST(TestPlacement, RedPlacement2) {
-	morisGame* Board = new morisGame;
-	Board->setBoard();
-	Board->setBoardPiece(0);
-	bool chk = Board->boardSpaces[0]->isPlayerOne();
-	EXPECT_EQ(chk, true);
-	Board->turns++;
-	int playerNum = (Board->getTurn() % 2);
-	ASSERT_EQ(playerNum, 1);
-}
-
 //AC 3.5 Test placing a black piece on location out of range
 //Test should cause an exception to be trown since placement is out of range
-/*TEST(TestPlacement, InvalidBlackPlacement) {
+TEST(TestPlacement, InvalidBlackPlacement) {
 	morisGame* Board = new morisGame;
 	Board->setBoard();
 	Board->setBoardPiece(0);
 	Board->turns++;
-	Board->setBoardPieceP2(-1);
+	ASSERT_ANY_THROW(Board->setBoardPieceP2(-1););
 	int playerNum = (Board->getTurn() % 2);
 	ASSERT_EQ(playerNum, 1);
-}*/
+}
 
 //AC 3.6 Test placing a black piece on a red piece
 //The placement should not be made, and will contunie being player 2's turn.
@@ -176,73 +163,6 @@ TEST(TestPlacement, InvalidBlackPlacementOnRed) {
 	int playerNum = (Board->getTurn() % 2);
 	ASSERT_NE(playerNum, 0);
 
-}
-//AC 3.3 Test placing a red piece on location out of range
-//Test should cause an exception to be thrown since placement is out of range
-/*TEST(TestPlacement, InvalidRedPlacement) {
-	morisGame* Board = new morisGame;
-	Board->setBoard();
-	Board->setBoardPiece(-1);
-	int playerNum = (Board->getTurn() % 2);
-	ASSERT_EQ(playerNum, 0);
-}*/
-
-//AC 3.4 Test placing a red piece on a black piece
-//The placement should not be made, and will contunie being player 1's turn.
-TEST(TestPlacement, InvalidRedPlacementOnBlack2) {
-	morisGame* Board = new morisGame;
-	Board->setBoard();
-	Board->setBoardPiece(1);
-	Board->turns++;
-	Board->setBoardPieceP2(0);
-	Board->turns++;
-	bool chk;
-	if (Board->boardSpaces[0]->isEmpty()) {
-		Board->setBoardPiece(0);
-		chk = false;
-	}
-	else {
-		chk = true;
-	}
-	EXPECT_EQ(chk, true);
-	chk = Board->boardSpaces[0]->isPlayerTwo();
-	EXPECT_EQ(chk, true);
-	int playerNum = (Board->getTurn() % 2);
-	ASSERT_NE(playerNum, 1);
-}
-
-//AC 3.5 Test placing a black piece on location out of range
-//Test should cause an exception to be thrown since placement is out of range
-TEST(TestPlacement, InvalidBlackPlacement) {
-	morisGame* Board = new morisGame;
-	Board->setBoard();
-	Board->setBoardPiece(0);
-	Board->turns++;
-	EXPECT_ANY_THROW(Board->setBoardPieceP2(-1););
-	int playerNum = (Board->getTurn() % 2);
-	ASSERT_EQ(playerNum, 1);
-}
-
-//AC 3.6 Test placing a black piece on a red piece
-//The placement should not be made, and will contunie being player 2's turn.
-TEST(TestPlacement, InvalidBlackPlacementOnRed2) {
-	morisGame* Board = new morisGame;
-	Board->setBoard();
-	Board->setBoardPiece(0);
-	Board->turns++;
-	bool chk;
-	if (Board->boardSpaces[0]->isEmpty()) {
-		Board->setBoardPieceP2(0);
-		chk = false;
-	}
-	else {
-		chk = true;
-	}
-	EXPECT_EQ(chk, true);
-	chk = Board->boardSpaces[0]->isPlayerOne();
-	EXPECT_EQ(chk, true);
-	int playerNum = (Board->getTurn() % 2);
-	ASSERT_NE(playerNum, 0);
 }
 
 //AC 4.1 Successfully move a red piece to a valid location
@@ -329,15 +249,15 @@ TEST(PieceMovement, InvalidBlackChosen) {
 
 //AC 4.7 Unsuccessfully move a black piece to an invalid location
 //Test should cause an exception to be thrown since location to move to is out of range
-/*TEST(PieceMovement, InvalidRedMovement) {
+TEST(PieceMovement, InvalidRedMovement2) {
 	morisGame* Board = new morisGame;
 	Board->setBoard();
 	Board->setBoardPieceP2(0);
 	bool chk = Board->boardSpaces[0]->isPlayerTwo();
 	EXPECT_EQ(chk, true);
 	Board->selected = 0;
-	Board->moveSelectedToPos(-1);
-}*/
+	ASSERT_ANY_THROW(Board->moveSelectedToPos(-1););
+}
 
 //AC 4.8 Unsuccessfully move a Black piece to a location occupied by a Red piece
 //Piece should not move from the original position and reds piece will not change
@@ -492,16 +412,16 @@ TEST(Removal, RedRemoval) {
 
 //AC 6.3 Unsuccessfully removal of a black piece when an invalid position is chosen for removal
 //Test should cause an exception to be thrown since location to remove does not have a piece to remove
-/*TEST(Removal, InvalidBlackRemoval) {
+TEST(Removal, InvalidBlackRemoval) {
 	morisGame* Board = new morisGame;
 	Board->setBoard();
 	Board->setBoardPieceP2(0);
 	bool chk = Board->boardSpaces[0]->isPlayerTwo();
 	EXPECT_EQ(chk, true);
-	Board->removePiece(1);
+	ASSERT_ANY_THROW(Board->removePiece(1););
 	chk = Board->boardSpaces[1]->isPlayerTwo();
 	ASSERT_NE(chk, true);
-}*/
+}
 
 //AC 6.4 Unsuccessfully removal of a black piece when an invalid position is chosen for removal
 TEST(Removal, InvalidRedRemovalByRed) {
@@ -519,7 +439,7 @@ TEST(Removal, InvalidRedRemovalByRed) {
 
 //AC 6.5 Unsuccessfully removal of a red piece when an invalid position is chosen for removal
 //Test should cause an exception to be thrown since location to remove does not have a piece to remove
-/*TEST(Removal, InvalidRedRemoval) {
+TEST(Removal, InvalidRedRemoval) {
 	morisGame* Board = new morisGame;
 	Board->setBoard();
 	Board->setBoardPiece(0);
@@ -528,7 +448,7 @@ TEST(Removal, InvalidRedRemovalByRed) {
 	Board->removePiece(1);
 	chk = Board->boardSpaces[1]->isPlayerOne();
 	ASSERT_NE(chk, true);
-}*/
+}
 
 //AC 6.6 Unsuccessfully removal of a black piece when an invalid position is chosen for removal
 TEST(Removal, InvalidBlackRemovalByBlack) {
