@@ -180,6 +180,7 @@ int removeDuplicates(vector<int> arr, int n)
 
 	void morisGame::setBoard()
 	{
+		gameMode = 0;
 		turns = 0;
 		movingPhase = 0;
 		gameOver = false; //clears all the neccisary vectors and variables. 
@@ -708,7 +709,190 @@ int removeDuplicates(vector<int> arr, int n)
 	void morisGame::manageGame(int pos_) {
 		int playerNum = (getTurn() % 2);
 		//  cout << "  " << pos_ << endl;
+		if (gameMode == 0)
+		{
+			gameMode = pos_;
+		}
+		else if (gameMode == 1)
+		{
+			if (pos_ < 24 && pos_ >= 0 && gameOver == false)
+			{
+				if (destroyMode == 0)
+				{
+					if (movingPhase == 0)
+					{
+						if (toBePlacedP2.size() != 0)
+						{
+							if (boardSpaces[pos_]->isEmpty())
+							{
+								if (playerNum == 0)
+								{
+									setBoardPiece(pos_);
+									if (isNewMillMade(playerNum))
+									{
+										destroyMode = 1;
+									}
+									else
+									{
+										turns++;
+									}
+								}
+								else
+								{
+									setBoardPieceP2(pos_);
+									if (isNewMillMade(playerNum))
+									{
+										destroyMode = 2;
+									}
+									else
+									{
+										if (toBePlacedP2.size() == 0)
+										{
+											noValidMoves();
+										}
+										turns++;
+									}
+									if (toBePlacedP2.size() == 0)
+									{
+										movingPhase = 1;
+										cout << movingPhase;
+									}
+								}
+							}
+						}
+					}
+					else
+					{
+						if (!isAdjacentToSelected(pos_) || pos_ == selected || !boardSpaces[pos_]->isEmpty())
+						{
+							if (playerNum == 0)
+							{
+								if (activePlayer1.size() < 4 && (selected != -1))
+								{
+									if (boardSpaces[pos_]->isEmpty())
+									{
+										moveSelectedToPos(pos_);
+										if (isNewMillMade(playerNum))
+										{
+											destroyMode = 1;
+										}
+										else
+										{
+											turns++;
+										}
+										isMillBroken(playerNum);
+									}
+								}
+								else if (boardSpaces[pos_]->isPlayerOne() && !boardSpaces[pos_]->isEmpty())
+								{
+									selected = pos_;
+								}
+							}
+							else if (playerNum == 1)
+							{
+								if (activePlayer2.size() < 4 && (selected != -1))
+								{
+									if (boardSpaces[pos_]->isEmpty())
+									{
+										moveSelectedToPos(pos_);
+										if (isNewMillMade(playerNum))
+										{
+											destroyMode = 2;
+										}
+										else
+										{
+											turns++;
+										}
+										isMillBroken(playerNum);
 
+									}
+								}
+								else if (boardSpaces[pos_]->isPlayerTwo() && !boardSpaces[pos_]->isEmpty())
+								{
+									selected = pos_;
+								}
+							}
+						}
+						else
+						{
+							if (playerNum == 0)
+							{
+								if (boardSpaces[pos_]->isEmpty())
+								{
+									moveSelectedToPos(pos_);
+
+									if (isNewMillMade(playerNum))
+									{
+										destroyMode = 1;
+									}
+									else
+									{
+										turns++;
+									}
+
+									isMillBroken(playerNum);
+								}
+							}
+							else if (playerNum == 1)
+							{
+								if (boardSpaces[pos_]->isEmpty())
+								{
+									moveSelectedToPos(pos_);
+
+									if (isNewMillMade(playerNum))
+									{
+										destroyMode = 2;
+									}
+									else
+									{
+										turns++;
+									}
+
+									isMillBroken(playerNum);
+								}
+							}
+						}
+
+					}
+				}
+				else if ((!boardSpaces[pos_]->isEmpty() && destroyMode == 1 && boardSpaces[pos_]->isPlayerTwo() && !isInP2MillArr(pos_)) || (!boardSpaces[pos_]->isEmpty() && destroyMode == 2 && boardSpaces[pos_]->isPlayerOne() && !isInP1MillArr(pos_)))
+				{
+					removePiece(pos_);
+					destroyMode = 0;
+					if ((activePlayer1.size() < 3 && toBePlacedP1.size() == 0) || (activePlayer2.size() < 3 && toBePlacedP2.size() == 0))
+					{
+						gameOver = true;
+					}
+					else
+					{
+						turns++;
+					}
+
+				}
+				else if ((!boardSpaces[pos_]->isEmpty() && destroyMode == 1 && boardSpaces[pos_]->isPlayerTwo() && allActiveP2InMill()) || (!boardSpaces[pos_]->isEmpty() && destroyMode == 2 && boardSpaces[pos_]->isPlayerOne() && allActiveP1InMill()))
+				{
+					removePiece(pos_);
+					isMillBroken((turns % 2));
+					destroyMode = 0;
+					if ((activePlayer1.size() < 3 && toBePlacedP1.size() == 0) || (activePlayer2.size() < 3 && toBePlacedP2.size() == 0))
+					{
+						gameOver = true;
+					}
+					else
+					{
+						turns++;
+						isMillBroken((turns % 2));
+					}
+
+				}
+			}
+			else if (pos_ == 25)
+			{
+				setBoard();
+			}
+		}
+		else if (gameMode == 2)
+		{
 		if (pos_ < 24 && pos_ >= 0 && gameOver == false)
 		{
 			if (destroyMode == 0)
@@ -868,7 +1052,7 @@ int removeDuplicates(vector<int> arr, int n)
 				removePiece(pos_);
 				isMillBroken((turns % 2));
 				destroyMode = 0;
-				if ((activePlayer1.size() < 3 && toBePlacedP1.size() == 0)|| (activePlayer2.size() < 3 && toBePlacedP2.size() == 0))
+				if ((activePlayer1.size() < 3 && toBePlacedP1.size() == 0) || (activePlayer2.size() < 3 && toBePlacedP2.size() == 0))
 				{
 					gameOver = true;
 				}
@@ -882,7 +1066,8 @@ int removeDuplicates(vector<int> arr, int n)
 		}
 		else if (pos_ == 25)
 		{
-		setBoard();
+			setBoard();
+		}
 		}
 	}
 	void morisGame::noValidMoves() {

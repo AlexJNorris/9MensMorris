@@ -137,6 +137,7 @@ public:
 
 	bool validEnd;
 
+	int gameMode; //0 = off; 1 = player vs player; 2 = player vs computer;
 	int destroyMode; //0 = off; 1 = player 1 removes a piece; 2 = player 2 removes a piece;
 
 	int player1Mills;

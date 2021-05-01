@@ -11,7 +11,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include <mutex>
-#include "GameManager.h"
+
+#include "Board.h"
 
 #include"TextRenderer.h"
 
@@ -22,6 +23,8 @@ using namespace std;
 int sqDistance(int x1, int y1, int x2, int y2);
 
 int get(int x, int y);
+
+int getMenu(int x, int y);
 
 void mouse(int button, int state, int x, int y);
 

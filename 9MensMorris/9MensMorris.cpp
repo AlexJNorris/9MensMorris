@@ -2,6 +2,7 @@
 //
  
 #include "BoardGUI.h"
+#include "Board.h"
 using namespace std;
 
 /// This is the last position that was played by a player
@@ -27,7 +28,14 @@ void display2(int x) {
 void mouse(int button, int state, int x, int y) {
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
         cout << x << ", " << y << endl;
-        pos_ = get(x, y);
+        if (Board->gameMode == 0)
+        {
+            pos_ = getMenu(x, y);
+        }
+        else
+        {
+            pos_ = get(x, y);
+        }
         Board->manageGame(pos_);
         if (Board->toBePlacedP2.size() == 0 && ((Board->activePlayer1.size() >= 4) || (Board->activePlayer2.size() >= 4)))
         {

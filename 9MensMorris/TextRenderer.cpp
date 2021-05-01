@@ -15,6 +15,7 @@
 			glutStrokeCharacter(GLUT_STROKE_ROMAN, ch);
 		}
 		glPopMatrix();
+
 	}
 	void printCenter(int x, int y, string text, double size) {
 		double width = textWidth(text, size);
