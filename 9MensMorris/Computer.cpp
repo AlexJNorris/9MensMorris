@@ -25,7 +25,7 @@ int Computer::makeMove(morisGame* Board)
 			for (int i = 0; i < 24; i++)
 			{
 				space = Board->boardSpaces[i];
-				if (space->isPlayerTwo())
+				if (space->isPlayerTwo() && !Board->boardSpaces[i]->isEmpty())
 				{
 					Board->selected = i;
 					for (int j = 0; j < 24; j++)
