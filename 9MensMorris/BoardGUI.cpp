@@ -26,7 +26,7 @@ vector<pair<int, int> > mouseCoordinates = {
     {89,242},{185,242},{280,242},{345,242},{441,242},{537,242},
     {280,267},{313,267},{345,267},
     {185,341},{313,341},{441,341},
-    {89,417},{313,417},{537,417}, {}
+    {89,417},{313,417},{537,417}, 
 };
 
 int sqDistance(int x1, int y1, int x2, int y2) {
@@ -54,11 +54,11 @@ int get(int x, int y) {
 int getMenu(int x, int y) {
 
     if ((sqDistance(196, 185, x, y) <= 37.5 * 37.5) || (sqDistance(264, 185, x, y) <= 37.5 * 37.5) || (sqDistance(332, 185, x, y) <= 37.5 * 37.5) || (sqDistance(398, 185, x, y) <= 37.5 * 37.5) || (sqDistance(366, 185, x, y) <= 37.5 * 37.5) || (sqDistance(434, 185, x, y) <= 37.5 * 37.5)) {
-        cout << "worked" << endl;
+       // cout << "worked" << endl;
         return 1;
     }
     if ((sqDistance(196, 309, x, y) <= 37.5 * 37.5) || (sqDistance(264, 309, x, y) <= 37.5 * 37.5) || (sqDistance(332, 309, x, y) <= 37.5 * 37.5) || (sqDistance(398, 309, x, y) <= 37.5 * 37.5) || (sqDistance(366, 309, x, y) <= 37.5 * 37.5) || (sqDistance(434, 309, x, y) <= 37.5 * 37.5)) {
-        cout << "worked" << endl;
+       // cout << "worked" << endl;
         return 2;
     }
 

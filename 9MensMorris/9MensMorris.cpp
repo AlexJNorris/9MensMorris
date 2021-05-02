@@ -3,12 +3,14 @@
  
 #include "BoardGUI.h"
 #include "Board.h"
+#include "Computer.h"
 using namespace std;
 
 /// This is the last position that was played by a player
 int pos_;
 morisGame* Board = new morisGame;
 vector<boardSpace*> gameState;
+Computer* cmp = new Computer();
 
 // Init_OpenGL() function    
 void Init_OpenGL()
@@ -32,15 +34,27 @@ void mouse(int button, int state, int x, int y) {
         {
             pos_ = getMenu(x, y);
         }
-        else
+        else if (Board->gameMode == 1)
         {
             pos_ = get(x, y);
+        }
+        else
+        {
+            if (Board->turns % 2 == 0)
+            {
+                pos_ = get(x, y);
+            }
         }
         Board->manageGame(pos_);
         if (Board->toBePlacedP2.size() == 0 && ((Board->activePlayer1.size() >= 4) || (Board->activePlayer2.size() >= 4)))
         {
             Board->noValidMoves();
         }
+    }
+    if (Board->turns % 2 == 1 && Board->gameMode == 2)
+    {
+        pos_ = cmp->makeMove(Board);
+        Board->manageGame(pos_);
     }
 }
 // main function    

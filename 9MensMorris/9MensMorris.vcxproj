@@ -158,11 +158,13 @@
     <ClCompile Include="9MensMorris.cpp" />
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="BoardGUI.cpp" />
+    <ClCompile Include="Computer.cpp" />
     <ClCompile Include="TextRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
     <ClInclude Include="BoardGUI.h" />
+    <ClInclude Include="Computer.h" />
     <ClInclude Include="TextRenderer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
