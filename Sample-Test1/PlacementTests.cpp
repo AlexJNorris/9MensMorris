@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "../9MensMorris/Board.h"
+#include "../9MensMorris/Computer.h"
 
 //AC 1.1 Test will initialize game and it will be player 1's turn
 //After player 1 is done will then initialize player 2
@@ -389,6 +390,315 @@ TEST(TestRedMill, TestName) {
 }
 
 int main(int argc, char **argv)
+//AC 8.1 Test computer placing a black piece after a valid Player move
+//Will then be player's turn.
+TEST(ComputerPlacement, ValidPlacement) {
+	morisGame* Board = new morisGame;
+	Computer* cmp = new Computer();
+	Board->setBoard();
+	Board->setBoardPiece(1);
+	Board->turns++;
+	int playerNum = (Board->getTurn() % 2);
+	EXPECT_EQ(playerNum, 1);
+	int pos_ = cmp->makeMove(Board);
+	Board->setBoardPieceP2(pos_);
+	bool chk = Board->boardSpaces[pos_]->isPlayerTwo();
+	EXPECT_EQ(chk, true);
+	Board->turns++;
+	playerNum = (Board->getTurn() % 2);
+	ASSERT_EQ(playerNum, 0);
+}
+
+//AC 8.2 Test computer placing an invalid black piece after a valid Player move
+//Will stay computer's turn.
+TEST(ComputerPlacement, InvalidPlacement) {
+	morisGame* Board = new morisGame;
+	Computer* cmp = new Computer();
+	Board->setBoard();
+	Board->setBoardPiece(1);
+	Board->turns++;
+	int playerNum = (Board->getTurn() % 2);
+	EXPECT_EQ(playerNum, 1);
+	int pos_ = -1;
+	EXPECT_ANY_THROW(Board->setBoardPieceP2(pos_););
+	playerNum = (Board->getTurn() % 2);
+	ASSERT_EQ(playerNum, 1);
+}
+
+//AC 8.3 Test computer placing an invalid black piece on a player's ocupided piece after a valid Player move
+//Will stay computer's turn.
+TEST(ComputerPlacement, InvalidPlacementOnPlayer) {
+	morisGame* Board = new morisGame;
+	Computer* cmp = new Computer();
+	Board->setBoard();
+	Board->setBoardPiece(1);
+	Board->turns++;
+	int playerNum = (Board->getTurn() % 2);
+	EXPECT_EQ(playerNum, 1);
+	int pos_ = 1;
+	Board->setBoardPieceP2(pos_);
+	bool chk = Board->boardSpaces[0]->isPlayerTwo();
+	EXPECT_NE(chk, true);
+	playerNum = (Board->getTurn() % 2);
+	ASSERT_EQ(playerNum, 1);
+}
+//AC 9.1 Test computer placing an invalid black piece on a player's ocupided piece after a valid Player move
+TEST(ComputerMovement, ValidMovement) {
+	morisGame* Board = new morisGame;
+	Computer* cmp = new Computer();
+	Board->setBoard();
+	Board->setBoardPiece(0);
+	Board->turns++;
+	//check if it's comp's turn
+	int playerNum = (Board->getTurn() % 2);
+	EXPECT_EQ(playerNum, 1);
+	Board->setBoardPieceP2(1);
+	//check if comp placed a piece on space 1;
+	bool chk = Board->boardSpaces[1]->isPlayerTwo();
+	EXPECT_EQ(chk, true);
+	//generates a point to move to.
+	int pos_ = cmp->makeMove(Board);
+	Board->selected = 1;
+	Board->moveSelectedToPos(pos_);
+	//check if comp placed a piece on space 1;
+	chk = Board->boardSpaces[pos_]->isPlayerTwo();
+	ASSERT_EQ(chk, true);
+}
+
+//AC 9.2 Computer unsuccessfully chooses a piece to move
+TEST(ComputerMovement, InvalidPieceChosen) {
+	morisGame* Board = new morisGame;
+	Computer* cmp = new Computer();
+	Board->setBoard();
+	Board->setBoardPiece(0);
+	Board->turns++;
+	int playerNum = (Board->getTurn() % 2);
+	EXPECT_EQ(playerNum, 1);
+	Board->setBoardPieceP2(1);
+	bool chk = Board->boardSpaces[2]->isPlayerTwo();
+	ASSERT_NE(chk, true);
+}
+
+//AC 9.3 Computer unsuccessfully moves a piece to a location occupied by a player's piece
+//Piece should not move from the original position and player's piece will not change
+TEST(ComputerMovement, InvalidCompMovementOntoPlayer) {
+	morisGame* Board = new morisGame;
+	Computer* cmp = new Computer();
+	//create board and place a piece for player
+	Board->setBoard();
+	Board->setBoardPiece(0);
+	//computer generates a spot to place piece at
+	int pos_ = cmp->makeMove(Board);
+	Board->setBoardPieceP2(pos_);
+	//check if the space is occupided by computer
+	bool chk = Board->boardSpaces[pos_]->isPlayerTwo();
+	EXPECT_EQ(chk, true);
+	//check if space 0 is occupied by player
+	chk = Board->boardSpaces[0]->isPlayerOne();
+	EXPECT_EQ(chk, true);
+	//select computers piece to move
+	Board->selected = pos_;
+	if (Board->boardSpaces[0]->isEmpty()) {
+		Board->moveSelectedToPos(0);
+	}
+	//will check if player's piece was removed
+	chk = Board->boardSpaces[0]->isPlayerOne();
+	EXPECT_EQ(chk, true);
+	//will check if computers piece was moved
+	chk = Board->boardSpaces[pos_]->isPlayerTwo();
+	ASSERT_EQ(chk, true);
+}
+
+//AC 9.4 Computer unsuccessfully move a piece to an invalid location
+//Test should cause an exception to be thrown since location to move to is out of range
+TEST(ComputerMovement, InvalidMovement) {
+	morisGame* Board = new morisGame;
+	Computer* cmp = new Computer();
+	Board->setBoard();
+	Board->setBoardPiece(0);
+	Board->turns++;
+	int playerNum = (Board->getTurn() % 2);
+	EXPECT_EQ(playerNum, 1);
+	int pos_ = cmp->makeMove(Board);
+	Board->setBoardPieceP2(pos_);
+	bool chk = Board->boardSpaces[pos_]->isPlayerTwo();
+	Board->selected = pos_;
+	EXPECT_ANY_THROW(Board->moveSelectedToPos(-1));
+}
+
+//AC 10.1 Fly Computers piece across board
+TEST(ComputerFlying, ValidFly) {
+	morisGame* Board = new morisGame;
+	Computer* cmp = new Computer();
+	Board->setBoard();
+	int pos_ = cmp->makeMove(Board);
+	Board->setBoardPieceP2(pos_);
+	bool chk = Board->boardSpaces[pos_]->isPlayerTwo();
+	EXPECT_EQ(chk, true);
+	Board->selected = pos_;
+	Board->moveSelectedToPos(23);
+	chk = Board->boardSpaces[23]->isPlayerTwo();
+	ASSERT_EQ(chk, true);
+}
+
+//AC 10.2 Computer unsuccessfully chooses a piece to move
+//Then no piece will move and the computer’s turn will continue
+TEST(ComputerFlying, InvalidChoice) {
+	morisGame* Board = new morisGame;
+	Computer* cmp = new Computer();
+	Board->setBoard();
+	Board->turns++;
+	int pos_ = cmp->makeMove(Board);
+	Board->setBoardPieceP2(pos_);
+	bool chk = Board->boardSpaces[pos_]->isPlayerTwo();
+	EXPECT_EQ(chk, true);
+	//invalid choice
+	Board->selected = pos_+1;
+	if (Board->boardSpaces[pos_ + 1]->isEmpty())
+	{
+		Board->moveSelectedToPos(1);
+	}
+	chk = Board->boardSpaces[pos_ + 1]->isEmpty();
+	EXPECT_EQ(chk, true);
+	chk = Board->boardSpaces[pos_]->isPlayerTwo();
+	EXPECT_EQ(chk, true);
+	int playerNum = (Board->getTurn() % 2);
+	ASSERT_EQ(playerNum, 1);
+}
+
+//AC 10.3 Computer unsuccessfully flies to an invalid place
+TEST(ComputerFlying, InvalidFly) {
+	morisGame* Board = new morisGame;
+	Computer* cmp = new Computer();
+	Board->setBoard();
+	Board->turns++;
+	int pos_ = cmp->makeMove(Board);
+	Board->setBoardPieceP2(pos_);
+	bool chk = Board->boardSpaces[pos_]->isPlayerTwo();
+	EXPECT_EQ(chk, true);
+	Board->selected = pos_;
+	ASSERT_ANY_THROW(Board->moveSelectedToPos(-1););
+	chk = Board->boardSpaces[pos_]->isPlayerTwo();
+	EXPECT_EQ(chk, true);
+	int playerNum = (Board->getTurn() % 2);
+	ASSERT_EQ(playerNum, 1);
+}
+
+//AC 10.4 Computer unsuccessfully flies to a player occupied space
+TEST(ComputerFlying, InvalidFlyOntoPlayer) {
+	morisGame* Board = new morisGame;
+	Computer* cmp = new Computer();
+	Board->setBoard();
+	Board->setBoardPiece(0);
+	Board->turns++;
+	int playerNum = (Board->getTurn() % 2);
+	EXPECT_EQ(playerNum, 1);
+	int pos_ = cmp->makeMove(Board);
+	Board->setBoardPieceP2(pos_);
+	bool chk = Board->boardSpaces[pos_]->isPlayerTwo();
+	EXPECT_EQ(chk, true);
+	Board->selected = pos_;
+	if (Board->boardSpaces[0]->isEmpty()) 
+	{
+		Board->moveSelectedToPos(0);
+	}
+	chk = Board->boardSpaces[0]->isPlayerOne();
+	EXPECT_EQ(chk, true);
+	chk = Board->boardSpaces[pos_]->isPlayerTwo();
+	EXPECT_EQ(chk, true);
+	playerNum = (Board->getTurn() % 2);
+	ASSERT_EQ(playerNum, 1);
+}
+
+//AC 11.1 Computer successfully removes a player piece
+TEST(ComputerRemoval, SuccessfulRemoval) {
+	morisGame* Board = new morisGame;
+	Computer* cmp = new Computer();
+	Board->setBoard();
+	Board->setBoardPiece(0);
+	Board->turns++;
+	int playerNum = (Board->getTurn() % 2);
+	EXPECT_EQ(playerNum, 1);
+	bool chk = Board->boardSpaces[0]->isPlayerOne();
+	EXPECT_EQ(chk, true);
+	Board->removePiece(0);
+	chk = Board->boardSpaces[0]->isPlayerOne();
+	EXPECT_NE(chk, true);
+	Board->turns++;
+	playerNum = (Board->getTurn() % 2);
+	ASSERT_EQ(playerNum, 0);
+}
+
+//AC 11.2 Computer unsuccessfully chooses invalid player piece to remove
+//Piece chosen will not be removed, and it will remain computers turn
+TEST(ComputerRemoval, InvalidRemoval) {
+	morisGame* Board = new morisGame;
+	Computer* cmp = new Computer();
+	Board->setBoard();
+	Board->setBoardPiece(0);
+	Board->turns++;
+	int playerNum = (Board->getTurn() % 2);
+	EXPECT_EQ(playerNum, 1);
+	bool chk = Board->boardSpaces[0]->isPlayerOne();
+	EXPECT_EQ(chk, true);
+	Board->removePiece(1);
+	chk = Board->boardSpaces[0]->isPlayerOne();
+	EXPECT_EQ(chk, true);
+	playerNum = (Board->getTurn() % 2);
+	ASSERT_EQ(playerNum, 1);
+}
+
+//AC 11.3 Computer unsuccessfully chooses own piece to remove
+//Piece chosen will not be removed, and it will remain computers turn
+TEST(ComputerRemoval, InvalidRemovalOfOwn) {
+	morisGame* Board = new morisGame;
+	Computer* cmp = new Computer();
+	Board->setBoard();
+	Board->turns++;
+	int playerNum = (Board->getTurn() % 2);
+	EXPECT_EQ(playerNum, 1);
+	int pos_ = cmp->makeMove(Board);
+	Board->setBoardPieceP2(pos_);
+	bool chk = Board->boardSpaces[pos_]->isPlayerTwo();
+	EXPECT_EQ(chk, true);
+	if (!Board->boardSpaces[pos_]->isPlayerTwo())
+	{
+		Board->removePiece(pos_);
+	}
+	chk = Board->boardSpaces[pos_]->isPlayerTwo();
+	EXPECT_EQ(chk, true);
+	playerNum = (Board->getTurn() % 2);
+	ASSERT_EQ(playerNum, 1);
+}
+
+//AC Test computer placing a black piece after a valid Player move
+//Will then be player's turn.
+//Needs to be finished
+TEST(ComputerMillPlacement, ValidMillPlacement) {
+	morisGame* Board = new morisGame;
+	Computer* cmp = new Computer();
+	Board->setBoard();
+	Board->setBoardPiece(1);
+	Board->turns++;
+	int playerNum = (Board->getTurn() % 2);
+	EXPECT_EQ(playerNum, 1);
+	int pos_ = cmp->makeMove(Board);
+	Board->setBoardPieceP2(pos_);
+	bool chk = Board->boardSpaces[pos_]->isPlayerTwo();
+	EXPECT_EQ(chk, true);
+	pos_ = cmp->makeMove(Board);
+	Board->setBoardPieceP2(pos_);
+	chk = Board->boardSpaces[pos_]->isPlayerTwo();
+	EXPECT_EQ(chk, true);
+	pos_ = cmp->makeMove(Board);
+	Board->setBoardPieceP2(pos_);
+	chk = Board->boardSpaces[pos_]->isPlayerTwo();
+	EXPECT_EQ(chk, true);
+	chk = Board->isNewMillMade(1);
+	ASSERT_NE(chk, true);
+}
+
+int main(int argc, char** argv)
 {
 	::testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();

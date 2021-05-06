@@ -99,7 +99,7 @@ public:
 
 	morisGame();
 	int count(bool b);
-	int getTurn();
+	int getTurn();//0 = player 1; 1 = player 2;
 	int isMovingPhase();
 	void setBoard();
 	void consoleOut();
