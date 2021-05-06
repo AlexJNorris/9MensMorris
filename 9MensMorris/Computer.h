@@ -9,8 +9,8 @@ class Computer
 {
 public:
 	Computer();
-	int makeMove(morisGame* Board);
-	int greedy(morisGame* Board);
+	int makeMove(morrisGame* Board);
+	int greedy(morrisGame* Board);
 private:
 
 	int maxDepth = 2;

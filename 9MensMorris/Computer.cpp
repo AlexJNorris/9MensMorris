@@ -3,15 +3,15 @@
 Computer::Computer()
 {
 }
-int Computer::makeMove(morisGame* Board)
+int Computer::makeMove(morrisGame* Board)
 {
 	return greedy(Board);
 }
 
-int Computer::greedy(morisGame* Board)
+int Computer::greedy(morrisGame* Board)
 {
-	morisGame* Temp = new morisGame();
-	morisGame* Temp2 = new morisGame();
+	morrisGame* Temp = new morrisGame();
+	morrisGame* Temp2 = new morrisGame();
 	Temp->setBoard();
 	Temp->toBePlacedP1.clear();
 	Temp->toBePlacedP2.clear();
