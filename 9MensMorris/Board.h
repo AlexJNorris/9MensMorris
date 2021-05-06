@@ -132,6 +132,7 @@ public:
 	bool allActiveP2InMill();
 	void manageGame(int pos_);
 	void noValidMoves();
+	void copyBoard(morisGame* Temp);
 
 	bool gameOver;
 

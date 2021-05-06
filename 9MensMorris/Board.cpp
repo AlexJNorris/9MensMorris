@@ -512,30 +512,36 @@ int removeDuplicates(vector<int> arr, int n)
 	}
 	void morisGame::removePiece(int num) {
 		boardSpace* space = boardSpaces[num];
-		
-		if (space->isPlayerOne())
+		if (space->placedToken == NULL)
 		{
-			if (activePlayer1.size() == 0)
-				throw out_of_range("out of range");
-			else
-			{
-				removedPlayer1.push_back(space->getToken());
-				activePlayer1.pop_back();
-				space->placedToken = NULL;
-			}
-			
+			space->placedToken = NULL;
 		}
 		else
 		{
-			if (activePlayer2.size() == 0)
-				throw out_of_range("out of range");
+			if (space->isPlayerOne())
+			{
+				if (activePlayer1.size() == 0)
+					throw out_of_range("out of range");
+				else
+				{
+					removedPlayer1.push_back(activePlayer1.back());
+					activePlayer1.pop_back();
+					space->placedToken = NULL;
+				}
+
+			}
 			else
 			{
-				removedPlayer2.push_back(space->getToken());
-				activePlayer2.pop_back();
-				space->placedToken = NULL;
+				if (activePlayer2.size() == 0)
+					throw out_of_range("out of range");
+				else
+				{
+					removedPlayer2.push_back(activePlayer2.back());
+					activePlayer2.pop_back();
+					space->placedToken = NULL;
+				}
+
 			}
-			
 		}
 	}
 	void morisGame::moveSelectedToPos(int pos) {
@@ -767,7 +773,7 @@ int removeDuplicates(vector<int> arr, int n)
 						{
 							if (playerNum == 0)
 							{
-								if (activePlayer1.size() < 4 && (selected != -1))
+								if (activePlayer1.size() < 4 && (selected > -1 && selected < 24))
 								{
 									if (boardSpaces[pos_]->isEmpty())
 									{
@@ -790,7 +796,7 @@ int removeDuplicates(vector<int> arr, int n)
 							}
 							else if (playerNum == 1)
 							{
-								if (activePlayer2.size() < 4 && (selected != -1))
+								if (activePlayer2.size() < 4 && (selected > -1 && selected < 24))
 								{
 									if (boardSpaces[pos_]->isEmpty())
 									{
@@ -817,7 +823,7 @@ int removeDuplicates(vector<int> arr, int n)
 						{
 							if (playerNum == 0)
 							{
-								if (boardSpaces[pos_]->isEmpty())
+								if (boardSpaces[pos_]->isEmpty() && (selected > -1 && selected < 24))
 								{
 									moveSelectedToPos(pos_);
 
@@ -835,7 +841,7 @@ int removeDuplicates(vector<int> arr, int n)
 							}
 							else if (playerNum == 1)
 							{
-								if (boardSpaces[pos_]->isEmpty())
+								if (boardSpaces[pos_]->isEmpty() && (selected > -1 && selected < 24))
 								{
 									moveSelectedToPos(pos_);
 
@@ -855,7 +861,7 @@ int removeDuplicates(vector<int> arr, int n)
 
 					}
 				}
-				else if ((!boardSpaces[pos_]->isEmpty() && destroyMode == 1 && boardSpaces[pos_]->isPlayerTwo() && !isInP2MillArr(pos_)) || (!boardSpaces[pos_]->isEmpty() && destroyMode == 2 && boardSpaces[pos_]->isPlayerOne() && !isInP1MillArr(pos_)))
+				else if ((pos_ < 24 && pos > -1)&&((!boardSpaces[pos_]->isEmpty() && destroyMode == 1 && boardSpaces[pos_]->isPlayerTwo() && !isInP2MillArr(pos_)) || (!boardSpaces[pos_]->isEmpty() && destroyMode == 2 && boardSpaces[pos_]->isPlayerOne() && !isInP1MillArr(pos_))))
 				{
 					removePiece(pos_);
 					destroyMode = 0;
@@ -869,7 +875,7 @@ int removeDuplicates(vector<int> arr, int n)
 					}
 
 				}
-				else if ((!boardSpaces[pos_]->isEmpty() && destroyMode == 1 && boardSpaces[pos_]->isPlayerTwo() && allActiveP2InMill()) || (!boardSpaces[pos_]->isEmpty() && destroyMode == 2 && boardSpaces[pos_]->isPlayerOne() && allActiveP1InMill()))
+				else if ((pos_ < 24 && pos > -1) && ((!boardSpaces[pos_]->isEmpty() && destroyMode == 1 && boardSpaces[pos_]->isPlayerTwo() && allActiveP2InMill()) || (!boardSpaces[pos_]->isEmpty() && destroyMode == 2 && boardSpaces[pos_]->isPlayerOne() && allActiveP1InMill())))
 				{
 					removePiece(pos_);
 					isMillBroken((turns % 2));
@@ -945,9 +951,9 @@ int removeDuplicates(vector<int> arr, int n)
 					{
 						if (playerNum == 0)
 						{
-							if (activePlayer1.size() < 4 && (selected != -1))
+							if (activePlayer1.size() < 4 && (selected > -1 && selected < 24))
 							{
-								if (boardSpaces[pos_]->isEmpty())
+								if (boardSpaces[pos_]->isEmpty() && (selected > -1 && selected < 24))
 								{
 									moveSelectedToPos(pos_);
 									if (isNewMillMade(playerNum))
@@ -968,7 +974,7 @@ int removeDuplicates(vector<int> arr, int n)
 						}
 						else if (playerNum == 1)
 						{
-							if (activePlayer2.size() < 4 && (selected != -1))
+							if (activePlayer2.size() < 4 && (selected > -1 && selected < 24))
 							{
 								if (boardSpaces[pos_]->isEmpty())
 								{
@@ -995,7 +1001,7 @@ int removeDuplicates(vector<int> arr, int n)
 					{
 						if (playerNum == 0)
 						{
-							if (boardSpaces[pos_]->isEmpty())
+							if (boardSpaces[pos_]->isEmpty() && (selected > -1 && selected < 24))
 							{
 								moveSelectedToPos(pos_);
 
@@ -1011,7 +1017,7 @@ int removeDuplicates(vector<int> arr, int n)
 								isMillBroken(playerNum);
 							}
 						}
-						else if (playerNum == 1)
+						else if (playerNum == 1 && (selected > -1 && selected < 24))
 						{
 							if (boardSpaces[pos_]->isEmpty())
 							{
@@ -1033,7 +1039,7 @@ int removeDuplicates(vector<int> arr, int n)
 
 				}
 			}
-			else if ((!boardSpaces[pos_]->isEmpty() && destroyMode == 1 && boardSpaces[pos_]->isPlayerTwo() && !isInP2MillArr(pos_)) || (!boardSpaces[pos_]->isEmpty() && destroyMode == 2 && boardSpaces[pos_]->isPlayerOne() && !isInP1MillArr(pos_)))
+			else if ((pos_ < 24 && pos > -1) && (((!boardSpaces[pos_]->isEmpty() && destroyMode == 1 && boardSpaces[pos_]->isPlayerTwo() && !isInP2MillArr(pos_)) || (!boardSpaces[pos_]->isEmpty() && destroyMode == 2 && boardSpaces[pos_]->isPlayerOne() && !isInP1MillArr(pos_)))))
 			{
 				removePiece(pos_);
 				destroyMode = 0;
@@ -1047,7 +1053,7 @@ int removeDuplicates(vector<int> arr, int n)
 				}
 
 			}
-			else if ((!boardSpaces[pos_]->isEmpty() && destroyMode == 1 && boardSpaces[pos_]->isPlayerTwo() && allActiveP2InMill()) || (!boardSpaces[pos_]->isEmpty() && destroyMode == 2 && boardSpaces[pos_]->isPlayerOne() && allActiveP1InMill()))
+			else if ((pos_ < 24 && pos > -1) && (((!boardSpaces[pos_]->isEmpty() && destroyMode == 1 && boardSpaces[pos_]->isPlayerTwo() && allActiveP2InMill()) || (!boardSpaces[pos_]->isEmpty() && destroyMode == 2 && boardSpaces[pos_]->isPlayerOne() && allActiveP1InMill()))))
 			{
 				removePiece(pos_);
 				isMillBroken((turns % 2));
@@ -1128,6 +1134,27 @@ int removeDuplicates(vector<int> arr, int n)
 			turns++;
 			validEnd = true;
 			gameOver = true;
+		}
+	}
+	void morisGame::copyBoard(morisGame* Temp)
+	{
+		Temp->turns = turns;
+		Temp->movingPhase = movingPhase;
+		Temp->destroyMode = destroyMode;
+		Temp->selected = selected;
+		for (int i = 0; i < 24; i++)
+		{
+			Temp->boardSpaces[i]->placedToken = boardSpaces[i]->getToken();
+		}
+
+
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				Temp->p1MillArr[i][j] = p1MillArr[i][j];
+				Temp->p2MillArr[i][j] = p2MillArr[i][j];
+			}
 		}
 	}
 	

@@ -45,17 +45,16 @@ void mouse(int button, int state, int x, int y) {
                 pos_ = get(x, y);
             }
         }
-        Board->manageGame(pos_);
+        if ((pos_ < 24 && pos_ > -1)  || pos_ == 25)
+        {
+            Board->manageGame(pos_);
+        }
         if (Board->toBePlacedP2.size() == 0 && ((Board->activePlayer1.size() >= 4) || (Board->activePlayer2.size() >= 4)))
         {
             Board->noValidMoves();
         }
     }
-    if (Board->turns % 2 == 1 && Board->gameMode == 2)
-    {
-        pos_ = cmp->makeMove(Board);
-        Board->manageGame(pos_);
-    }
+
 }
 // main function    
 void display(void)
@@ -67,6 +66,14 @@ void display(void)
     glBegin(GL_LINES);
 
 
+    if (Board->turns % 2 == 1 && Board->gameMode == 2 && !Board->gameOver)
+    {
+        pos_ = cmp->makeMove(Board);
+        if ((pos_ < 24 && pos_ > -1))
+        {
+            Board->manageGame(pos_);
+        }
+    }
    
     drawNMMBoard(Board);
 
