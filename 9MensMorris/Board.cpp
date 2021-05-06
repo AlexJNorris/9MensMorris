@@ -151,12 +151,12 @@ int removeDuplicates(vector<int> arr, int n)
 
 	
 
-	morisGame::morisGame() {
+	morrisGame::morrisGame() {
 		
 	}
 
 	//count pieces
-	int morisGame::count(bool b)
+	int morrisGame::count(bool b)
 	{
 		if (b == false)
 		{
@@ -168,17 +168,17 @@ int removeDuplicates(vector<int> arr, int n)
 		}
 	}
 
-	int morisGame::getTurn()
+	int morrisGame::getTurn()
 	{
 		return (turns % 2);
 	}
 
-	int morisGame::isMovingPhase()
+	int morrisGame::isMovingPhase()
 	{
 		return movingPhase;
 	}
 
-	void morisGame::setBoard()
+	void morrisGame::setBoard()
 	{
 		gameMode = 0;
 		turns = 0;
@@ -262,7 +262,7 @@ int removeDuplicates(vector<int> arr, int n)
 		}
 
 	}
-	void morisGame::consoleOut()
+	void morrisGame::consoleOut()
 	{
 		int xCnt = 0; // count of placements passed on x axis
 		int yCnt = 0; // count of placements passed on y axis
@@ -311,7 +311,7 @@ int removeDuplicates(vector<int> arr, int n)
 			}
 		}
 	}
-	void morisGame::setBoardPiece(int xy)
+	void morrisGame::setBoardPiece(int xy)
 	{
 		if (xy < 0 || boardSpaces.size() == 0)
 			throw out_of_range("out of range");
@@ -326,7 +326,7 @@ int removeDuplicates(vector<int> arr, int n)
 		}
 		
 	}
-	void morisGame::setBoardPieceP2(int xy)
+	void morrisGame::setBoardPieceP2(int xy)
 	{
 		if (xy < 0)
 			throw out_of_range("out of range");
@@ -338,12 +338,12 @@ int removeDuplicates(vector<int> arr, int n)
 			toBePlacedP2.pop_back();
 		}
 	}
-	bool morisGame::getGameOver()
+	bool morrisGame::getGameOver()
 	{
 		return gameOver;
 	}
 
-	bool morisGame::isNewMillMade(int playerNum)
+	bool morrisGame::isNewMillMade(int playerNum)
 	{
 		bool boolin = false;
 		int vertChk;
@@ -424,7 +424,7 @@ int removeDuplicates(vector<int> arr, int n)
 		}
 		return boolin;
 	}
-	bool morisGame::checkNewMill(int Arr[3], int player)
+	bool morrisGame::checkNewMill(int Arr[3], int player)
 	{
 		int millChk;
 		int emptyChk;
@@ -480,7 +480,7 @@ int removeDuplicates(vector<int> arr, int n)
 		}
 	}
 			
-	bool morisGame::isInP1MillArr(int num) {
+	bool morrisGame::isInP1MillArr(int num) {
 	
 		for (int i = 0; i < 3; i++)
 		{
@@ -492,7 +492,7 @@ int removeDuplicates(vector<int> arr, int n)
 		}
 		return false;
 	}
-	bool morisGame::isInP2MillArr(int num) {
+	bool morrisGame::isInP2MillArr(int num) {
 		for (int i = 0; i < 3; i++)
 		{
 			for (int j = 0; j < 3; j++)
@@ -503,14 +503,14 @@ int removeDuplicates(vector<int> arr, int n)
 		}
 		return false;
 	}
-	bool morisGame::isAdjacentToSelected(int pos) {
+	bool morrisGame::isAdjacentToSelected(int pos) {
 		if (pos == adj1[selected] || pos == adj2[selected] || pos == adj3[selected] || pos == adj4[selected])
 		{
 			return true;
 		}
 		return false;
 	}
-	void morisGame::removePiece(int num) {
+	void morrisGame::removePiece(int num) {
 		boardSpace* space = boardSpaces[num];
 		if (space->placedToken == NULL)
 		{
@@ -544,7 +544,7 @@ int removeDuplicates(vector<int> arr, int n)
 			}
 		}
 	}
-	void morisGame::moveSelectedToPos(int pos) {
+	void morrisGame::moveSelectedToPos(int pos) {
 		if (pos == -1)
 			throw out_of_range("out of range");
 		else
@@ -555,7 +555,7 @@ int removeDuplicates(vector<int> arr, int n)
 			selected = -1;
 		}
 	}
-	bool morisGame::isMillBroken(int playerNum) {
+	bool morrisGame::isMillBroken(int playerNum) {
 		int millCnt = 0;
 		int removedMill = -1;
 		bool cornBoolio = false;
@@ -645,7 +645,7 @@ int removeDuplicates(vector<int> arr, int n)
 		return cornBoolio;
 		
 	}
-	bool morisGame::allActiveP1InMill() {
+	bool morrisGame::allActiveP1InMill() {
 		int n = 0;
 		bool oneMatch;
 		for (int k = 0; k < 24; k++)
@@ -678,7 +678,7 @@ int removeDuplicates(vector<int> arr, int n)
 		}
 		return false;
 	}
-	bool morisGame::allActiveP2InMill() {
+	bool morrisGame::allActiveP2InMill() {
 		int n = 0;
 		bool oneMatch;
 		for (int k = 0; k < 24; k++)
@@ -712,7 +712,7 @@ int removeDuplicates(vector<int> arr, int n)
 		return false;
 	}
 
-	void morisGame::manageGame(int pos_) {
+	void morrisGame::manageGame(int pos_) {
 		int playerNum = (getTurn() % 2);
 		//  // << "  " << pos_ << endl;
 		if (gameMode == 0)
@@ -1076,7 +1076,7 @@ int removeDuplicates(vector<int> arr, int n)
 		}
 		}
 	}
-	void morisGame::noValidMoves() {
+	void morrisGame::noValidMoves() {
 		int playerNum = turns % 2;
 		int validMove = 0;
 		if (playerNum == 0)
@@ -1136,18 +1136,18 @@ int removeDuplicates(vector<int> arr, int n)
 			gameOver = true;
 		}
 	}
-	void morisGame::copyBoard(morisGame* Temp)
+	void morrisGame::copyBoard(morrisGame* temp)
 	{
-		Temp->turns = turns;
-		Temp->movingPhase = movingPhase;
-		Temp->destroyMode = destroyMode;
-		Temp->selected = selected;
+		temp->turns = turns;
+		temp->movingPhase = movingPhase;
+		temp->destroyMode = destroyMode;
+		temp->selected = selected;
 		gameToken* token;
 		for (int i = 0; i < activePlayer1.size(); i++)
 		{
 			token = new gameToken();
 			token->setPlayer(false);
-			Temp->activePlayer1.push_back(token);
+			temp->activePlayer1.push_back(token);
 		}
 
 		for (int i = 0; i < activePlayer2.size(); i++)
@@ -1155,26 +1155,26 @@ int removeDuplicates(vector<int> arr, int n)
 
 			token = new gameToken();
 			token->setPlayer(true);
-			Temp->activePlayer2.push_back(token);
+			temp->activePlayer2.push_back(token);
 		}
 
 		for (int i = 0; i < toBePlacedP1.size(); i++)
 		{
 			token = new gameToken();
 			token->setPlayer(false);
-			Temp->toBePlacedP1.push_back(token);
+			temp->toBePlacedP1.push_back(token);
 		}
 
 		for (int i = 0; i < toBePlacedP2.size(); i++)
 		{
 			token = new gameToken();
 			token->setPlayer(true);
-			Temp->toBePlacedP2.push_back(token);
+			temp->toBePlacedP2.push_back(token);
 		}
 
 		for (int i = 0; i < 24; i++)
 		{
-			Temp->boardSpaces[i]->placedToken = boardSpaces[i]->getToken();
+			temp->boardSpaces[i]->placedToken = boardSpaces[i]->getToken();
 		}
 
 
@@ -1182,8 +1182,8 @@ int removeDuplicates(vector<int> arr, int n)
 		{
 			for (int j = 0; j < 3; j++)
 			{
-				Temp->p1MillArr[i][j] = p1MillArr[i][j];
-				Temp->p2MillArr[i][j] = p2MillArr[i][j];
+				temp->p1MillArr[i][j] = p1MillArr[i][j];
+				temp->p2MillArr[i][j] = p2MillArr[i][j];
 			}
 		}
 	}
