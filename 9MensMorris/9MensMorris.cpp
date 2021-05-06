@@ -29,7 +29,7 @@ void display2(int x) {
 
 void mouse(int button, int state, int x, int y) {
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
-        cout << x << ", " << y << endl;
+        //// << x << ", " << y << endl;
         if (Board->gameMode == 0)
         {
             pos_ = getMenu(x, y);
@@ -65,6 +65,7 @@ void display(void)
 
     glBegin(GL_LINES);
 
+    drawNMMBoard(Board);
 
     if (Board->turns % 2 == 1 && Board->gameMode == 2 && !Board->gameOver)
     {
@@ -75,7 +76,6 @@ void display(void)
         }
     }
    
-    drawNMMBoard(Board);
 
     //manageGame(Board);
 
