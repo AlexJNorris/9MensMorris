@@ -111,7 +111,7 @@ public:
 	shared_ptr<boardSpace> gameState;
 
 
-	morrisGame()
+	morrisGame();
 	int count(bool b);
 	int getTurn();
 	int isMovingPhase();
@@ -132,7 +132,7 @@ public:
 	bool allActiveP2InMill();
 	void manageGame(int pos_);
 	void noValidMoves();
-	void copyBoard(morrisGame* temp);
+	void copyBoard(morrisGame* Temp);
 
 	bool gameOver;
 

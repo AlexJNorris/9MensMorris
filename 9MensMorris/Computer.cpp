@@ -10,12 +10,12 @@ int Computer::makeMove(morrisGame* Board)
 
 int Computer::greedy(morrisGame* Board)
 {
-	morrisGame* temp = new morrisGame();
-	morrisGame* temp2 = new morrisGame();
-	temp->setBoard();
-	temp->toBePlacedP1.clear();
-	temp->toBePlacedP2.clear();
-	Board->copyBoard(temp);
+	morrisGame* Temp = new morrisGame();
+	morrisGame* Temp2 = new morrisGame();
+	Temp->setBoard();
+	Temp->toBePlacedP1.clear();
+	Temp->toBePlacedP2.clear();
+	Board->copyBoard(Temp);
 	boardSpace* space;
 	int depth = 0;
 	int bestMove[3] = { 0, 0, 0 };
