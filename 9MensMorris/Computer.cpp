@@ -2,7 +2,8 @@
 
 Computer::Computer()
 {
-	random.seed(time(0));
+	//random.seed(time(0));
+	srand(time(0));
 }
 int Computer::makeMove(morisGame* Board)
 {
@@ -13,10 +14,11 @@ int Computer::makeMove(morisGame* Board)
 		{
 			for (int i = 0; i < 24; i++)
 			{
-				space = Board->boardSpaces[i];
+				int j = rand() % 24;
+				space = Board->boardSpaces[j];
 				if (space->isEmpty())
 				{
-					return i;
+					return j;
 				}
 			}
 		}
