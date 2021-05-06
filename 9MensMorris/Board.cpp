@@ -524,7 +524,7 @@ int removeDuplicates(vector<int> arr, int n)
 					throw out_of_range("out of range");
 				else
 				{
-					removedPlayer1.push_back(activePlayer1.back());
+					removedPlayer1.push_back(new gameToken());
 					activePlayer1.pop_back();
 					space->placedToken = NULL;
 				}
@@ -536,7 +536,7 @@ int removeDuplicates(vector<int> arr, int n)
 					throw out_of_range("out of range");
 				else
 				{
-					removedPlayer2.push_back(activePlayer2.back());
+					removedPlayer2.push_back(new gameToken());
 					activePlayer2.pop_back();
 					space->placedToken = NULL;
 				}

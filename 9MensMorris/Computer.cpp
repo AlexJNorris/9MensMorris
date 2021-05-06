@@ -85,7 +85,6 @@ int Computer::greedy(morisGame* Board)
 						if (Board->activePlayer2.size() < 4 && Temp->boardSpaces[j]->isEmpty())
 						{
 							Temp->moveSelectedToPos(j);
-							Temp->moveSelectedToPos(j);
 							if (Temp->isNewMillMade(1))
 							{
 								//cout << "stuck";
@@ -113,7 +112,7 @@ int Computer::greedy(morisGame* Board)
 							}
 							if (adj4[j] != -1) {
 
-								if (!Temp->boardSpaces[adj4[j]]->isEmpty() && Temp->boardSpaces[adj3[j]]->isPlayerTwo())
+								if (!Temp->boardSpaces[adj4[j]]->isEmpty() && Temp->boardSpaces[adj4[j]]->isPlayerTwo())
 								{
 									value += 1;
 								}
@@ -163,7 +162,7 @@ int Computer::greedy(morisGame* Board)
 							}
 							if (adj4[j] != -1) {
 
-								if (!Board->boardSpaces[adj4[j]]->isEmpty() && Board->boardSpaces[adj3[j]]->isPlayerTwo())
+								if (!Board->boardSpaces[adj4[j]]->isEmpty() && Board->boardSpaces[adj4[j]]->isPlayerTwo())
 								{
 									value += 1;
 								}
