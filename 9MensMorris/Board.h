@@ -82,8 +82,8 @@ private:
 
 };
 
-#ifndef MORISGAME
-#define MORISGAME
+#ifndef morrisGame
+#define morrisGame
 
 class morrisGame
 {

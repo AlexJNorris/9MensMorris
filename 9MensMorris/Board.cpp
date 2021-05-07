@@ -1138,16 +1138,16 @@ int removeDuplicates(vector<int> arr, int n)
 	}
 	void morrisGame::copyBoard(morrisGame* Temp)
 	{
-		Temp->turns = turns;
-		Temp->movingPhase = movingPhase;
-		Temp->destroyMode = destroyMode;
-		Temp->selected = selected;
+		temp->turns = turns;
+		temp->movingPhase = movingPhase;
+		temp->destroyMode = destroyMode;
+		temp->selected = selected;
 		gameToken* token;
 		for (int i = 0; i < activePlayer1.size(); i++)
 		{
 			token = new gameToken();
 			token->setPlayer(false);
-			Temp->activePlayer1.push_back(token);
+			temp->activePlayer1.push_back(token);
 		}
 
 		for (int i = 0; i < activePlayer2.size(); i++)
@@ -1155,26 +1155,26 @@ int removeDuplicates(vector<int> arr, int n)
 
 			token = new gameToken();
 			token->setPlayer(true);
-			Temp->activePlayer2.push_back(token);
+			temp->activePlayer2.push_back(token);
 		}
 
 		for (int i = 0; i < toBePlacedP1.size(); i++)
 		{
 			token = new gameToken();
 			token->setPlayer(false);
-			Temp->toBePlacedP1.push_back(token);
+			temp->toBePlacedP1.push_back(token);
 		}
 
 		for (int i = 0; i < toBePlacedP2.size(); i++)
 		{
 			token = new gameToken();
 			token->setPlayer(true);
-			Temp->toBePlacedP2.push_back(token);
+			temp->toBePlacedP2.push_back(token);
 		}
 
 		for (int i = 0; i < 24; i++)
 		{
-			Temp->boardSpaces[i]->placedToken = boardSpaces[i]->getToken();
+			temp->boardSpaces[i]->placedToken = boardSpaces[i]->getToken();
 		}
 
 
@@ -1182,8 +1182,8 @@ int removeDuplicates(vector<int> arr, int n)
 		{
 			for (int j = 0; j < 3; j++)
 			{
-				Temp->p1MillArr[i][j] = p1MillArr[i][j];
-				Temp->p2MillArr[i][j] = p2MillArr[i][j];
+				temp->p1MillArr[i][j] = p1MillArr[i][j];
+				temp->p2MillArr[i][j] = p2MillArr[i][j];
 			}
 		}
 	}
