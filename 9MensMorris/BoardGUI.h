@@ -32,4 +32,4 @@ void drawFilledSun();
 
 void DrawCircle(float cx, float cy, float r, int num_segments);
 
-void drawNMMBoard(morisGame* Board);
+void drawNMMBoard(morrisGame* Board);

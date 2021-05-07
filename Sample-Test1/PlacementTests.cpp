@@ -5,7 +5,7 @@
 //AC 1.1 Test will initilzie game and it will be player 1's turn
 //After player 1 is done will then initialize player 2
 TEST(PlayerTurn, Player1) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPiece(0);
 	int playerNum = (Board->getTurn() % 2);
@@ -18,7 +18,7 @@ TEST(PlayerTurn, Player1) {
 //AC 1.2 Test will initilzie game 
 //After player 1 makes a move it will be player 2's turn
 TEST(PlayerTurn, Player2) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPiece(0);
 	Board->turns++;
@@ -29,7 +29,7 @@ TEST(PlayerTurn, Player2) {
 //AC 1.3 Test will incorrectly initilzie game
 //It will be player 2's turn without player 1 making a valid move
 TEST(PlayerTurn, SkipPlayer1) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->turns++;
 	int playerNum = (Board->getTurn() % 2);
@@ -39,7 +39,7 @@ TEST(PlayerTurn, SkipPlayer1) {
 //AC 1.4 Test will incorrectly initilzie game
 //When it should be player 2's turn, the game will still recognize it as player 1's turn
 TEST(PlayerTurn, SkipPlayer2) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPiece(0);
 	int playerNum = (Board->getTurn() % 2);
@@ -48,7 +48,7 @@ TEST(PlayerTurn, SkipPlayer2) {
 
 //AC 2.1 Successfully create game and should be player 1's turn
 TEST(GameboardCreation, Successful) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	int playerNum = (Board->getTurn() % 2);
 	ASSERT_EQ(playerNum, 0);
@@ -57,7 +57,7 @@ TEST(GameboardCreation, Successful) {
 //AC 2.2 Unsuccessfully create new game
 //Test should cause an exception to be thrown since the game board was unsuccessfully created.
 TEST(GameboardCreation, Unsuccessful) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	ASSERT_ANY_THROW(Board->setBoardPiece(0););
 	int playerNum = (Board->getTurn() % 2);
 	ASSERT_NE(playerNum, 0);
@@ -68,7 +68,7 @@ TEST(GameboardCreation, Unsuccessful) {
 //After succesful placement should be Player 2's turn
 TEST(TestPlacement, RedPlacement) {
 
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPiece(0);
 	bool chk = Board->boardSpaces[0]->isPlayerOne();
@@ -81,7 +81,7 @@ TEST(TestPlacement, RedPlacement) {
 //AC 3.2 Test placing a black piece at location 0
 //After succesful placement should be Player 1's turn
 TEST(TestPlacement, BlackPlacement) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPiece(1);
 	Board->turns++;
@@ -96,7 +96,7 @@ TEST(TestPlacement, BlackPlacement) {
 //AC 3.3 Test placing a red piece on location out of range
 //Test should cause an exception to be trown since placement is out of range
 TEST(TestPlacement, InvalidRedPlacement) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	ASSERT_ANY_THROW(Board->setBoardPiece(-1););
 	int playerNum = (Board->getTurn() % 2);
@@ -106,7 +106,7 @@ TEST(TestPlacement, InvalidRedPlacement) {
 //AC 3.4 Test placing a red piece on a black piece
 //The placement should not be made, and will contunie being player 1's turn.
 TEST(TestPlacement, InvalidRedPlacementOnBlack) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPiece(1);
 	Board->turns++;
@@ -132,7 +132,7 @@ TEST(TestPlacement, InvalidRedPlacementOnBlack) {
 //AC 3.5 Test placing a black piece on location out of range
 //Test should cause an exception to be trown since placement is out of range
 TEST(TestPlacement, InvalidBlackPlacement) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPiece(0);
 	Board->turns++;
@@ -144,7 +144,7 @@ TEST(TestPlacement, InvalidBlackPlacement) {
 //AC 3.6 Test placing a black piece on a red piece
 //The placement should not be made, and will contunie being player 2's turn.
 TEST(TestPlacement, InvalidBlackPlacementOnRed) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPiece(0);
 	Board->turns++;
@@ -167,7 +167,7 @@ TEST(TestPlacement, InvalidBlackPlacementOnRed) {
 
 //AC 4.1 Successfully move a red piece to a valid location
 TEST(PieceMovement, ValidRedMove) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPiece(0);
 	bool chk = Board->boardSpaces[0]->isPlayerOne();
@@ -182,7 +182,7 @@ TEST(PieceMovement, ValidRedMove) {
 
 //AC 4.2 Successfully move a black piece to a valid location
 TEST(PieceMovement, ValidBlackMove) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPieceP2(0);
 	bool chk = Board->boardSpaces[0]->isPlayerTwo();
@@ -197,7 +197,7 @@ TEST(PieceMovement, ValidBlackMove) {
 
 //AC 4.3 Unsuccessfully choose a location without a red piece
 TEST(PieceMovement, InvalidRedChosen) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPiece(1);
 	bool chk = Board->boardSpaces[0]->isPlayerOne();
@@ -207,7 +207,7 @@ TEST(PieceMovement, InvalidRedChosen) {
 //AC 4.4 Unsuccessfully move a red piece to an invalid location
 //Test should cause an exception to be thrown since location to move to is out of range
 TEST(PieceMovement, InvalidRedMovement) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPiece(0);
 	bool chk = Board->boardSpaces[0]->isPlayerOne();
@@ -220,7 +220,7 @@ TEST(PieceMovement, InvalidRedMovement) {
 //AC 4.5 Unsuccessfully move a red piece to a location occupied by a black piece
 //Piece should not move from the original position and blacks piece will not change
 TEST(PieceMovement, InvalidRedMovementOntoBlack) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPiece(0);
 	Board->setBoardPieceP2(1);
@@ -240,7 +240,7 @@ TEST(PieceMovement, InvalidRedMovementOntoBlack) {
 
 //AC 4.6 Unsuccessfully choose a location without a black piece
 TEST(PieceMovement, InvalidBlackChosen) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPieceP2(1);
 	bool chk = Board->boardSpaces[0]->isPlayerTwo();
@@ -250,7 +250,7 @@ TEST(PieceMovement, InvalidBlackChosen) {
 //AC 4.7 Unsuccessfully move a black piece to an invalid location
 //Test should cause an exception to be thrown since location to move to is out of range
 TEST(PieceMovement, InvalidRedMovement2) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPieceP2(0);
 	bool chk = Board->boardSpaces[0]->isPlayerTwo();
@@ -262,7 +262,7 @@ TEST(PieceMovement, InvalidRedMovement2) {
 //AC 4.8 Unsuccessfully move a Black piece to a location occupied by a Red piece
 //Piece should not move from the original position and reds piece will not change
 TEST(PieceMovement, InvalidBlackMovementOntoRed) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPieceP2(0);
 	Board->setBoardPiece(1);
@@ -281,7 +281,7 @@ TEST(PieceMovement, InvalidBlackMovementOntoRed) {
 }
 //AC 5.1 Fly red across board
 TEST(Flying, RedFlying) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPiece(0);
 	bool chk = Board->boardSpaces[0]->isPlayerOne();
@@ -293,7 +293,7 @@ TEST(Flying, RedFlying) {
 }
 //AC 5.2 Fly black across board
 TEST(Flying, BlackFlying) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPieceP2(0);
 	bool chk = Board->boardSpaces[0]->isPlayerTwo();
@@ -305,7 +305,7 @@ TEST(Flying, BlackFlying) {
 }
 //AC 5.3 Fail to choose red to fly across board
 TEST(Flying, RedFailChoose) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPiece(0);
 	bool chk = Board->boardSpaces[0]->isPlayerOne();
@@ -326,7 +326,7 @@ TEST(Flying, RedFailChoose) {
 }
 //AC 5.4 & 5.5 Fail to Fly red across board
 TEST(Flying, RedFailFlying) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPiece(0);
 	bool chk = Board->boardSpaces[0]->isPlayerOne();
@@ -346,7 +346,7 @@ TEST(Flying, RedFailFlying) {
 
 //AC 5.6 Fail to choose black to fly across board
 TEST(Flying, BlackFailChoose) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPiece(0);
 	bool chk = Board->boardSpaces[0]->isPlayerOne();
@@ -368,7 +368,7 @@ TEST(Flying, BlackFailChoose) {
 
 //AC 5.7 & 5.8 Fail to Fly black across board
 TEST(Flying, BlackFailFlying) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPiece(0);
 	bool chk = Board->boardSpaces[0]->isPlayerOne();
@@ -388,7 +388,7 @@ TEST(Flying, BlackFailFlying) {
 
 //AC 6.1 Successfully remove a black piece
 TEST(Removal, BlackRemoval) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPieceP2(0);
 	bool chk = Board->boardSpaces[0]->isPlayerTwo();
@@ -400,7 +400,7 @@ TEST(Removal, BlackRemoval) {
 
 //AC 6.2 Successfully remove a red piece
 TEST(Removal, RedRemoval) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPiece(0);
 	bool chk = Board->boardSpaces[0]->isPlayerOne();
@@ -413,7 +413,7 @@ TEST(Removal, RedRemoval) {
 //AC 6.3 Unsuccessfully removal of a black piece when an invalid position is chosen for removal
 //Test should cause an exception to be thrown since location to remove does not have a piece to remove
 TEST(Removal, InvalidBlackRemoval) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPieceP2(0);
 	bool chk = Board->boardSpaces[0]->isPlayerTwo();
@@ -425,7 +425,7 @@ TEST(Removal, InvalidBlackRemoval) {
 
 //AC 6.4 Unsuccessfully removal of a black piece when an invalid position is chosen for removal
 TEST(Removal, InvalidRedRemovalByRed) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPiece(0);
 	bool chk = Board->boardSpaces[0]->isPlayerOne();
@@ -440,7 +440,7 @@ TEST(Removal, InvalidRedRemovalByRed) {
 //AC 6.5 Unsuccessfully removal of a red piece when an invalid position is chosen for removal
 //Test should cause an exception to be thrown since location to remove does not have a piece to remove
 TEST(Removal, InvalidRedRemoval) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPiece(0);
 	bool chk = Board->boardSpaces[0]->isPlayerOne();
@@ -452,7 +452,7 @@ TEST(Removal, InvalidRedRemoval) {
 
 //AC 6.6 Unsuccessfully removal of a black piece when an invalid position is chosen for removal
 TEST(Removal, InvalidBlackRemovalByBlack) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPieceP2(0);
 	bool chk = Board->boardSpaces[0]->isPlayerTwo();
@@ -466,7 +466,7 @@ TEST(Removal, InvalidBlackRemovalByBlack) {
 
 //AC 7.1 and 7.3 Distinguish red piece
 TEST(Distinguish, DistinguishRed) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPiece(0);
 	bool chk = Board->boardSpaces[0]->isPlayerOne();
@@ -477,7 +477,7 @@ TEST(Distinguish, DistinguishRed) {
 }
 //AC 7.2 and 7.4 Distinguish black piece
 TEST(Distinguish, DistinguishBlack) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPieceP2(0);
 	bool chk = Board->boardSpaces[0]->isPlayerTwo();
@@ -488,7 +488,7 @@ TEST(Distinguish, DistinguishBlack) {
 
 //Test failing to place a red piece at location 0
 /*TEST(TestFailedRedPlacement, TestName1) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPiece(0);
 	bool chk = Board->boardSpaces[0]->isPlayerOne();
@@ -497,7 +497,7 @@ TEST(Distinguish, DistinguishBlack) {
 
 
 TEST(TestBlackPlacement, TestName) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPieceP2(0);
 	bool chk = Board->boardSpaces[0]->isPlayerTwo();
@@ -506,7 +506,7 @@ TEST(TestBlackPlacement, TestName) {
 
 //Test failing to place a black piece at location 0
 /*TEST(TestFailedBlackPlacement, TestName) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPieceP2(0);
 	bool chk = Board->boardSpaces[0]->isPlayerTwo();
@@ -515,7 +515,7 @@ TEST(TestBlackPlacement, TestName) {
 
 //Test new mill placement for player 1
 TEST(TestMill, TestMillOperations) {
-	morisGame* Board = new morisGame;
+	morrisGame* Board = new morrisGame;
 	Board->setBoard();
 	Board->setBoardPiece(0);
 	Board->setBoardPiece(9);
