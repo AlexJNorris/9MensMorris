@@ -1,6 +1,5 @@
 
 #include "Board.h"
-//This is all preliminary. Feel free to add or remove variables and functions as needed.
 
 using namespace std;
 
@@ -191,7 +190,7 @@ int removeDuplicates(vector<int> arr, int n)
 
 		validEnd = false;
 
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 4; i++)
 		{
 			for (int j = 0; j < 3; j++)
 			{
@@ -431,7 +430,7 @@ int removeDuplicates(vector<int> arr, int n)
 		
 		if (player == 0)
 		{
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < 4; i++)
 			{
 				millChk = 0;
 				emptyChk = 0;
@@ -455,7 +454,7 @@ int removeDuplicates(vector<int> arr, int n)
 		}
 		else
 		{
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < 4; i++)
 			{
 				millChk = 0;
 				emptyChk = 0;
@@ -562,7 +561,7 @@ int removeDuplicates(vector<int> arr, int n)
 
 		if (playerNum == 0)
 		{
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < 4; i++)
 			{
 				if (p1MillArr[i][0] != -1) { millCnt++; }
 				else { break; }
@@ -584,7 +583,7 @@ int removeDuplicates(vector<int> arr, int n)
 
 		else if (playerNum == 1)
 		{
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < 4; i++)
 			{
 				if (p2MillArr[i][0] != -1) { millCnt++; }
 				else { break; }
@@ -651,7 +650,7 @@ int removeDuplicates(vector<int> arr, int n)
 		for (int k = 0; k < 24; k++)
 		{
 			oneMatch = false;
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < 4; i++)
 			{
 				if (oneMatch == true) { break; }
 				if (p1MillArr[i][0] != -1)
@@ -684,7 +683,7 @@ int removeDuplicates(vector<int> arr, int n)
 		for (int k = 0; k < 24; k++)
 		{
 			oneMatch = false;
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < 4; i++)
 			{
 				if (oneMatch == true) { break; }
 				if (p2MillArr[i][0] != -1)

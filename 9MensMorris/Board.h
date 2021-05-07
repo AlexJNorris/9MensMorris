@@ -87,6 +87,13 @@ private:
 
 class morrisGame
 {
+private:
+	
+	int player1Mills;
+	int player2Mills;
+
+	int xAxis[24] = { 0,3,6,1,3,5,2,3,4,0,1,2,4,5,6,2,3,4,1,3,5,0,3,6 }; //loads coordinates for X and Y axis
+	int yAxis[24] = { 0,0,0,1,1,1,2,2,2,3,3,3,3,3,3,4,4,4,5,5,5,6,6,6 };//assuming bottom to top, left to right. 
 public:
 	vector<boardSpace*> boardSpaces; //holds all the placeable board spaces. 
 
@@ -141,14 +148,9 @@ public:
 	int gameMode; //0 = off; 1 = player vs player; 2 = player vs computer;
 	int destroyMode; //0 = off; 1 = player 1 removes a piece; 2 = player 2 removes a piece;
 
-	int player1Mills;
-	int player2Mills;
 
-	int p1MillArr[3][3];
-	int p2MillArr[3][3];
-
-	int xAxis[24] = { 0,3,6,1,3,5,2,3,4,0,1,2,4,5,6,2,3,4,1,3,5,0,3,6 }; //loads coordinates for X and Y axis
-	int yAxis[24] = { 0,0,0,1,1,1,2,2,2,3,3,3,3,3,3,4,4,4,5,5,5,6,6,6 };//assuming bottom to top, left to right. 
+	int p1MillArr[4][3];
+	int p2MillArr[4][3];
 
 };
 

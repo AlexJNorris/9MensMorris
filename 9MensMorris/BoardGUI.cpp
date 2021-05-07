@@ -298,7 +298,7 @@ void drawNMMBoard(morrisGame* Board)
         glPointSize(25.0);
         glBegin(GL_POINTS);
         glColor3f(.9, .9, 0);
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
         {
             for (int j = 0; j < 3; j++)
             {
@@ -307,7 +307,7 @@ void drawNMMBoard(morrisGame* Board)
 
             }
         }
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
         {
             for (int j = 0; j < 3; j++)
             {
