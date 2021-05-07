@@ -82,8 +82,8 @@ private:
 
 };
 
-#ifndef morrisGame
-#define morrisGame
+#ifndef MORRISGAME
+#define MORRISGAME
 
 class morrisGame
 {
@@ -132,7 +132,7 @@ public:
 	bool allActiveP2InMill();
 	void manageGame(int pos_);
 	void noValidMoves();
-	void copyBoard(morrisGame* Temp);
+	void copyBoard(morrisGame* temp);
 
 	bool gameOver;
 

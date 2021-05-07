@@ -1136,7 +1136,7 @@ int removeDuplicates(vector<int> arr, int n)
 			gameOver = true;
 		}
 	}
-	void morrisGame::copyBoard(morrisGame* Temp)
+	void morrisGame::copyBoard(morrisGame* temp)
 	{
 		temp->turns = turns;
 		temp->movingPhase = movingPhase;
