@@ -151,12 +151,12 @@ int removeDuplicates(vector<int> arr, int n)
 
 	
 
-	morrisGame::morrisGame() {
+	morisGame::morisGame() {
 		
 	}
 
 	//count pieces
-	int morrisGame::count(bool b)
+	int morisGame::count(bool b)
 	{
 		if (b == false)
 		{
@@ -168,17 +168,17 @@ int removeDuplicates(vector<int> arr, int n)
 		}
 	}
 
-	int morrisGame::getTurn()
+	int morisGame::getTurn()
 	{
 		return (turns % 2);
 	}
 
-	int morrisGame::isMovingPhase()
+	int morisGame::isMovingPhase()
 	{
 		return movingPhase;
 	}
 
-	void morrisGame::setBoard()
+	void morisGame::setBoard()
 	{
 		gameMode = 0;
 		turns = 0;
@@ -262,7 +262,7 @@ int removeDuplicates(vector<int> arr, int n)
 		}
 
 	}
-	void morrisGame::consoleOut()
+	void morisGame::consoleOut()
 	{
 		int xCnt = 0; // count of placements passed on x axis
 		int yCnt = 0; // count of placements passed on y axis
@@ -311,7 +311,7 @@ int removeDuplicates(vector<int> arr, int n)
 			}
 		}
 	}
-	void morrisGame::setBoardPiece(int xy)
+	void morisGame::setBoardPiece(int xy)
 	{
 		if (xy < 0 || boardSpaces.size() == 0)
 			throw out_of_range("out of range");
@@ -326,7 +326,7 @@ int removeDuplicates(vector<int> arr, int n)
 		}
 		
 	}
-	void morrisGame::setBoardPieceP2(int xy)
+	void morisGame::setBoardPieceP2(int xy)
 	{
 		if (xy < 0)
 			throw out_of_range("out of range");
@@ -338,12 +338,12 @@ int removeDuplicates(vector<int> arr, int n)
 			toBePlacedP2.pop_back();
 		}
 	}
-	bool morrisGame::getGameOver()
+	bool morisGame::getGameOver()
 	{
 		return gameOver;
 	}
 
-	bool morrisGame::isNewMillMade(int playerNum)
+	bool morisGame::isNewMillMade(int playerNum)
 	{
 		bool boolin = false;
 		int vertChk;
@@ -424,7 +424,7 @@ int removeDuplicates(vector<int> arr, int n)
 		}
 		return boolin;
 	}
-	bool morrisGame::checkNewMill(int Arr[3], int player)
+	bool morisGame::checkNewMill(int Arr[3], int player)
 	{
 		int millChk;
 		int emptyChk;
@@ -480,7 +480,7 @@ int removeDuplicates(vector<int> arr, int n)
 		}
 	}
 			
-	bool morrisGame::isInP1MillArr(int num) {
+	bool morisGame::isInP1MillArr(int num) {
 	
 		for (int i = 0; i < 3; i++)
 		{
@@ -492,7 +492,7 @@ int removeDuplicates(vector<int> arr, int n)
 		}
 		return false;
 	}
-	bool morrisGame::isInP2MillArr(int num) {
+	bool morisGame::isInP2MillArr(int num) {
 		for (int i = 0; i < 3; i++)
 		{
 			for (int j = 0; j < 3; j++)
@@ -503,14 +503,14 @@ int removeDuplicates(vector<int> arr, int n)
 		}
 		return false;
 	}
-	bool morrisGame::isAdjacentToSelected(int pos) {
+	bool morisGame::isAdjacentToSelected(int pos) {
 		if (pos == adj1[selected] || pos == adj2[selected] || pos == adj3[selected] || pos == adj4[selected])
 		{
 			return true;
 		}
 		return false;
 	}
-	void morrisGame::removePiece(int num) {
+	void morisGame::removePiece(int num) {
 		boardSpace* space = boardSpaces[num];
 		if (space->placedToken == NULL)
 		{
@@ -544,7 +544,7 @@ int removeDuplicates(vector<int> arr, int n)
 			}
 		}
 	}
-	void morrisGame::moveSelectedToPos(int pos) {
+	void morisGame::moveSelectedToPos(int pos) {
 		if (pos == -1)
 			throw out_of_range("out of range");
 		else
@@ -555,7 +555,7 @@ int removeDuplicates(vector<int> arr, int n)
 			selected = -1;
 		}
 	}
-	bool morrisGame::isMillBroken(int playerNum) {
+	bool morisGame::isMillBroken(int playerNum) {
 		int millCnt = 0;
 		int removedMill = -1;
 		bool cornBoolio = false;
@@ -645,7 +645,7 @@ int removeDuplicates(vector<int> arr, int n)
 		return cornBoolio;
 		
 	}
-	bool morrisGame::allActiveP1InMill() {
+	bool morisGame::allActiveP1InMill() {
 		int n = 0;
 		bool oneMatch;
 		for (int k = 0; k < 24; k++)
@@ -678,7 +678,7 @@ int removeDuplicates(vector<int> arr, int n)
 		}
 		return false;
 	}
-	bool morrisGame::allActiveP2InMill() {
+	bool morisGame::allActiveP2InMill() {
 		int n = 0;
 		bool oneMatch;
 		for (int k = 0; k < 24; k++)
@@ -712,7 +712,7 @@ int removeDuplicates(vector<int> arr, int n)
 		return false;
 	}
 
-	void morrisGame::manageGame(int pos_) {
+	void morisGame::manageGame(int pos_) {
 		int playerNum = (getTurn() % 2);
 		//  // << "  " << pos_ << endl;
 		if (gameMode == 0)
@@ -1076,7 +1076,7 @@ int removeDuplicates(vector<int> arr, int n)
 		}
 		}
 	}
-	void morrisGame::noValidMoves() {
+	void morisGame::noValidMoves() {
 		int playerNum = turns % 2;
 		int validMove = 0;
 		if (playerNum == 0)
@@ -1136,7 +1136,7 @@ int removeDuplicates(vector<int> arr, int n)
 			gameOver = true;
 		}
 	}
-	void morrisGame::copyBoard(morrisGame* Temp)
+	void morisGame::copyBoard(morisGame* Temp)
 	{
 		Temp->turns = turns;
 		Temp->movingPhase = movingPhase;

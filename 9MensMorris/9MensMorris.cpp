@@ -8,7 +8,7 @@ using namespace std;
 
 /// This is the last position that was played by a player
 int pos_;
-morrisGame* Board = new morrisGame;
+morisGame* Board = new morisGame;
 vector<boardSpace*> gameState;
 Computer* cmp = new Computer();
 
