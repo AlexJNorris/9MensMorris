@@ -98,7 +98,7 @@ void DrawCircle(float cx, float cy, float r, int num_segments) {
     }
     glEnd();
 }
-void drawNMMBoard(morrisGame* Board) 
+void drawNMMBoard(morisGame* Board) 
 {
     if (Board->gameMode == 0)
     {

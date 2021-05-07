@@ -28,7 +28,7 @@ const int horz3[24] = { 2,2,2,5,5,5,8,8,8,11,11,11,14,14,14,17,17,17,20,20,20,23
 using namespace std;
 class gameToken;
 class boardSpace;
-class morrisGame;
+class morisGame;
 
 class gameToken
 {
@@ -85,7 +85,7 @@ private:
 #ifndef morrisGame
 #define morrisGame
 
-class morrisGame
+class morisGame
 {
 public:
 	vector<boardSpace*> boardSpaces; //holds all the placeable board spaces. 
@@ -111,7 +111,7 @@ public:
 	shared_ptr<boardSpace> gameState;
 
 
-	morrisGame();
+	morisGame();
 	int count(bool b);
 	int getTurn();
 	int isMovingPhase();
@@ -132,7 +132,7 @@ public:
 	bool allActiveP2InMill();
 	void manageGame(int pos_);
 	void noValidMoves();
-	void copyBoard(morrisGame* Temp);
+	void copyBoard(morisGame* Temp);
 
 	bool gameOver;
 
