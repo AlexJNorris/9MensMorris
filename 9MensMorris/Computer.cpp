@@ -31,15 +31,13 @@ int Computer::greedy(morrisGame* Board)
 				space = Board->boardSpaces[j];
 				if (space->isEmpty())
 				{
-					Temp->setBoardPieceP2(j);
-					//Temp->turns = Board->turns;
 					if (Temp->isNewMillMade(1))
 					{
-						//// << "stuck";
-						value += 10;
+						//cout << "stuck";
+						value += 6;
 					}
 					if (adj1[j] != -1) {
-						//// << "stuck";
+						//cout << "stuck";
 						if (!Temp->boardSpaces[adj1[j]]->isEmpty() && (Temp->boardSpaces[adj1[j]]->isPlayerTwo() || Temp->boardSpaces[adj1[j]]->isPlayerOne()))
 						{
 							value += 1;
@@ -69,12 +67,6 @@ int Computer::greedy(morrisGame* Board)
 					{
 						bestMove[1] = j;
 					}
-					Temp->removePiece(j);
-					Temp->isMillBroken(1);
-					gameToken* token = new gameToken();
-					token->setPlayer(true);
-					Temp->toBePlacedP2.push_back(token);
-
 				}
 			}
 			return bestMove[1];
@@ -95,11 +87,11 @@ int Computer::greedy(morrisGame* Board)
 							Temp->moveSelectedToPos(j);
 							if (Temp->isNewMillMade(1))
 							{
-								//// << "stuck";
-								value += 10;
+								//cout << "stuck";
+								value += 6;
 							}
 							if (adj1[j] != -1) {
-								//// << "stuck";
+								//cout << "stuck";
 								if (!Temp->boardSpaces[adj1[j]]->isEmpty() && Temp->boardSpaces[adj1[j]]->isPlayerTwo())
 								{
 									value += 1;
@@ -139,17 +131,17 @@ int Computer::greedy(morrisGame* Board)
 								bestMove[2] = value;
 							}
 						}
-						else if (Temp->isAdjacentToSelected(j) && Temp->boardSpaces[j]->isEmpty())
+						else if (Temp->isAdjacentToSelected(j) && Temp->boardSpaces[j]->isEmpty() && !Temp->boardSpaces[j]->isPlayerTwo() && !Temp->boardSpaces[j]->isPlayerOne())
 						{
 							
 							Temp->moveSelectedToPos(j);
 							if (Temp->isNewMillMade(1))
 							{
-								//// << "stuck";
-								value += 10;
+								//cout << "stuck";
+								value += 6;
 							}
 							if (adj1[j] != -1) {
-								//// << "stuck";
+								//cout << "stuck";
 								if (!Board->boardSpaces[adj1[j]]->isEmpty() && Board->boardSpaces[adj1[j]]->isPlayerTwo())
 								{
 									value += 1;
@@ -199,57 +191,14 @@ int Computer::greedy(morrisGame* Board)
 		for (int i = 0; i < 24; i++)
 		{
 			space = Board->boardSpaces[i];
-			if (!space->isEmpty() && space->isPlayerOne() && (!Temp->isInP1MillArr(i) || Temp->allActiveP1InMill()))
+			if (!space->isEmpty() && space->isPlayerOne() && (!Board->isInP1MillArr(i) || Board->allActiveP1InMill()))
 			{
-				value = 1;
-				Temp->removePiece(i);
-				if (Temp->isMillBroken(Temp->turns % 2))
-				{
-					//// << "stuck";
-					value += 6;
-				}
-				if (adj1[i] != -1) {
-					//// << "stuck";
-					if (!Temp->boardSpaces[adj1[i]]->isEmpty() && Temp->boardSpaces[adj1[i]]->isPlayerTwo())
-					{
-						value += 2;
-					}
-				}
-				if (adj2[i] != -1) {
-
-					if (!Temp->boardSpaces[adj2[i]]->isEmpty() && Temp->boardSpaces[adj2[i]]->isPlayerTwo())
-					{
-						value += 2;
-					}
-				}
-				if (adj3[i] != -1) {
-					if (!Temp->boardSpaces[adj3[i]]->isEmpty() && Temp->boardSpaces[adj3[i]]->isPlayerTwo())
-					{
-						value += 2;
-					}
-				}
-				if (adj4[i] != -1) {
-
-					if (!Temp->boardSpaces[adj4[i]]->isEmpty() && Temp->boardSpaces[adj4[i]]->isPlayerTwo())
-					{
-						value += 2;
-					}
-				}
-				Temp->boardSpaces[i]->placedToken = new gameToken();
-				Temp->boardSpaces[i]->placedToken->setPlayer(false);
-				Temp->activePlayer1.push_back(new gameToken());
-				Temp->isNewMillMade(0);
-				if (value > bestMove[2])
-				{
-					bestMove[0] = -1;
-					bestMove[1] = i;
-					bestMove[2] = value;
-				}
+				return i;
 			}
 		}
 	}
 
-	//// << endl <<bestMove[0] << " " << bestMove[1] << endl;
+	//cout << endl <<bestMove[0] << " " << bestMove[1] << endl;
 	Board->selected = bestMove[0];
 	return bestMove[1];
 }

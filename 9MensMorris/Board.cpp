@@ -279,34 +279,34 @@ int removeDuplicates(vector<int> arr, int n)
 				{
 					if (space->isEmpty())
 					{
-						// << 'X';
+						cout << 'X';
 						xCnt++;
 						i++;
 					} 
 					else
 					{
-						// << 'O';
+						cout << 'O';
 						i++;
 						xCnt++;
 					}
 				}
 				else if ((x == 0 || x == 12) || (y % 2 == 1 && x == 6 && (y < 5 || y > 7)) || ((x == 2|| x == 10) && (y < 10 && y > 2)) || ((x == 4 || x == 8) && (y < 8 && y > 4)))
 				{
-					// << "|";
+					cout << "|";
 				}
 				else if ( (xCnt>=1 && xCnt !=3 && xCnt<6))
 				{
-					// << "-";
+					cout << "-";
 				}
 				else if (x == 13)
 				{
 
 					xCnt = 0;
-					// << endl;
+					cout << endl;
 				}
 				else
 				{
-					// << " ";
+					cout << " ";
 				}
 			}
 		}
@@ -568,7 +568,7 @@ int removeDuplicates(vector<int> arr, int n)
 				else { break; }
 				for (int j = 0; j < 3; j++)
 				{
-					// << boardSpaces[p1MillArr[i][j]]->isEmpty();
+					cout << boardSpaces[p1MillArr[i][j]]->isEmpty();
 					if (boardSpaces[p1MillArr[i][j]]->isEmpty())
 					{
 						cornBoolio = true;
@@ -670,8 +670,8 @@ int removeDuplicates(vector<int> arr, int n)
 			}
 		}
 
-		//// << n << endl;
-		//// << activePlayer1.size() << endl;
+		//cout << n << endl;
+		//cout << activePlayer1.size() << endl;
 		if (n == activePlayer1.size())
 		{
 			return true;
@@ -703,8 +703,8 @@ int removeDuplicates(vector<int> arr, int n)
 			}
 		}
 
-		//// << n << endl;
-		//// << activePlayer2.size() << endl;
+		//cout << n << endl;
+		//cout << activePlayer2.size() << endl;
 		if (n == activePlayer2.size())
 		{
 			return true;
@@ -714,7 +714,7 @@ int removeDuplicates(vector<int> arr, int n)
 
 	void morrisGame::manageGame(int pos_) {
 		int playerNum = (getTurn() % 2);
-		//  // << "  " << pos_ << endl;
+		//  cout << "  " << pos_ << endl;
 		if (gameMode == 0)
 		{
 			gameMode = pos_;
@@ -761,7 +761,7 @@ int removeDuplicates(vector<int> arr, int n)
 									if (toBePlacedP2.size() == 0)
 									{
 										movingPhase = 1;
-										// << movingPhase;
+										cout << movingPhase;
 									}
 								}
 							}
@@ -939,7 +939,7 @@ int removeDuplicates(vector<int> arr, int n)
 								if (toBePlacedP2.size() == 0)
 								{
 									movingPhase = 1;
-									//// << movingPhase;
+									cout << movingPhase;
 								}
 							}
 						}
@@ -1142,36 +1142,6 @@ int removeDuplicates(vector<int> arr, int n)
 		Temp->movingPhase = movingPhase;
 		Temp->destroyMode = destroyMode;
 		Temp->selected = selected;
-		gameToken* token;
-		for (int i = 0; i < activePlayer1.size(); i++)
-		{
-			token = new gameToken();
-			token->setPlayer(false);
-			Temp->activePlayer1.push_back(token);
-		}
-
-		for (int i = 0; i < activePlayer2.size(); i++)
-		{
-
-			token = new gameToken();
-			token->setPlayer(true);
-			Temp->activePlayer2.push_back(token);
-		}
-
-		for (int i = 0; i < toBePlacedP1.size(); i++)
-		{
-			token = new gameToken();
-			token->setPlayer(false);
-			Temp->toBePlacedP1.push_back(token);
-		}
-
-		for (int i = 0; i < toBePlacedP2.size(); i++)
-		{
-			token = new gameToken();
-			token->setPlayer(true);
-			Temp->toBePlacedP2.push_back(token);
-		}
-
 		for (int i = 0; i < 24; i++)
 		{
 			Temp->boardSpaces[i]->placedToken = boardSpaces[i]->getToken();
