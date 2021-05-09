@@ -333,6 +333,7 @@ int removeDuplicates(vector<int> arr, int n)
 		{
 			boardSpace* space = boardSpaces[xy];
 			space->placedToken = toBePlacedP2.back();
+			space->placedToken->setPlayer(true);
 			activePlayer2.push_back(space->placedToken);
 			toBePlacedP2.pop_back();
 		}

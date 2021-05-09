@@ -516,11 +516,16 @@ TEST(TestMill, TestMillOperations) {
 	Board->setBoardPiece(9);
 	Board->setBoardPiece(21);
 	bool chk = Board->isNewMillMade(0);
+	ASSERT_NE(Board->p1MillArr[0][0], -1);
 	ASSERT_EQ(chk, true);
 	Board->setBoardPieceP2(3);
 	Board->setBoardPieceP2(4);
 	Board->setBoardPieceP2(5);
+	ASSERT_EQ(Board->boardSpaces[3]->isPlayerTwo(), true);
+	ASSERT_EQ(Board->boardSpaces[4]->isPlayerTwo(), true);
+	ASSERT_EQ(Board->boardSpaces[5]->isPlayerTwo(), true);
 	chk = Board->isNewMillMade(1);
+	ASSERT_NE(Board->p2MillArr[0][0], -1);
 	ASSERT_EQ(chk, true);
 	Board->setBoardPiece(1);
 	Board->setBoardPiece(2);

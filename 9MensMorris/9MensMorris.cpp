@@ -40,7 +40,7 @@ void mouse(int button, int state, int x, int y) {
         }
         else
         {
-            if (Board->turns % 2 == 0)
+            if (Board->turns % 2 == 0 || Board->gameOver)
             {
                 pos_ = get(x, y);
             }
